@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Atlantis Resort</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Nunito:ital,wght@0,400;1,300;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">    
+    <script
+      src="https://kit.fontawesome.com/6233a8b1d1.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="submit-message">Submited</div>
+    <div class="error-popup-message"></div>
+
+    <div class="overlay">
+      <header>
+        <div class="header-showcase">
+          <h2 class="mb-3">Welcome to Atlantis</h2>
+          <h3>The best resort in the World</h3>
+          <video autoplay muted loop id="myVideo">
+            <source src="images/Atlantis-video.mp4" />
+          </video>
+          <nav id="nav-bar">
+            <div id="hamberger-menu">
+              <div>
+                <div>
+                </div>
+              </div>
+            </div>
+            <div class="nav-container">
+              <ul id="nav">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="about-atlantis.html">About Atlantis</a></li>
+                <li><a href="about-activity.html">About Activities</a></li>
+                <li><a href="hotel.html">Accommodation</a></li>
+                <li><a href="safety.html">Safety</a></li>
+                <li><a href="booking.html" class="strong">Book Now</a></li>
+              </ul>
+            </div>    
+          </nav>
+        </div>
+      </header>
+      <main>
+        <section id="scroll-down">
+          <div class="scroll-down-btn"><i class="fas fa-chevron-down fa-2x"></i></div>
+        </section>
+        <div class="container">
+          <h3 class="mb-3 mt-3">About Us</h3>
+          <section class="main" class="mb-3">
+            <img src="images/home-resort.jpg" alt="" />
+            <article class="p-3 home-paragraph">
+              <p>
+                Our resort is located in the lost city Atlantis. Atlantis is a ficition island with prosperous resources, perfect ecosystem, fascinating marine life and advanced technology. Our resort provide a range of activities including swimming with marine life, swim with mermaids and visit Atlantis museum. We also provide luxury hotels with most amenities of a vacationer’s wants, such as restaurant, gym, swimming pool, spa and shopping on the premises.               </p>
+            </article>
+          </section>
+
+          <section id="cards">
+            <div class="about-atlantis mb-5">
+              <a href="about-atlantis.html"> <h3>About Atlantis</h3></a>
+            </div>
+            <div class="about-activities mb-5">
+              <a href="about-activity.html"> <h3>Activities</h3></a>
+            </div>
+            <div class="about-hotel mb-5">
+              <a href="hotel.html"><h3>Hotel</h3></a>
+            </div>
+          </section>
+
+          <section id="where-are-we" class="mb-5">
+            <h3 class="mb-3">Where are we</h3>
+            <div class="map-container">
+              <div id="map"></div>
+              <section class="address">
+                <p>located in the Atlantic just beyond the Pillars of Herculess</p>
+              </section>
+            </div>
+          </section>
+        </div>
+      </main>
+      <footer>
+        <div class="container">
+          <div class="footer">
+            <section class="contact-us">
+              <h3 class="mb-3">Contact us</h3>
+              <h4>Phone: 0123456789</h4>
+              <h4>Email: AtlantisResort@gmail.com</h4>
+              <h4>Find us: 
+                <a href=""><i class="fab fa-twitter"></i></a></i>
+                <a href=""><i class="fab fa-facebook-f"></i></a>
+                <a href=""><i class="fab fa-youtube"></i></a>
+                <a href=""><i class="fab fa-instagram"></i></a>
+              </h4>
+              <div class="ref mt-5">
+                <a class="btn" href="references.html">
+                  References
+                </a>
+              </div>
+              
+            </section>
+            <section class="enquiry">
+              <h4>Make your enquiry now:</h4>
+              <form class="p-5">
+                <label for="name">Name: </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  placeholder="Please enter your name"
+                />
+                <label for="phone">Phone: </label>
+                <input
+                  type="phone"
+                  id="phone"
+                  name="phone"
+                  placeholder="Please enter your phone number"
+                />
+                <label for="email">Email: </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="Please enter your email address"
+                />
+                <label for="message">Message: </label>
+                <textarea
+                  name="message"
+                  id="message"
+                  cols="30"
+                  rows="5"
+                ></textarea>
+                <input type="submit" value="Submit" class="btn mt-5" />
+              </form>
+            </section>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </body>
+  <script defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDVkqlk1kJEMyuKsx6KkUroy-U6o52bRzc&callback=initMap">
+  </script>
+  
+  <script src="JS/jquery-3.5.1.min.js"></script>
+  
+  <script src="JS/javascript.js"></script>
+</html>
+
+<!--
+References:
+Pixabay. (2017, July 10). Pexels. Retrieved from https://www.pexels.com/video/blue-jellyfish-856882/
+photo, S. (2015, September 04). Pexels. Retrieved from https://www.pexels.com/photo/high-rise-building-hotel-night-9376/
+Artieda, M. (2017, Novermber 22). Unsplash. Retrieved from https://unsplash.com/photos/abLJjz5M6Sc/info
+Dipp, E. (2020, June 16). Pexels. Retrieved from https://www.pexels.com/photo/scuba-diver-under-water-4666754/
+Nickson, R. (2019, June 02). Pexels. Retrieved from https://www.pexels.com/photo/woman-laying-down-on-bed-inside-room-2417842/
+Baisch, S. (2019, June 6). Unsplash. Retrieved from https://unsplash.com/photos/K785Da4A_JA/info
+
+-->

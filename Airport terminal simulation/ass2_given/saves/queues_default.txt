@@ -1,0 +1,5 @@
+TakeoffQueue:0
+LandingQueue:1
+VH-UTN
+LoadingAircraft:1
+GEC671:3

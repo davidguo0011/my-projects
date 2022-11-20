@@ -1,0 +1,763 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+/*Global*/
+h2 {
+  font-size: 400%;
+  font-weight: 300;
+}
+h3 {
+  font-size: 200%;
+  font-weight: 300;
+}
+h4 {
+  font-size: 120%;
+  font-weight: 300;
+}
+.mb-3 {
+  margin-bottom: 3%;
+}
+.mb-5 {
+  margin-bottom: 5%;
+}
+
+.mt-5 {
+  margin-top: 5%;
+}
+.mt-3 {
+  margin-top: 3%;
+}
+.p-3 {
+  padding: 3%;
+}
+.p-5 {
+  padding: 5%;
+}
+.border-top {
+  border-top: 2px solid ivory;
+}
+a {
+  text-decoration: none;
+  color: ivory;
+}
+body {
+  background: url('../images/home-background.jpg');
+  background-size: cover;
+  color: ivory;
+  font-family: 'Patrick Hand', cursive;
+}
+
+.overlay {
+  background: rgba(0, 0, 0, 0.8);
+}
+#myVideo {
+  position: relative;
+}
+
+.header-showcase > h2,
+.header-showcase > h3 {
+  position: absolute;
+  top: 20%;
+  z-index: 1;
+  width: 100%;
+  text-align: center;
+}
+.header-showcase > h3 {
+  top: 33%;
+}
+
+.header-showcase {
+  font-family: 'Dancing Script', cursive;
+  font-weight: 500;
+  height: 75vh;
+  overflow: hidden;
+}
+
+.container {
+  width: 90%;
+  margin: auto;
+  overflow: hidden;
+}
+.btn {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  border: ivory 2px solid;
+  color: ivory;
+  cursor: pointer;
+  transition: 0.4s;
+  border-radius: 10px;
+  padding: 3% 2%;
+  text-align: center;
+  font-family: 'Patrick Hand', cursive;
+  font-size: 100%;
+}
+.btn:focus {
+  outline: none;
+}
+.btn:hover {
+  border: 2px solid rgb(34, 156, 255);
+  color: rgb(34, 156, 255);
+}
+.btn a {
+  display: block;
+  transition: 0.4s;
+  width: 100%;
+}
+.btn:hover a {
+  color: rgb(34, 156, 255);
+}
+.submit {
+  border: 2px solid rgb(86, 236, 56);
+  color: rgb(86, 236, 56);
+  cursor: default;
+}
+.submit:hover {
+  border: 2px solid rgb(86, 236, 56);
+  color: rgb(86, 236, 56);
+}
+
+/*Nav Bar*/
+#hamberger-menu {
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+#hamberger-menu > div > div::before,
+#hamberger-menu > div > div::after {
+  content: '';
+  position: absolute;
+  top: 10px;
+  width: 100%;
+  height: 3px;
+  background: inherit;
+}
+#hamberger-menu > div > div {
+  width: 100%;
+  height: 3px;
+  background: #fff;
+  transition: all 0.4s ease;
+}
+#hamberger-menu > div > div::after {
+  top: 20px;
+}
+#hamberger-menu > .active > div::after,
+#hamberger-menu > .active > div::before {
+  top: 0px;
+  transform: rotate(90deg);
+}
+#hamberger-menu > .active > div {
+  transform: rotate(135deg);
+}
+
+#nav-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-family: 'Patrick Hand', cursive;
+  width: 100%;
+  z-index: 2;
+  font-size: 120%;
+}
+
+#nav {
+  display: flex;
+  visibility: hidden;
+  opacity: 0;
+  width: 100vw;
+  height: 75vh;
+  flex-direction: column;
+  justify-content: space-evenly;
+  background-color: rgba(0, 0, 0, 0.8);
+  transition: 0.6s;
+  padding: 40px 20px 0 20px;
+}
+.nav-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.active > #nav {
+  visibility: visible;
+  opacity: 100;
+}
+
+#nav-bar #nav li {
+  text-align: center;
+  list-style: none;
+  margin-bottom: 10%;
+}
+#nav-bar #nav li .strong {
+  color: rgb(253, 206, 51);
+}
+#nav-bar #nav li .strong::after {
+  background-color: rgb(253, 206, 51);
+}
+
+#nav-bar #nav li a::after {
+  display: block;
+  content: '';
+  width: 0%;
+  background-color: rgb(165, 210, 247);
+  margin-top: 7px;
+  height: 3px;
+  transition: 0.4s;
+  border-radius: 1px;
+}
+#nav-bar #nav li a:hover {
+  color: rgb(34, 156, 255);
+}
+#nav-bar #nav li .active {
+  color: rgb(112, 190, 253);
+}
+
+/*Main*/
+main {
+  font-size: 1.2rem;
+}
+#scroll-down {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 25vh;
+}
+#scroll-down .scroll-down-btn {
+  padding: 40px;
+  border-radius: 50%;
+  transition: 0.4s;
+  cursor: pointer;
+}
+#scroll-down .scroll-down-btn:hover {
+  background: rgba(150, 150, 150, 0.6);
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 5%;
+}
+
+.main img {
+  border-radius: 20px;
+  width: 100%;
+}
+.main article {
+  width: 100%;
+  line-height: 2rem;
+}
+
+#cards {
+  display: flex;
+  flex-direction: column;
+}
+#cards h3 {
+  font-weight: 500;
+}
+#cards div {
+  width: 100%;
+  height: 200px;
+  background-size: cover;
+  border-radius: 20px;
+  font-size: 140%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.4s;
+  cursor: pointer;
+}
+
+#cards div a {
+  transition: 0.4s;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#cards div:hover a {
+  color: rgb(34, 156, 255);
+}
+
+#cards .about-activities {
+  background: url('../images/home-swim.jpg') center center no-repeat;
+}
+#cards .about-hotel {
+  background: url('../images/home-hotel.jpg') bottom center no-repeat;
+}
+#cards .about-atlantis {
+  background: url('../images/atlantis3.jpg') center center no-repeat;
+}
+
+/*About Atlantis*/
+.atlantis h3 {
+  text-align: center;
+  font-family: 'Dancing Script', cursive;
+}
+/*footer*/
+footer {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+.footer {
+  display: flex;
+  flex-direction: column;
+}
+.footer .contact-us,
+.footer .enquiry {
+  margin-top: 8%;
+  width: 100%;
+}
+.footer .contact-us h4 {
+  text-align: center;
+  padding: 3% 0%;
+}
+.footer .contact-us a {
+  margin-left: 5%;
+}
+.footer .contact-us a:hover {
+  color: rgb(34, 156, 255);
+}
+.footer .ref {
+  text-align: center;
+}
+
+form input,
+form textarea {
+  width: 100%;
+  padding: 2%;
+  border: 2px solid ivory;
+}
+form input:focus,
+form textarea:focus {
+  outline: none;
+}
+input[type='submit'] {
+  font-family: 'Patrick Hand', cursive;
+  font-size: 110%;
+}
+
+/*ACTIVITY SECTION*/
+.section-container {
+  display: flex;
+  flex-direction: column;
+}
+.image-container {
+  width: 100%;
+  height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  margin-bottom: 5%;
+}
+.image-container img {
+  border-radius: 20px;
+}
+/*slide show button*/
+.image-container .slide-left,
+.image-container .slide-right {
+  position: absolute;
+  top: 30%;
+  padding: 8%;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: 0.4s;
+}
+.image-container .slide-left {
+  left: -8%;
+}
+.image-container .slide-right {
+  right: -8%;
+}
+.image-container .slide-left:hover,
+.image-container .slide-right:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+/*images*/
+.image-container .my-slides {
+  opacity: 0;
+  width: 0%;
+  transition: opacity 0.7s;
+}
+
+.image-container .active {
+  width: 100%;
+  opacity: 100;
+}
+
+.activity-description-and-price,
+.hotel-description-and-price {
+  display: flex;
+  flex-wrap: wrap;
+}
+.activity-description-and-price .price,
+.hotel-description-and-price .price {
+  border: 2px solid ivory;
+  border-radius: 10px;
+  width: 30%;
+  padding: 3% 3%;
+}
+.activity-description-and-price article,
+.hotel-description-and-price article {
+  width: 70%;
+}
+.activity-description-and-price .price p,
+.hotel-description-and-price .price p {
+  font-size: 1em;
+}
+.activity-description-and-price .price h4,
+.hotel-description-and-price .price h4 {
+  margin-bottom: 5%;
+}
+
+/*REVIEW*/
+.review {
+  background-color: rgba(92, 155, 146, 0.4);
+  font-size: 80%;
+}
+.review-container {
+  display: flex;
+  flex-direction: column;
+}
+.review-container .comment-container img {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+}
+.review-container .comment-container {
+  display: flex;
+  padding: 5% 0%;
+  align-content: space-between;
+}
+
+/*Amenities*/
+.amenities .section-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  height: 280px;
+}
+.amenities .section-container > div {
+  margin: 1%;
+  width: 30%;
+  border-radius: 20px;
+  overflow: hidden;
+}
+.darker {
+  background-color: rgba(0, 0, 0, 0.6);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: rgb(240, 240, 227);
+}
+.darker p {
+  font-size: 110%;
+}
+.amenities .section-container .gym {
+  background: url('../images/amenities-gym.jpg');
+  background-size: cover;
+}
+
+.amenities .section-container .spa {
+  background: url('../images/amenities-spa.jpg');
+  background-size: cover;
+}
+.amenities .section-container .internet-cafe {
+  background: url('../images/amenities-internet.jpg');
+  background-size: cover;
+}
+.amenities .section-container .children-centre {
+  background: url('../images/amenities-children.jpg');
+  background-size: cover;
+}
+.amenities .section-container .swimming-pool {
+  background: url('../images/amenities-swimming-pool.jpg');
+  background-size: cover;
+}
+.amenities .section-container .casino {
+  background: url('../images/amenities-casino.jpg');
+  background-size: cover;
+}
+
+/*Safety*/
+.ban-container {
+  color: rgb(240, 123, 143);
+  display: flex;
+  flex-direction: column;
+}
+.ban-container .ban-description-container {
+  display: flex;
+  margin-bottom: 2%;
+}
+.ban-container .ban-description-container p {
+  padding: 2%;
+}
+
+/*Booking*/
+
+.form-container {
+  display: flex;
+  justify-content: center;
+}
+.form-container form {
+  max-width: 600px;
+}
+fieldset {
+  margin-bottom: 2em;
+  padding: 1em 2em;
+  border: 0;
+  border-radius: 10px;
+  background: rgba(38, 64, 151, 0.418);
+  display: block;
+}
+fieldset legend {
+  text-transform: uppercase;
+  text-align: center;
+  background-color: rgb(20, 15, 46);
+  padding: 2%;
+  border-radius: 10px;
+}
+fieldset .error-message1,
+fieldset .error-message2,
+fieldset .error-message3 {
+  color: rgb(248, 91, 29);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+fieldset .input-field {
+  border-radius: 10px;
+  background-color: rgb(233, 233, 217);
+}
+
+fieldset .number-input {
+  width: 15%;
+}
+
+.activity-table {
+  width: 100%;
+  text-align: center;
+  font-size: 80%;
+  background-color: rgb(0, 84, 139);
+  border-radius: 5px;
+}
+.activity-table th {
+  border: 1px solid ivory;
+  padding: 0.5%;
+  border-radius: 2px;
+}
+#activity-list .border-none {
+  border: none;
+  cursor: pointer;
+}
+
+#price {
+  text-align: center;
+  margin-top: 5%;
+}
+.add-message,
+.remove-message,
+.submit-message,
+.error-popup-message {
+  display: none;
+  background-color: rgb(127, 229, 255);
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  color: black;
+  text-align: center;
+  z-index: 10;
+}
+.remove-message {
+  display: none;
+  background-color: rgb(250, 130, 86);
+}
+.submit-message {
+  display: none;
+  background-color: rgb(192, 245, 122);
+}
+.error-popup-message {
+  display: none;
+  background-color: rgb(250, 92, 92);
+}
+
+/*References*/
+#references {
+  padding: 10%;
+}
+
+/*map*/
+#map {
+  width: 100%;
+  height: 400px;
+  background-color: grey;
+}
+#where-are-we .map-container {
+  display: flex;
+  flex-direction: column;
+}
+#where-are-we .map-container .address {
+  padding: 5% 0;
+}
+@media only screen and (min-width: 900px) {
+  #myVideo {
+    width: 100vw;
+  }
+  #hamberger-menu {
+    display: none;
+  }
+  #nav-bar {
+    position: absolute;
+    top: 380px;
+    display: flex;
+    justify-content: center;
+  }
+  #nav {
+    visibility: visible;
+    opacity: 100;
+    flex-direction: row;
+    width: 80%;
+    height: 100%;
+    background: unset;
+  }
+  #nav-bar #nav li > a:hover::after,
+  #nav-bar #nav li > .active::after {
+    width: 100%;
+  }
+  #nav-bar #nav li a:hover {
+    color: ivory;
+  }
+  #nav-bar #nav li .active {
+    color: ivory;
+  }
+  #scroll-down {
+    display: none;
+  }
+  #map {
+    width: 50%;
+  }
+  #where-are-we .map-container {
+    flex-direction: row;
+  }
+  #where-are-we .map-container .address {
+    padding: 5%;
+  }
+  #cards {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  #cards div {
+    width: 32%;
+  }
+  #cards div:hover {
+    transform: translateY(-20px);
+  }
+  .main {
+    flex-direction: row;
+  }
+  .main img {
+    width: 40%;
+  }
+  article {
+    line-height: 2rem;
+  }
+  .main article {
+    width: 60%;
+    padding: 0 3%;
+  }
+  .main .home-paragraph {
+    line-height: 3rem;
+  }
+  .activity-table {
+    font-size: 100%;
+  }
+  .amenities .section-container {
+    height: 500px;
+  }
+
+  .safety-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .review-container {
+    flex-direction: row;
+  }
+  .review {
+    font-size: 76%;
+  }
+
+  .section-container {
+    flex-direction: row;
+  }
+  .hotel-description {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 7%;
+    margin-left: 5px;
+    width: 50%;
+  }
+  .hotel-description article {
+    width: 70%;
+  }
+  .image-container {
+    width: 50%;
+    margin-bottom: 0;
+    height: 400px;
+  }
+
+  .activity-description-and-price,
+  .hotel-description-and-price {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 7%;
+    margin-left: 5px;
+    padding-bottom: 10px;
+    width: 50%;
+  }
+  .activity-description-and-price .price,
+  .hotel-description-and-price .price {
+    width: 70%;
+    text-align: center;
+  }
+  .activity-description-and-price .btn,
+  .hotel-description-and-price .btn {
+    width: 70%;
+  }
+
+  .weather-banner-section-container {
+    display: flex;
+    flex-direction: row;
+  }
+  .weather-banner-section-container h3 {
+    text-align: center;
+  }
+  .weather-banner-section-container .weather-container p {
+    line-height: 1.7rem;
+  }
+  .weather-banner-section-container .weather-container {
+    width: 50%;
+  }
+  .weather-banner-section-container .ban-container {
+    width: 50%;
+  }
+  .footer {
+    flex-direction: row;
+  }
+}
