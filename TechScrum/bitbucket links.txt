@@ -1,0 +1,2 @@
+https://bitbucket.org/010001/fe.techscrum/src/master/
+https://bitbucket.org/010001/be.techscrum/src/master/
