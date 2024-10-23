@@ -1,0 +1,11 @@
+import { CalendarType } from "./interface";
+export declare const DEFAULT_TOTAL_DAY_NUMBER = 14;
+export declare const DEFAULT_TOTAL_MONTH_NUMBER = 2;
+export declare const DEFAULT_SUBTRACT_DAY_NUMBER = 2;
+export declare const DEFAULT_SUBTRACT_MONTH_NUMBER = 1;
+export declare const DEFAULT_STEP_DAY_NUMBER = 14;
+export declare const DEFAULT_COLUMN_WIDTH = 50;
+export declare const DEFAULT_TITLE_ROW_HEIGHT = 45;
+export declare const DEFAULT_DATE_ROW_HEIGHT = 65;
+export declare const DEFAULT_TYPE = CalendarType.Day;
+export declare const DEFAULT_TABLE_HEIGHT = 300;

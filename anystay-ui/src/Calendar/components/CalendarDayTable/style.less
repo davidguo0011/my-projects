@@ -1,0 +1,170 @@
+@import '../../../variable.less';
+
+.calendar-day-table-container {
+  display: flex;
+  flex-direction: column;
+  padding: 0 14px;
+  user-select: none;
+  position: relative;
+  .calendar-day-table-row-column-container {
+    display: flex;
+    box-sizing: border-box;
+    position: relative;
+    cursor: pointer;
+    .calendar-day-table-row-column-content-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 3;
+      display: flex;
+    }
+    .calendar-day-table-row-column-content-wrapper {
+      width: 100%;
+      padding: 10px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .calendar-day-table-row-column-content-occupied-wrapper {
+      position: absolute;
+      top: 5px;
+      height: calc(100% - 10px);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      background: @as-background-color-2;
+      color: @as-text-color-2;
+      border-radius: 50px;
+      display: flex;
+      align-items: center;
+      z-index: 5;
+
+      .calendar-day-table-row-column-content-occupied-image-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        padding-left: 5px;
+        img {
+          height: calc(100% - 10px);
+          aspect-ratio: 1;
+          border-radius: 50px;
+        }
+      }
+      .calendar-day-table-row-column-content-occupied-text-container {
+        display: flex;
+        flex-direction: column;
+        padding-left: 10px;
+        padding-right: 10px;
+        height: calc(100% - 10px);
+        justify-content: center;
+        .calendar-day-table-row-column-content-occupied-text-name {
+          font-size: @as-font-size-4;
+          color: @as-text-color-2;
+        }
+        .calendar-day-table-row-column-content-occupied-text {
+          font-size: @as-font-size-3;
+          color: @as-text-color-2;
+        }
+      }
+    }
+  }
+  .calendar-day-table-row-column-selected-background-container {
+    &::after {
+      background: @as-background-color-1;
+      opacity: 0.5;
+    }
+  }
+  .calendar-day-table-row-column-current-selected-border-container {
+    &::after {
+      border: 1px solid @as-border-color-2;
+    }
+  }
+  .calendar-day-table-row-column-selected-border-top-container {
+    &::after {
+      border-top: 1px solid @as-border-color-2 !important;
+    }
+  }
+  .calendar-day-table-row-column-selected-border-bottom-container {
+    &::after {
+      border-bottom: 1px solid @as-border-color-2 !important;
+    }
+  }
+  .calendar-day-table-row-column-selected-border-left-container {
+    &::after {
+      border-left: 1px solid @as-border-color-2 !important;
+    }
+  }
+  .calendar-day-table-row-column-selected-border-right-container {
+    &::after {
+      border-right: 1px solid @as-border-color-2 !important;
+    }
+  }
+  .calendar-day-table-row-column-disabled-container {
+    cursor: not-allowed;
+    &::after {
+      background: @as-background-color-4;
+      opacity: 0.5;
+    }
+  }
+  .calendar-day-table-row-column-block-container {
+    background: linear-gradient(
+      to left top,
+      rgb(255, 255, 255) 0%,
+      rgb(255, 255, 255) calc(50% - 1px),
+      rgb(106, 106, 106) 50%,
+      rgb(255, 255, 255) calc(50% + 1px),
+      rgb(255, 255, 255) 100%
+    ) !important;
+    &::after {
+      background: @as-background-color-4;
+      opacity: 0.5;
+    }
+    .calendar-day-table-row-column-content-container {
+      z-index: -1;
+    }
+  }
+  .calendar-day-table-row-column-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 200%;
+    border: 1px solid @as-border-color-1;
+    transform-origin: 0 0;
+    transform: scale(0.5);
+    box-sizing: border-box;
+  }
+  .calendar-day-table-row-column-container::after {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    box-sizing: border-box;
+  }
+  .calendar-day-table-row-column-container:last-child {
+    &::before {
+      border-right: 2px solid @as-border-color-1;
+    }
+  }
+  .calendar-day-table-row-column-container:first-child {
+    &::before {
+      border-left: 2px solid @as-border-color-1;
+    }
+  }
+  .calendar-day-table-return-today-container {
+    position: absolute;
+    left: 40%;
+    top: 40%;
+    padding: 0 14px;
+    .calendar-day-table-return-today-btn {
+      border-radius: 50px;
+    }
+  }
+}

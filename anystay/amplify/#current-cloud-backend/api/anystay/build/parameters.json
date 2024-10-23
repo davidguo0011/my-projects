@@ -1,0 +1,19 @@
+{
+    "AppSyncApiName": "anystay",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "DynamoDBEnableServerSideEncryption": false,
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "authanystay039a367c",
+            "Outputs.UserPoolId"
+        ]
+    },
+    "authRoleName": {
+        "Ref": "AuthRoleName"
+    },
+    "unauthRoleName": {
+        "Ref": "UnauthRoleName"
+    },
+    "S3DeploymentBucket": "amplify-anystay-dev-43601-deployment",
+    "S3DeploymentRootKey": "amplify-appsync-files/169aad695e48046f3b7abaf722b3137d1810bda9"
+}

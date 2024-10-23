@@ -1,0 +1,10 @@
+import { CalendarDayTitleDate } from "../CalendarDatePicker/interface";
+import { CalendarDayTitleCell, CalendarDayTitleProp } from "./interface";
+import 'anystay-ui/Calendar/components/CalendarDayTitle/style.less';
+import dayjs from 'dayjs';
+import { OnScrollParams } from 'react-virtualized';
+export declare function generateTitleCells(props: CalendarDayTitleProp): CalendarDayTitleCell[];
+export declare function getTitleDate(cells: CalendarDayTitleCell[]): CalendarDayTitleDate;
+export declare function getDateName(titleCell: CalendarDayTitleCell): string;
+export declare function getBorderStyle(props: CalendarDayTitleProp, titleCell: CalendarDayTitleCell): string;
+export declare function getScrollDate(params: OnScrollParams, props: CalendarDayTitleProp, titleDate: CalendarDayTitleDate): dayjs.Dayjs;

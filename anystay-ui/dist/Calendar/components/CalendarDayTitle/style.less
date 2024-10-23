@@ -1,0 +1,22 @@
+@import '../../../variable.less';
+
+.calendar-day-title-container {
+  display: flex;
+  padding: 0 14px;
+  position: relative;
+  .calendar-day-title-text {
+    font-size: @as-font-size-1;
+    color: @as-text-color-1;
+    font-weight: @as-font-weight-1;
+    padding-left: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  .calendar-day-title-text-border {
+    padding-left: 0;
+    border-right: 1px solid @as-border-color-1;
+  }
+}

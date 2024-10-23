@@ -1,0 +1,4141 @@
+type UserModel @aws_iam @aws_cognito_user_pools {
+  id: ID!
+  owner: String!
+  email: String!
+  phone: String!
+  dateOfBirth: String!
+  firstName: String!
+  lastName: String!
+  profileDescription: String
+  profilePicture: String
+  coverPicture: String
+  savedListings: [String]
+  username: String
+  identityID: String
+  guestMode: Boolean
+  stripeCustomerID: String
+  phoneConfirmed: Boolean
+  emailConfirmed: Boolean
+  userIDConfirmed: Boolean
+  privacyPolicyAccepted: Boolean
+  identityDocuments: [String]
+  facebookURL: String
+  instagramURL: String
+  twitterURL: String
+  tiktokURL: String
+  overallAverage: Int
+  communicationAverage: Int
+  cleanlinessAverage: Int
+  deactivated: Boolean
+  suspended: Boolean
+  suspendedUntil: AWSDateTime
+  suspendedReason: String
+  ConversationModels(updatedAt: ModelStringKeyConditionInput, filter: ModelConversationModelFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelConversationModelConnection
+  BookingRequestModels(arrivalDate: ModelStringKeyConditionInput, filter: ModelBookingRequestModelFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelBookingRequestModelConnection
+  OrderModels(filter: ModelOrderModelFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelOrderModelConnection
+  Notifications(filter: ModelNotificationFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelNotificationConnection
+  ReviewGuestModel(filter: ModelReviewGuestModelFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelReviewGuestModelConnection
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type UserHostModel @aws_iam @aws_cognito_user_pools {
+  id: ID!
+  owner: String!
+  usermodelID: ID!
+  stripeAccountID: String
+  stripeAccountVerified: Boolean
+  standardServiceFee: Boolean
+  totalListings: Int
+  UserModel: UserModel
+  ConversationModels(updatedAt: ModelStringKeyConditionInput, filter: ModelConversationModelFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelConversationModelConnection
+  ListingModels(createdAt: ModelStringKeyConditionInput, filter: ModelListingModelFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelListingModelConnection
+  ProductModels(filter: ModelProductModelFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelProductModelConnection
+  BookingRequestModels(arrivalDate: ModelStringKeyConditionInput, filter: ModelBookingRequestModelFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelBookingRequestModelConnection
+  OrderModels(filter: ModelOrderModelFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelOrderModelConnection
+  HostNotifications(filter: ModelHostNotificationFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelHostNotificationConnection
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type ListingModel @aws_iam @aws_cognito_user_pools {
+  id: ID!
+  createdAt: AWSDateTime
+  owner: String!
+  placeId: String
+  unitNumber: Int
+  streetNumber: Int
+  street: String
+  suburb: String
+  postcode: Int
+  state: String
+  city: String
+  country: String
+  beds: Int
+  bedrooms: Int
+  bathrooms: Int
+  propertyType: String
+  typeOfPlace: String
+  propertyDescription: String
+  propertyDescriptionEmbedding: [Float]
+  propertySoftEmbedding: [Float]
+  trainingEvolutions: Int
+  translatedPropertyDescription: String
+  listingImages: [String]
+  status: String
+  amenities: [String]
+  categories: [String]
+  tags: [String]
+  deposit: Int
+  guests: Int
+  minimumStay: Int
+  minimumPrice: Int
+  maximumPrice: Int
+  nightlyPrices: [AWSJSON]
+  maximumStay: Int
+  weeklyMinimumPrice: Int
+  weeklyMaximumStay: Int
+  location: AWSJSON
+  propertyTitle: String
+  internalName: String
+  translatedPropertyTitle: String
+  houseRules: [String]
+  draft: Boolean
+  verified: Boolean
+  verifiedDocuments: [String]
+  weeklyDiscount: Float
+  monthlyDiscount: Float
+  cleaningFee: Float
+  cleaningFrequency: String
+  availabilityRange: String
+  rooms: [AWSJSON]
+  RoomModels(filter: ModelRoomModelFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelRoomModelConnection
+  userhostmodelID: ID
+  UserHostModel: UserHostModel
+  ProductModels(filter: ModelListingProductsFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelListingProductsConnection
+  BookingRequestModels(arrivalDate: ModelStringKeyConditionInput, filter: ModelBookingRequestModelFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelBookingRequestModelConnection
+  ReviewStayModels(filter: ModelReviewStayModelFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelReviewStayModelConnection
+  overallAverage: Int
+  communicationAverage: Int
+  amenitiesAverage: Int
+  cleaningAverage: Int
+  locationAverage: Int
+  serviceAverage: Int
+  valueAverage: Int
+  cancellationPolicy: String
+  onceOffPaymentsOnly: Boolean
+  instantBookEnabled: Boolean
+  stayType: String
+  averageStayLength: [Int]
+  checkInTime: Float
+  checkOutTime: Float
+  checkInInstructions: String
+  checkOutInstructions: String
+  timeBeforeCheckIn: Int
+  timeAfterCheckOut: Int
+  extraGuestFee: Float
+  extraMaxGuests: Float
+  disabledDates: [AWSJSON]
+  unavailableDates: [AWSJSON]
+  iCalUnavailableDates: [AWSJSON]
+  iCalImportLinks: [String]
+  straID: String
+  advanceNotice: Int
+  advanceNoticeTime: Int
+  approved: Boolean
+  standardServiceFee: Boolean
+  fliggyApproved: Boolean
+  fliggyHidden: Boolean
+  fliggyID: String
+  totalBookings: Int
+  wifiName: String
+  wifiPassword: String
+  updatedAt: AWSDateTime!
+}
+
+type RoomModel @aws_iam @aws_cognito_user_pools {
+  id: ID!
+  owner: String!
+  listingmodelID: ID!
+  userhostmodelID: ID
+  ListingModel: ListingModel
+  images: [String]
+  roomTitle: String
+  roomDescription: String
+  roomType: String
+  roomAmenities: [String]
+  roomBeds: [String]
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type ConversationModel @aws_iam @aws_cognito_user_pools {
+  id: ID!
+  updatedAt: AWSDateTime
+  owners: [String!]
+  messageownerID: ID
+  listingmodelID: ID
+  userhostmodelID: ID
+  bookingrequestID: ID
+  guestSeen: Boolean
+  hostSeen: Boolean
+  status: String
+  UserModel: UserModel
+  UserHostModel: UserHostModel
+  BookingRequestModel: BookingRequestModel
+  MessageModels(createdAt: ModelStringKeyConditionInput, filter: ModelMessageModelFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelMessageModelConnection
+  createdAt: AWSDateTime!
+}
+
+type MessageModel @aws_iam @aws_cognito_user_pools {
+  id: ID!
+  createdAt: AWSDateTime
+  tempId: String
+  owners: [String]
+  body: String
+  author: String
+  conversationmodelID: ID
+  isNote: Boolean
+  isTimestamp: Boolean
+  guestNoteBody: String
+  hostNoteBody: String
+  updatedAt: AWSDateTime!
+}
+
+type BookingRequestModel @aws_iam @aws_cognito_user_pools {
+  id: ID!
+  owners: [String!]
+  arrivalDate: AWSDateTime
+  departureDate: AWSDateTime
+  guests: Int
+  adults: Int
+  children: Int
+  infants: Int
+  pets: Int
+  maxGuests: Int
+  expired: Boolean
+  usermodelID: ID
+  userhostmodelID: ID
+  listingmodelID: ID
+  paymentmodelID: ID
+  stripeAccountID: String
+  confirmationCode: String
+  conversationmodelID: ID
+  ordermodelID: ID
+  confirmed: Boolean
+  confirmedAt: AWSDateTime
+  couponCode: String
+  couponDiscountAmount: Int
+  declined: Boolean
+  reasonDeclined: String
+  cancelled: Boolean
+  cancelledAt: AWSDateTime
+  cancelledBy: String
+  reasonCancelled: String
+  completed: Boolean
+  stayReviewed: Boolean
+  guestReviewed: Boolean
+  checkInTime: Int
+  checkOutTime: Int
+  cancellationPolicy: String
+  timeBeforeCheckIn: Int
+  timeAfterCheckOut: Int
+  bookingAmount: Int
+  bookingAmountIncludingServiceFee: Int
+  paymentAmount: Int
+  pricePerNight: Int
+  guestPriceBreakdown: AWSJSON
+  hostPriceBreakdown: AWSJSON
+  nightlyPrices: [AWSJSON]
+  serviceFee: Int
+  cleaningFee: Int
+  extraGuestFee: Int
+  extraMaxGuests: Int
+  weeklyDiscount: Int
+  monthlyDiscount: Int
+  paymentModels: [String]
+  transferModels: [String]
+  refundModels: [String]
+  transferReversalModels: [String]
+  UserModel: UserModel
+  UserHostModel: UserHostModel
+  ListingModel: ListingModel
+  ConversationModel: ConversationModel
+  OrderModels: OrderModel
+  ChangeBookingRequestModel(createdAt: ModelStringKeyConditionInput, filter: ModelChangeBookingRequestModelFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelChangeBookingRequestModelConnection
+  RefundRequestModel(filter: ModelRefundRequestModelFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelRefundRequestModelConnection
+  ReviewStayModel(filter: ModelReviewStayModelFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelReviewStayModelConnection
+  deposit: Int
+  refundedAmount: Int
+  standardServiceFee: Boolean
+  hostPaid: Boolean
+  responseNeeded: Boolean
+  responseBeofre: AWSDateTime
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type ChangeBookingRequestModel @aws_iam @aws_cognito_user_pools {
+  id: ID!
+  createdAt: AWSDateTime
+  owners: [String!]
+  bookingRequestID: ID!
+  newArrivalDate: AWSDateTime
+  newDepartureDate: AWSDateTime
+  newGuests: Int
+  newAdults: Int
+  newChildren: Int
+  newInfants: Int
+  newPets: Int
+  paymentIntentID: String
+  bookingAmount: Float
+  bookingAmountIncludingServiceFee: Float
+  serviceFee: Float
+  newBookingAmount: Float
+  newServiceFee: Float
+  newBookingAmountIncludingServiceFee: Float
+  priceDifference: Float
+  serviceFeePriceDifference: Float
+  confirmed: Boolean
+  declined: Boolean
+  completed: Boolean
+  pricePerNight: Int
+  updatedAt: AWSDateTime!
+}
+
+type ProductModel @aws_iam @aws_cognito_user_pools {
+  id: ID!
+  owner: String!
+  productTitle: String!
+  productDescription: String
+  productType: String
+  productImages: [String]
+  pricePerItem: Int
+  pricePerHour: Int
+  pricePerDay: Int
+  pricePerPerson: Int
+  inventory: Int
+  unlimitedInventory: Boolean
+  status: String
+  approved: Boolean
+  draft: Boolean
+  instantBookEnabled: Boolean
+  userhostmodelID: ID
+  UserHostModel: UserHostModel
+  OrderModels(filter: ModelOrderModelFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelOrderModelConnection
+  ListingModels(filter: ModelListingProductsFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelListingProductsConnection
+  categories: [String]
+  tags: [String]
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type OrderModel @aws_iam @aws_cognito_user_pools {
+  id: ID!
+  owner: String!
+  usermodelID: ID
+  userhostmodelID: ID
+  status: String
+  confirmed: Boolean
+  declined: Boolean
+  expired: Boolean
+  completed: Boolean
+  cancelled: Boolean
+  fulfilled: Boolean
+  bookingAmount: Int
+  bookingAmountIncludingServiceFee: Int
+  serviceFee: Int
+  couponCode: String
+  couponDiscountAmount: Int
+  refunded: Int
+  paymentModels: [String]
+  transferModels: [String]
+  refundModels: [String]
+  transferReversalModels: [String]
+  UserModel: UserModel
+  UserHostModel: UserHostModel
+  BookingRequestModels(filter: ModelBookingRequestModelFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelBookingRequestModelConnection
+  OrderItemModels(filter: ModelOrderItemModelFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelOrderItemModelConnection
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type OrderItemModel @aws_iam @aws_cognito_user_pools {
+  id: ID!
+  owner: String!
+  productmodelID: ID
+  quantity: Int
+  status: String
+  fulfilled: Boolean
+  subTotal: Int
+  itemPrice: Int
+  guests: Int
+  adults: Int
+  children: Int
+  infants: Int
+  pets: Int
+  startDate: AWSDateTime
+  endDate: AWSDateTime
+  ordermodelID: ID
+  OrderModel: OrderModel
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type ReviewStayModel @aws_iam @aws_cognito_user_pools {
+  id: ID!
+  bookingRequestID: ID!
+  listingmodelID: ID
+  usermodelID: String
+  overall: Int
+  communication: Int
+  amenities: Int
+  cleaning: Int
+  location: Int
+  service: Int
+  value: Int
+  body: String
+  completed: Boolean
+  hidden: Boolean
+  BookingRequestModel: BookingRequestModel
+  ListingModel: ListingModel
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  owner: String
+}
+
+type ReviewGuestModel @aws_iam @aws_cognito_user_pools {
+  id: ID!
+  bookingRequestID: String!
+  usermodelID: ID
+  userhostmodelID: ID
+  overall: Int
+  communication: Int
+  cleanliness: Int
+  body: String
+  completed: Boolean
+  hidden: Boolean
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  owner: String
+}
+
+type RefundRequestModel @aws_iam @aws_cognito_user_pools {
+  id: ID!
+  bookingRequestID: ID
+  confirmed: Boolean
+  declined: Boolean
+  completed: Boolean
+  refundAmount: Int
+  refundReason: String
+  refundMessage: String
+  status: String
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  owner: String
+}
+
+type ListingSearchVerificationRequestModel @aws_iam @aws_cognito_user_pools {
+  id: ID!
+  listingmodelID: ID!
+  completed: Boolean
+  confirmed: Boolean
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  owner: String
+}
+
+type ListingUpdateSearchVerificationRequestModel @aws_iam @aws_cognito_user_pools {
+  id: ID!
+  listingmodelID: ID!
+  completed: Boolean
+  confirmed: Boolean
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  owner: String
+}
+
+type Notification @aws_iam @aws_cognito_user_pools {
+  id: ID!
+  owner: String!
+  title: String
+  message: String
+  usermodelID: ID
+  userhostmodelID: ID
+  listingmodelID: ID
+  read: Boolean
+  category: String
+  eventUrl: String
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type HostNotification @aws_iam @aws_cognito_user_pools {
+  id: ID!
+  owner: String!
+  title: String
+  message: String
+  usermodelID: ID
+  userhostmodelID: ID
+  listingmodelID: ID
+  read: Boolean
+  category: String
+  eventUrl: String
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type Coupon @aws_iam {
+  id: ID!
+  expireDate: AWSDateTime
+  beginDate: AWSDateTime
+  discountAmount: Int
+  discountPercent: Int
+  maxDiscountAmount: Int
+  minAmount: Int
+  couponCode: String!
+  timesRedeemed: Int
+  valid: Boolean
+  exclusive: Boolean
+  validUsers: [String]
+  oneTimeUse: Boolean
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type Subscription {
+  onMessageByConversationModelID(conversationmodelID: ID!): MessageModel @aws_subscribe(mutations: ["createMessageModel"])
+  onUpdateUserByIDTrigger(id: ID!): UserModel @aws_subscribe(mutations: ["updateUserModel"])
+  onBookingByUserModelID(usermodelID: ID!): BookingRequestModel @aws_subscribe(mutations: ["createBookingRequestModel"])
+  onUpdateBookingByID(id: ID!): BookingRequestModel @aws_subscribe(mutations: ["updateBookingRequestModel"])
+  onConversationByMessageOwnerID(messageownerID: ID!): ConversationModel @aws_subscribe(mutations: ["createConversationModel"])
+  onUpdateConversationByMessageOwnerID(messageownerID: ID!): ConversationModel @aws_subscribe(mutations: ["updateConversationModel"])
+  onConversationByUserHostModelID(userhostmodelID: ID!): ConversationModel @aws_subscribe(mutations: ["createConversationModel"])
+  onUpdateConversationByUserHostModelID(userhostmodelID: ID!): ConversationModel @aws_subscribe(mutations: ["updateConversationModel"])
+  onCreateGuestNotificationByID(usermodelID: ID!): Notification @aws_subscribe(mutations: ["createNotification"])
+  onCreateHostNotificationByID(userhostmodelID: ID!): HostNotification @aws_subscribe(mutations: ["createHostNotification"])
+  onCreateUserModel(filter: ModelSubscriptionUserModelFilterInput, owner: String): UserModel @aws_subscribe(mutations: ["createUserModel"]) @aws_iam @aws_cognito_user_pools
+  onUpdateUserModel(filter: ModelSubscriptionUserModelFilterInput, owner: String): UserModel @aws_subscribe(mutations: ["updateUserModel"]) @aws_iam @aws_cognito_user_pools
+  onDeleteUserModel(filter: ModelSubscriptionUserModelFilterInput, owner: String): UserModel @aws_subscribe(mutations: ["deleteUserModel"]) @aws_iam @aws_cognito_user_pools
+  onCreateUserHostModel(filter: ModelSubscriptionUserHostModelFilterInput, owner: String): UserHostModel @aws_subscribe(mutations: ["createUserHostModel"]) @aws_iam @aws_cognito_user_pools
+  onUpdateUserHostModel(filter: ModelSubscriptionUserHostModelFilterInput, owner: String): UserHostModel @aws_subscribe(mutations: ["updateUserHostModel"]) @aws_iam @aws_cognito_user_pools
+  onDeleteUserHostModel(filter: ModelSubscriptionUserHostModelFilterInput, owner: String): UserHostModel @aws_subscribe(mutations: ["deleteUserHostModel"]) @aws_iam @aws_cognito_user_pools
+  onCreateListingModel(filter: ModelSubscriptionListingModelFilterInput, owner: String): ListingModel @aws_subscribe(mutations: ["createListingModel"]) @aws_iam @aws_cognito_user_pools
+  onUpdateListingModel(filter: ModelSubscriptionListingModelFilterInput, owner: String): ListingModel @aws_subscribe(mutations: ["updateListingModel"]) @aws_iam @aws_cognito_user_pools
+  onDeleteListingModel(filter: ModelSubscriptionListingModelFilterInput, owner: String): ListingModel @aws_subscribe(mutations: ["deleteListingModel"]) @aws_iam @aws_cognito_user_pools
+  onCreateRoomModel(filter: ModelSubscriptionRoomModelFilterInput, owner: String): RoomModel @aws_subscribe(mutations: ["createRoomModel"]) @aws_iam @aws_cognito_user_pools
+  onUpdateRoomModel(filter: ModelSubscriptionRoomModelFilterInput, owner: String): RoomModel @aws_subscribe(mutations: ["updateRoomModel"]) @aws_iam @aws_cognito_user_pools
+  onDeleteRoomModel(filter: ModelSubscriptionRoomModelFilterInput, owner: String): RoomModel @aws_subscribe(mutations: ["deleteRoomModel"]) @aws_iam @aws_cognito_user_pools
+  onCreateConversationModel(filter: ModelSubscriptionConversationModelFilterInput): ConversationModel @aws_subscribe(mutations: ["createConversationModel"]) @aws_iam @aws_cognito_user_pools
+  onUpdateConversationModel(filter: ModelSubscriptionConversationModelFilterInput): ConversationModel @aws_subscribe(mutations: ["updateConversationModel"]) @aws_iam @aws_cognito_user_pools
+  onDeleteConversationModel(filter: ModelSubscriptionConversationModelFilterInput): ConversationModel @aws_subscribe(mutations: ["deleteConversationModel"]) @aws_iam @aws_cognito_user_pools
+  onCreateMessageModel(filter: ModelSubscriptionMessageModelFilterInput): MessageModel @aws_subscribe(mutations: ["createMessageModel"]) @aws_iam @aws_cognito_user_pools
+  onUpdateMessageModel(filter: ModelSubscriptionMessageModelFilterInput): MessageModel @aws_subscribe(mutations: ["updateMessageModel"]) @aws_iam @aws_cognito_user_pools
+  onDeleteMessageModel(filter: ModelSubscriptionMessageModelFilterInput): MessageModel @aws_subscribe(mutations: ["deleteMessageModel"]) @aws_iam @aws_cognito_user_pools
+  onCreateBookingRequestModel(filter: ModelSubscriptionBookingRequestModelFilterInput): BookingRequestModel @aws_subscribe(mutations: ["createBookingRequestModel"]) @aws_iam @aws_cognito_user_pools
+  onUpdateBookingRequestModel(filter: ModelSubscriptionBookingRequestModelFilterInput): BookingRequestModel @aws_subscribe(mutations: ["updateBookingRequestModel"]) @aws_iam @aws_cognito_user_pools
+  onDeleteBookingRequestModel(filter: ModelSubscriptionBookingRequestModelFilterInput): BookingRequestModel @aws_subscribe(mutations: ["deleteBookingRequestModel"]) @aws_iam @aws_cognito_user_pools
+  onCreateChangeBookingRequestModel(filter: ModelSubscriptionChangeBookingRequestModelFilterInput): ChangeBookingRequestModel @aws_subscribe(mutations: ["createChangeBookingRequestModel"]) @aws_iam @aws_cognito_user_pools
+  onUpdateChangeBookingRequestModel(filter: ModelSubscriptionChangeBookingRequestModelFilterInput): ChangeBookingRequestModel @aws_subscribe(mutations: ["updateChangeBookingRequestModel"]) @aws_iam @aws_cognito_user_pools
+  onDeleteChangeBookingRequestModel(filter: ModelSubscriptionChangeBookingRequestModelFilterInput): ChangeBookingRequestModel @aws_subscribe(mutations: ["deleteChangeBookingRequestModel"]) @aws_iam @aws_cognito_user_pools
+  onCreateProductModel(filter: ModelSubscriptionProductModelFilterInput, owner: String): ProductModel @aws_subscribe(mutations: ["createProductModel"]) @aws_iam @aws_cognito_user_pools
+  onUpdateProductModel(filter: ModelSubscriptionProductModelFilterInput, owner: String): ProductModel @aws_subscribe(mutations: ["updateProductModel"]) @aws_iam @aws_cognito_user_pools
+  onDeleteProductModel(filter: ModelSubscriptionProductModelFilterInput, owner: String): ProductModel @aws_subscribe(mutations: ["deleteProductModel"]) @aws_iam @aws_cognito_user_pools
+  onCreateOrderModel(filter: ModelSubscriptionOrderModelFilterInput, owner: String): OrderModel @aws_subscribe(mutations: ["createOrderModel"]) @aws_iam @aws_cognito_user_pools
+  onUpdateOrderModel(filter: ModelSubscriptionOrderModelFilterInput, owner: String): OrderModel @aws_subscribe(mutations: ["updateOrderModel"]) @aws_iam @aws_cognito_user_pools
+  onDeleteOrderModel(filter: ModelSubscriptionOrderModelFilterInput, owner: String): OrderModel @aws_subscribe(mutations: ["deleteOrderModel"]) @aws_iam @aws_cognito_user_pools
+  onCreateOrderItemModel(filter: ModelSubscriptionOrderItemModelFilterInput, owner: String): OrderItemModel @aws_subscribe(mutations: ["createOrderItemModel"]) @aws_iam @aws_cognito_user_pools
+  onUpdateOrderItemModel(filter: ModelSubscriptionOrderItemModelFilterInput, owner: String): OrderItemModel @aws_subscribe(mutations: ["updateOrderItemModel"]) @aws_iam @aws_cognito_user_pools
+  onDeleteOrderItemModel(filter: ModelSubscriptionOrderItemModelFilterInput, owner: String): OrderItemModel @aws_subscribe(mutations: ["deleteOrderItemModel"]) @aws_iam @aws_cognito_user_pools
+  onCreateReviewStayModel(filter: ModelSubscriptionReviewStayModelFilterInput, owner: String): ReviewStayModel @aws_subscribe(mutations: ["createReviewStayModel"]) @aws_iam @aws_cognito_user_pools
+  onUpdateReviewStayModel(filter: ModelSubscriptionReviewStayModelFilterInput, owner: String): ReviewStayModel @aws_subscribe(mutations: ["updateReviewStayModel"]) @aws_iam @aws_cognito_user_pools
+  onDeleteReviewStayModel(filter: ModelSubscriptionReviewStayModelFilterInput, owner: String): ReviewStayModel @aws_subscribe(mutations: ["deleteReviewStayModel"]) @aws_iam @aws_cognito_user_pools
+  onCreateReviewGuestModel(filter: ModelSubscriptionReviewGuestModelFilterInput, owner: String): ReviewGuestModel @aws_subscribe(mutations: ["createReviewGuestModel"]) @aws_iam @aws_cognito_user_pools
+  onUpdateReviewGuestModel(filter: ModelSubscriptionReviewGuestModelFilterInput, owner: String): ReviewGuestModel @aws_subscribe(mutations: ["updateReviewGuestModel"]) @aws_iam @aws_cognito_user_pools
+  onDeleteReviewGuestModel(filter: ModelSubscriptionReviewGuestModelFilterInput, owner: String): ReviewGuestModel @aws_subscribe(mutations: ["deleteReviewGuestModel"]) @aws_iam @aws_cognito_user_pools
+  onCreateRefundRequestModel(filter: ModelSubscriptionRefundRequestModelFilterInput, owner: String): RefundRequestModel @aws_subscribe(mutations: ["createRefundRequestModel"]) @aws_iam @aws_cognito_user_pools
+  onUpdateRefundRequestModel(filter: ModelSubscriptionRefundRequestModelFilterInput, owner: String): RefundRequestModel @aws_subscribe(mutations: ["updateRefundRequestModel"]) @aws_iam @aws_cognito_user_pools
+  onDeleteRefundRequestModel(filter: ModelSubscriptionRefundRequestModelFilterInput, owner: String): RefundRequestModel @aws_subscribe(mutations: ["deleteRefundRequestModel"]) @aws_iam @aws_cognito_user_pools
+  onCreateListingSearchVerificationRequestModel(filter: ModelSubscriptionListingSearchVerificationRequestModelFilterInput, owner: String): ListingSearchVerificationRequestModel @aws_subscribe(mutations: ["createListingSearchVerificationRequestModel"]) @aws_iam @aws_cognito_user_pools
+  onUpdateListingSearchVerificationRequestModel(filter: ModelSubscriptionListingSearchVerificationRequestModelFilterInput, owner: String): ListingSearchVerificationRequestModel @aws_subscribe(mutations: ["updateListingSearchVerificationRequestModel"]) @aws_iam @aws_cognito_user_pools
+  onDeleteListingSearchVerificationRequestModel(filter: ModelSubscriptionListingSearchVerificationRequestModelFilterInput, owner: String): ListingSearchVerificationRequestModel @aws_subscribe(mutations: ["deleteListingSearchVerificationRequestModel"]) @aws_iam @aws_cognito_user_pools
+  onCreateListingUpdateSearchVerificationReques50cc4(filter: ModelSubscriptionListingUpdateSearchVerificationRequestModelFilterInput, owner: String): ListingUpdateSearchVerificationRequestModel @aws_subscribe(mutations: ["createListingUpdateSearchVerificationRequestModel"]) @aws_iam @aws_cognito_user_pools
+  onUpdateListingUpdateSearchVerificationReques3bc46(filter: ModelSubscriptionListingUpdateSearchVerificationRequestModelFilterInput, owner: String): ListingUpdateSearchVerificationRequestModel @aws_subscribe(mutations: ["updateListingUpdateSearchVerificationRequestModel"]) @aws_iam @aws_cognito_user_pools
+  onDeleteListingUpdateSearchVerificationRequese8569(filter: ModelSubscriptionListingUpdateSearchVerificationRequestModelFilterInput, owner: String): ListingUpdateSearchVerificationRequestModel @aws_subscribe(mutations: ["deleteListingUpdateSearchVerificationRequestModel"]) @aws_iam @aws_cognito_user_pools
+  onCreateNotification(filter: ModelSubscriptionNotificationFilterInput, owner: String): Notification @aws_subscribe(mutations: ["createNotification"]) @aws_iam @aws_cognito_user_pools
+  onUpdateNotification(filter: ModelSubscriptionNotificationFilterInput, owner: String): Notification @aws_subscribe(mutations: ["updateNotification"]) @aws_iam @aws_cognito_user_pools
+  onDeleteNotification(filter: ModelSubscriptionNotificationFilterInput, owner: String): Notification @aws_subscribe(mutations: ["deleteNotification"]) @aws_iam @aws_cognito_user_pools
+  onCreateHostNotification(filter: ModelSubscriptionHostNotificationFilterInput, owner: String): HostNotification @aws_subscribe(mutations: ["createHostNotification"]) @aws_iam @aws_cognito_user_pools
+  onUpdateHostNotification(filter: ModelSubscriptionHostNotificationFilterInput, owner: String): HostNotification @aws_subscribe(mutations: ["updateHostNotification"]) @aws_iam @aws_cognito_user_pools
+  onDeleteHostNotification(filter: ModelSubscriptionHostNotificationFilterInput, owner: String): HostNotification @aws_subscribe(mutations: ["deleteHostNotification"]) @aws_iam @aws_cognito_user_pools
+  onCreateCoupon(filter: ModelSubscriptionCouponFilterInput): Coupon @aws_subscribe(mutations: ["createCoupon"]) @aws_iam
+  onUpdateCoupon(filter: ModelSubscriptionCouponFilterInput): Coupon @aws_subscribe(mutations: ["updateCoupon"]) @aws_iam
+  onDeleteCoupon(filter: ModelSubscriptionCouponFilterInput): Coupon @aws_subscribe(mutations: ["deleteCoupon"]) @aws_iam
+  onCreateListingProducts(filter: ModelSubscriptionListingProductsFilterInput, owner: String): ListingProducts @aws_subscribe(mutations: ["createListingProducts"]) @aws_iam @aws_cognito_user_pools
+  onUpdateListingProducts(filter: ModelSubscriptionListingProductsFilterInput, owner: String): ListingProducts @aws_subscribe(mutations: ["updateListingProducts"]) @aws_iam @aws_cognito_user_pools
+  onDeleteListingProducts(filter: ModelSubscriptionListingProductsFilterInput, owner: String): ListingProducts @aws_subscribe(mutations: ["deleteListingProducts"]) @aws_iam @aws_cognito_user_pools
+}
+
+type SearchableListingModelConnection @aws_iam @aws_cognito_user_pools {
+  items: [ListingModel]!
+  nextToken: String
+  total: Int
+  aggregateItems: [SearchableAggregateResult]!
+}
+
+type SearchableAggregateResult @aws_iam @aws_cognito_user_pools {
+  name: String!
+  result: SearchableAggregateGenericResult
+}
+
+type SearchableAggregateScalarResult @aws_iam @aws_cognito_user_pools {
+  value: Float!
+}
+
+type SearchableAggregateBucketResult @aws_iam @aws_cognito_user_pools {
+  buckets: [SearchableAggregateBucketResultItem]
+}
+
+type SearchableAggregateBucketResultItem @aws_iam @aws_cognito_user_pools {
+  key: String!
+  doc_count: Int!
+}
+
+union SearchableAggregateGenericResult = SearchableAggregateScalarResult | SearchableAggregateBucketResult
+
+type Query {
+  getUserModel(id: ID!): UserModel @aws_iam @aws_cognito_user_pools
+  listUserModels(filter: ModelUserModelFilterInput, limit: Int, nextToken: String): ModelUserModelConnection @aws_iam @aws_cognito_user_pools
+  userModelByPhone(phone: String!, sortDirection: ModelSortDirection, filter: ModelUserModelFilterInput, limit: Int, nextToken: String): ModelUserModelConnection @aws_iam @aws_cognito_user_pools
+  userModelByUsername(username: String!, sortDirection: ModelSortDirection, filter: ModelUserModelFilterInput, limit: Int, nextToken: String): ModelUserModelConnection @aws_iam @aws_cognito_user_pools
+  getUserHostModel(id: ID!): UserHostModel @aws_iam @aws_cognito_user_pools
+  listUserHostModels(filter: ModelUserHostModelFilterInput, limit: Int, nextToken: String): ModelUserHostModelConnection @aws_iam @aws_cognito_user_pools
+  userHostModelByOwner(owner: String!, sortDirection: ModelSortDirection, filter: ModelUserHostModelFilterInput, limit: Int, nextToken: String): ModelUserHostModelConnection @aws_iam @aws_cognito_user_pools
+  userHostModelByUsermodelID(usermodelID: ID!, sortDirection: ModelSortDirection, filter: ModelUserHostModelFilterInput, limit: Int, nextToken: String): ModelUserHostModelConnection @aws_iam @aws_cognito_user_pools
+  getListingModel(id: ID!): ListingModel @aws_iam @aws_cognito_user_pools
+  listListingModels(filter: ModelListingModelFilterInput, limit: Int, nextToken: String): ModelListingModelConnection @aws_iam @aws_cognito_user_pools
+  listingModelByUserHostModel(userhostmodelID: ID!, createdAt: ModelStringKeyConditionInput, sortDirection: ModelSortDirection, filter: ModelListingModelFilterInput, limit: Int, nextToken: String): ModelListingModelConnection @aws_iam @aws_cognito_user_pools
+  searchListingModels(filter: SearchableListingModelFilterInput, sort: [SearchableListingModelSortInput], limit: Int, nextToken: String, from: Int, aggregates: [SearchableListingModelAggregationInput]): SearchableListingModelConnection @aws_iam @aws_cognito_user_pools
+  getRoomModel(id: ID!): RoomModel @aws_iam @aws_cognito_user_pools
+  listRoomModels(filter: ModelRoomModelFilterInput, limit: Int, nextToken: String): ModelRoomModelConnection @aws_iam @aws_cognito_user_pools
+  roomModelByListingModel(listingmodelID: ID!, sortDirection: ModelSortDirection, filter: ModelRoomModelFilterInput, limit: Int, nextToken: String): ModelRoomModelConnection @aws_iam @aws_cognito_user_pools
+  getConversationModel(id: ID!): ConversationModel @aws_iam @aws_cognito_user_pools
+  listConversationModels(filter: ModelConversationModelFilterInput, limit: Int, nextToken: String): ModelConversationModelConnection @aws_iam @aws_cognito_user_pools
+  getMessageModel(id: ID!): MessageModel @aws_iam @aws_cognito_user_pools
+  listMessageModels(filter: ModelMessageModelFilterInput, limit: Int, nextToken: String): ModelMessageModelConnection @aws_iam @aws_cognito_user_pools
+  messageModelByConversationModel(conversationmodelID: ID!, createdAt: ModelStringKeyConditionInput, sortDirection: ModelSortDirection, filter: ModelMessageModelFilterInput, limit: Int, nextToken: String): ModelMessageModelConnection @aws_iam @aws_cognito_user_pools
+  getBookingRequestModel(id: ID!): BookingRequestModel @aws_iam @aws_cognito_user_pools
+  listBookingRequestModels(filter: ModelBookingRequestModelFilterInput, limit: Int, nextToken: String): ModelBookingRequestModelConnection @aws_iam @aws_cognito_user_pools
+  bookingRequestModelByUserModel(usermodelID: ID!, arrivalDate: ModelStringKeyConditionInput, sortDirection: ModelSortDirection, filter: ModelBookingRequestModelFilterInput, limit: Int, nextToken: String): ModelBookingRequestModelConnection @aws_iam @aws_cognito_user_pools
+  bookingRequestModelByUserHostModel(userhostmodelID: ID!, arrivalDate: ModelStringKeyConditionInput, sortDirection: ModelSortDirection, filter: ModelBookingRequestModelFilterInput, limit: Int, nextToken: String): ModelBookingRequestModelConnection @aws_iam @aws_cognito_user_pools
+  bookingRequestModelByListingModel(listingmodelID: ID!, arrivalDate: ModelStringKeyConditionInput, sortDirection: ModelSortDirection, filter: ModelBookingRequestModelFilterInput, limit: Int, nextToken: String): ModelBookingRequestModelConnection @aws_iam @aws_cognito_user_pools
+  bookingRequestModelByOrderModel(ordermodelID: ID!, arrivalDate: ModelStringKeyConditionInput, sortDirection: ModelSortDirection, filter: ModelBookingRequestModelFilterInput, limit: Int, nextToken: String): ModelBookingRequestModelConnection @aws_iam @aws_cognito_user_pools
+  searchBookingRequestModels(filter: SearchableBookingRequestModelFilterInput, sort: [SearchableBookingRequestModelSortInput], limit: Int, nextToken: String, from: Int, aggregates: [SearchableBookingRequestModelAggregationInput]): SearchableBookingRequestModelConnection @aws_iam @aws_cognito_user_pools
+  getChangeBookingRequestModel(id: ID!): ChangeBookingRequestModel @aws_iam @aws_cognito_user_pools
+  listChangeBookingRequestModels(filter: ModelChangeBookingRequestModelFilterInput, limit: Int, nextToken: String): ModelChangeBookingRequestModelConnection @aws_iam @aws_cognito_user_pools
+  changeBookingRequestModelByBookingRequestID(bookingRequestID: ID!, createdAt: ModelStringKeyConditionInput, sortDirection: ModelSortDirection, filter: ModelChangeBookingRequestModelFilterInput, limit: Int, nextToken: String): ModelChangeBookingRequestModelConnection @aws_iam @aws_cognito_user_pools
+  getProductModel(id: ID!): ProductModel @aws_iam @aws_cognito_user_pools
+  listProductModels(filter: ModelProductModelFilterInput, limit: Int, nextToken: String): ModelProductModelConnection @aws_iam @aws_cognito_user_pools
+  productModelByUserHostModel(userhostmodelID: ID!, sortDirection: ModelSortDirection, filter: ModelProductModelFilterInput, limit: Int, nextToken: String): ModelProductModelConnection @aws_iam @aws_cognito_user_pools
+  searchProductModels(filter: SearchableProductModelFilterInput, sort: [SearchableProductModelSortInput], limit: Int, nextToken: String, from: Int, aggregates: [SearchableProductModelAggregationInput]): SearchableProductModelConnection @aws_iam @aws_cognito_user_pools
+  getOrderModel(id: ID!): OrderModel @aws_iam @aws_cognito_user_pools
+  listOrderModels(filter: ModelOrderModelFilterInput, limit: Int, nextToken: String): ModelOrderModelConnection @aws_iam @aws_cognito_user_pools
+  orderModelByUserModel(usermodelID: ID!, sortDirection: ModelSortDirection, filter: ModelOrderModelFilterInput, limit: Int, nextToken: String): ModelOrderModelConnection @aws_iam @aws_cognito_user_pools
+  orderModelByUserHostModel(userhostmodelID: ID!, sortDirection: ModelSortDirection, filter: ModelOrderModelFilterInput, limit: Int, nextToken: String): ModelOrderModelConnection @aws_iam @aws_cognito_user_pools
+  searchOrderModels(filter: SearchableOrderModelFilterInput, sort: [SearchableOrderModelSortInput], limit: Int, nextToken: String, from: Int, aggregates: [SearchableOrderModelAggregationInput]): SearchableOrderModelConnection @aws_iam @aws_cognito_user_pools
+  getOrderItemModel(id: ID!): OrderItemModel @aws_iam @aws_cognito_user_pools
+  listOrderItemModels(filter: ModelOrderItemModelFilterInput, limit: Int, nextToken: String): ModelOrderItemModelConnection @aws_iam @aws_cognito_user_pools
+  orderItemModelByProductModel(productmodelID: ID!, sortDirection: ModelSortDirection, filter: ModelOrderItemModelFilterInput, limit: Int, nextToken: String): ModelOrderItemModelConnection @aws_iam @aws_cognito_user_pools
+  orderItemModelByOrderModel(ordermodelID: ID!, sortDirection: ModelSortDirection, filter: ModelOrderItemModelFilterInput, limit: Int, nextToken: String): ModelOrderItemModelConnection @aws_iam @aws_cognito_user_pools
+  getReviewStayModel(id: ID!): ReviewStayModel @aws_iam @aws_cognito_user_pools
+  listReviewStayModels(filter: ModelReviewStayModelFilterInput, limit: Int, nextToken: String): ModelReviewStayModelConnection @aws_iam @aws_cognito_user_pools
+  reviewStayModelByBookingRequestID(bookingRequestID: ID!, sortDirection: ModelSortDirection, filter: ModelReviewStayModelFilterInput, limit: Int, nextToken: String): ModelReviewStayModelConnection @aws_iam @aws_cognito_user_pools
+  reviewStayModelByListingModel(listingmodelID: ID!, sortDirection: ModelSortDirection, filter: ModelReviewStayModelFilterInput, limit: Int, nextToken: String): ModelReviewStayModelConnection @aws_iam @aws_cognito_user_pools
+  getReviewGuestModel(id: ID!): ReviewGuestModel @aws_iam @aws_cognito_user_pools
+  listReviewGuestModels(filter: ModelReviewGuestModelFilterInput, limit: Int, nextToken: String): ModelReviewGuestModelConnection @aws_iam @aws_cognito_user_pools
+  reviewGuestModelByBookingRequestID(bookingRequestID: String!, sortDirection: ModelSortDirection, filter: ModelReviewGuestModelFilterInput, limit: Int, nextToken: String): ModelReviewGuestModelConnection @aws_iam @aws_cognito_user_pools
+  reviewGuestModelByUserModelID(usermodelID: ID!, sortDirection: ModelSortDirection, filter: ModelReviewGuestModelFilterInput, limit: Int, nextToken: String): ModelReviewGuestModelConnection @aws_iam @aws_cognito_user_pools
+  getRefundRequestModel(id: ID!): RefundRequestModel @aws_iam @aws_cognito_user_pools
+  listRefundRequestModels(filter: ModelRefundRequestModelFilterInput, limit: Int, nextToken: String): ModelRefundRequestModelConnection @aws_iam @aws_cognito_user_pools
+  refundRequestModelByBookingRequestID(bookingRequestID: ID!, sortDirection: ModelSortDirection, filter: ModelRefundRequestModelFilterInput, limit: Int, nextToken: String): ModelRefundRequestModelConnection @aws_iam @aws_cognito_user_pools
+  getListingSearchVerificationRequestModel(id: ID!): ListingSearchVerificationRequestModel @aws_iam @aws_cognito_user_pools
+  listListingSearchVerificationRequestModels(filter: ModelListingSearchVerificationRequestModelFilterInput, limit: Int, nextToken: String): ModelListingSearchVerificationRequestModelConnection @aws_iam @aws_cognito_user_pools
+  getListingUpdateSearchVerificationRequestModel(id: ID!): ListingUpdateSearchVerificationRequestModel @aws_iam @aws_cognito_user_pools
+  listListingUpdateSearchVerificationRequestModels(filter: ModelListingUpdateSearchVerificationRequestModelFilterInput, limit: Int, nextToken: String): ModelListingUpdateSearchVerificationRequestModelConnection @aws_iam @aws_cognito_user_pools
+  getNotification(id: ID!): Notification @aws_iam @aws_cognito_user_pools
+  listNotifications(filter: ModelNotificationFilterInput, limit: Int, nextToken: String): ModelNotificationConnection @aws_iam @aws_cognito_user_pools
+  notificationByUserModelID(usermodelID: ID!, sortDirection: ModelSortDirection, filter: ModelNotificationFilterInput, limit: Int, nextToken: String): ModelNotificationConnection @aws_iam @aws_cognito_user_pools
+  getHostNotification(id: ID!): HostNotification @aws_iam @aws_cognito_user_pools
+  listHostNotifications(filter: ModelHostNotificationFilterInput, limit: Int, nextToken: String): ModelHostNotificationConnection @aws_iam @aws_cognito_user_pools
+  hostNotificationByUserHostModelID(userhostmodelID: ID!, sortDirection: ModelSortDirection, filter: ModelHostNotificationFilterInput, limit: Int, nextToken: String): ModelHostNotificationConnection @aws_iam @aws_cognito_user_pools
+  getCoupon(id: ID!): Coupon @aws_iam
+  listCoupons(filter: ModelCouponFilterInput, limit: Int, nextToken: String): ModelCouponConnection @aws_iam
+  couponByCouponCode(couponCode: String!, sortDirection: ModelSortDirection, filter: ModelCouponFilterInput, limit: Int, nextToken: String): ModelCouponConnection @aws_iam
+  getListingProducts(id: ID!): ListingProducts @aws_iam @aws_cognito_user_pools
+  listListingProducts(filter: ModelListingProductsFilterInput, limit: Int, nextToken: String): ModelListingProductsConnection @aws_iam @aws_cognito_user_pools
+}
+
+type SearchableBookingRequestModelConnection @aws_iam @aws_cognito_user_pools {
+  items: [BookingRequestModel]!
+  nextToken: String
+  total: Int
+  aggregateItems: [SearchableAggregateResult]!
+}
+
+type SearchableProductModelConnection @aws_iam @aws_cognito_user_pools {
+  items: [ProductModel]!
+  nextToken: String
+  total: Int
+  aggregateItems: [SearchableAggregateResult]!
+}
+
+type SearchableOrderModelConnection @aws_iam @aws_cognito_user_pools {
+  items: [OrderModel]!
+  nextToken: String
+  total: Int
+  aggregateItems: [SearchableAggregateResult]!
+}
+
+type ListingProducts @aws_iam @aws_cognito_user_pools {
+  id: ID!
+  listingModelID: ID!
+  productModelID: ID!
+  listingModel: ListingModel!
+  productModel: ProductModel!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  owner: String
+}
+
+input ModelStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelBooleanInput {
+  ne: Boolean
+  eq: Boolean
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelSubscriptionStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  in: [String]
+  notIn: [String]
+}
+
+input ModelSubscriptionIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  in: [Int]
+  notIn: [Int]
+}
+
+input ModelSubscriptionFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  in: [Float]
+  notIn: [Float]
+}
+
+input ModelSubscriptionBooleanInput {
+  ne: Boolean
+  eq: Boolean
+}
+
+input ModelSubscriptionIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  in: [ID]
+  notIn: [ID]
+}
+
+enum ModelAttributeTypes {
+  binary
+  binarySet
+  bool
+  list
+  map
+  number
+  numberSet
+  string
+  stringSet
+  _null
+}
+
+input ModelSizeInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+type ModelUserModelConnection @aws_iam @aws_cognito_user_pools {
+  items: [UserModel]!
+  nextToken: String
+}
+
+input ModelUserModelFilterInput {
+  id: ModelIDInput
+  owner: ModelStringInput
+  email: ModelStringInput
+  phone: ModelStringInput
+  dateOfBirth: ModelStringInput
+  firstName: ModelStringInput
+  lastName: ModelStringInput
+  profileDescription: ModelStringInput
+  profilePicture: ModelStringInput
+  coverPicture: ModelStringInput
+  savedListings: ModelStringInput
+  username: ModelStringInput
+  identityID: ModelStringInput
+  guestMode: ModelBooleanInput
+  stripeCustomerID: ModelStringInput
+  phoneConfirmed: ModelBooleanInput
+  emailConfirmed: ModelBooleanInput
+  userIDConfirmed: ModelBooleanInput
+  privacyPolicyAccepted: ModelBooleanInput
+  identityDocuments: ModelStringInput
+  facebookURL: ModelStringInput
+  instagramURL: ModelStringInput
+  twitterURL: ModelStringInput
+  tiktokURL: ModelStringInput
+  overallAverage: ModelIntInput
+  communicationAverage: ModelIntInput
+  cleanlinessAverage: ModelIntInput
+  deactivated: ModelBooleanInput
+  suspended: ModelBooleanInput
+  suspendedUntil: ModelStringInput
+  suspendedReason: ModelStringInput
+  and: [ModelUserModelFilterInput]
+  or: [ModelUserModelFilterInput]
+  not: ModelUserModelFilterInput
+}
+
+input ModelUserModelConditionInput {
+  owner: ModelStringInput
+  email: ModelStringInput
+  phone: ModelStringInput
+  dateOfBirth: ModelStringInput
+  firstName: ModelStringInput
+  lastName: ModelStringInput
+  profileDescription: ModelStringInput
+  profilePicture: ModelStringInput
+  coverPicture: ModelStringInput
+  savedListings: ModelStringInput
+  username: ModelStringInput
+  identityID: ModelStringInput
+  guestMode: ModelBooleanInput
+  stripeCustomerID: ModelStringInput
+  phoneConfirmed: ModelBooleanInput
+  emailConfirmed: ModelBooleanInput
+  userIDConfirmed: ModelBooleanInput
+  privacyPolicyAccepted: ModelBooleanInput
+  identityDocuments: ModelStringInput
+  facebookURL: ModelStringInput
+  instagramURL: ModelStringInput
+  twitterURL: ModelStringInput
+  tiktokURL: ModelStringInput
+  overallAverage: ModelIntInput
+  communicationAverage: ModelIntInput
+  cleanlinessAverage: ModelIntInput
+  deactivated: ModelBooleanInput
+  suspended: ModelBooleanInput
+  suspendedUntil: ModelStringInput
+  suspendedReason: ModelStringInput
+  and: [ModelUserModelConditionInput]
+  or: [ModelUserModelConditionInput]
+  not: ModelUserModelConditionInput
+}
+
+input CreateUserModelInput {
+  id: ID
+  owner: String!
+  email: String!
+  phone: String!
+  dateOfBirth: String!
+  firstName: String!
+  lastName: String!
+  profileDescription: String
+  profilePicture: String
+  coverPicture: String
+  savedListings: [String]
+  username: String
+  identityID: String
+  guestMode: Boolean
+  stripeCustomerID: String
+  phoneConfirmed: Boolean
+  emailConfirmed: Boolean
+  userIDConfirmed: Boolean
+  privacyPolicyAccepted: Boolean
+  identityDocuments: [String]
+  facebookURL: String
+  instagramURL: String
+  twitterURL: String
+  tiktokURL: String
+  overallAverage: Int
+  communicationAverage: Int
+  cleanlinessAverage: Int
+  deactivated: Boolean
+  suspended: Boolean
+  suspendedUntil: AWSDateTime
+  suspendedReason: String
+}
+
+input UpdateUserModelInput {
+  id: ID!
+  owner: String
+  email: String
+  phone: String
+  dateOfBirth: String
+  firstName: String
+  lastName: String
+  profileDescription: String
+  profilePicture: String
+  coverPicture: String
+  savedListings: [String]
+  username: String
+  identityID: String
+  guestMode: Boolean
+  stripeCustomerID: String
+  phoneConfirmed: Boolean
+  emailConfirmed: Boolean
+  userIDConfirmed: Boolean
+  privacyPolicyAccepted: Boolean
+  identityDocuments: [String]
+  facebookURL: String
+  instagramURL: String
+  twitterURL: String
+  tiktokURL: String
+  overallAverage: Int
+  communicationAverage: Int
+  cleanlinessAverage: Int
+  deactivated: Boolean
+  suspended: Boolean
+  suspendedUntil: AWSDateTime
+  suspendedReason: String
+}
+
+input DeleteUserModelInput {
+  id: ID!
+}
+
+type Mutation {
+  createUserModel(input: CreateUserModelInput!, condition: ModelUserModelConditionInput): UserModel @aws_iam @aws_cognito_user_pools
+  updateUserModel(input: UpdateUserModelInput!, condition: ModelUserModelConditionInput): UserModel @aws_iam @aws_cognito_user_pools
+  deleteUserModel(input: DeleteUserModelInput!, condition: ModelUserModelConditionInput): UserModel @aws_iam
+  createUserHostModel(input: CreateUserHostModelInput!, condition: ModelUserHostModelConditionInput): UserHostModel @aws_iam
+  updateUserHostModel(input: UpdateUserHostModelInput!, condition: ModelUserHostModelConditionInput): UserHostModel @aws_iam
+  deleteUserHostModel(input: DeleteUserHostModelInput!, condition: ModelUserHostModelConditionInput): UserHostModel @aws_iam
+  createListingModel(input: CreateListingModelInput!, condition: ModelListingModelConditionInput): ListingModel @aws_iam
+  updateListingModel(input: UpdateListingModelInput!, condition: ModelListingModelConditionInput): ListingModel @aws_iam @aws_cognito_user_pools
+  deleteListingModel(input: DeleteListingModelInput!, condition: ModelListingModelConditionInput): ListingModel @aws_iam
+  createRoomModel(input: CreateRoomModelInput!, condition: ModelRoomModelConditionInput): RoomModel @aws_iam
+  updateRoomModel(input: UpdateRoomModelInput!, condition: ModelRoomModelConditionInput): RoomModel @aws_iam
+  deleteRoomModel(input: DeleteRoomModelInput!, condition: ModelRoomModelConditionInput): RoomModel @aws_iam
+  createConversationModel(input: CreateConversationModelInput!, condition: ModelConversationModelConditionInput): ConversationModel @aws_iam
+  updateConversationModel(input: UpdateConversationModelInput!, condition: ModelConversationModelConditionInput): ConversationModel @aws_iam
+  deleteConversationModel(input: DeleteConversationModelInput!, condition: ModelConversationModelConditionInput): ConversationModel @aws_iam
+  createMessageModel(input: CreateMessageModelInput!, condition: ModelMessageModelConditionInput): MessageModel @aws_iam
+  updateMessageModel(input: UpdateMessageModelInput!, condition: ModelMessageModelConditionInput): MessageModel @aws_iam
+  deleteMessageModel(input: DeleteMessageModelInput!, condition: ModelMessageModelConditionInput): MessageModel @aws_iam
+  createBookingRequestModel(input: CreateBookingRequestModelInput!, condition: ModelBookingRequestModelConditionInput): BookingRequestModel @aws_iam
+  updateBookingRequestModel(input: UpdateBookingRequestModelInput!, condition: ModelBookingRequestModelConditionInput): BookingRequestModel @aws_iam
+  deleteBookingRequestModel(input: DeleteBookingRequestModelInput!, condition: ModelBookingRequestModelConditionInput): BookingRequestModel @aws_iam
+  createChangeBookingRequestModel(input: CreateChangeBookingRequestModelInput!, condition: ModelChangeBookingRequestModelConditionInput): ChangeBookingRequestModel @aws_iam
+  updateChangeBookingRequestModel(input: UpdateChangeBookingRequestModelInput!, condition: ModelChangeBookingRequestModelConditionInput): ChangeBookingRequestModel @aws_iam
+  deleteChangeBookingRequestModel(input: DeleteChangeBookingRequestModelInput!, condition: ModelChangeBookingRequestModelConditionInput): ChangeBookingRequestModel @aws_iam
+  createProductModel(input: CreateProductModelInput!, condition: ModelProductModelConditionInput): ProductModel @aws_iam
+  updateProductModel(input: UpdateProductModelInput!, condition: ModelProductModelConditionInput): ProductModel @aws_iam
+  deleteProductModel(input: DeleteProductModelInput!, condition: ModelProductModelConditionInput): ProductModel @aws_iam
+  createOrderModel(input: CreateOrderModelInput!, condition: ModelOrderModelConditionInput): OrderModel @aws_iam
+  updateOrderModel(input: UpdateOrderModelInput!, condition: ModelOrderModelConditionInput): OrderModel @aws_iam
+  deleteOrderModel(input: DeleteOrderModelInput!, condition: ModelOrderModelConditionInput): OrderModel @aws_iam
+  createOrderItemModel(input: CreateOrderItemModelInput!, condition: ModelOrderItemModelConditionInput): OrderItemModel @aws_iam
+  updateOrderItemModel(input: UpdateOrderItemModelInput!, condition: ModelOrderItemModelConditionInput): OrderItemModel @aws_iam
+  deleteOrderItemModel(input: DeleteOrderItemModelInput!, condition: ModelOrderItemModelConditionInput): OrderItemModel @aws_iam
+  createReviewStayModel(input: CreateReviewStayModelInput!, condition: ModelReviewStayModelConditionInput): ReviewStayModel @aws_iam
+  updateReviewStayModel(input: UpdateReviewStayModelInput!, condition: ModelReviewStayModelConditionInput): ReviewStayModel @aws_iam
+  deleteReviewStayModel(input: DeleteReviewStayModelInput!, condition: ModelReviewStayModelConditionInput): ReviewStayModel @aws_iam
+  createReviewGuestModel(input: CreateReviewGuestModelInput!, condition: ModelReviewGuestModelConditionInput): ReviewGuestModel @aws_iam
+  updateReviewGuestModel(input: UpdateReviewGuestModelInput!, condition: ModelReviewGuestModelConditionInput): ReviewGuestModel @aws_iam
+  deleteReviewGuestModel(input: DeleteReviewGuestModelInput!, condition: ModelReviewGuestModelConditionInput): ReviewGuestModel @aws_iam
+  createRefundRequestModel(input: CreateRefundRequestModelInput!, condition: ModelRefundRequestModelConditionInput): RefundRequestModel @aws_iam
+  updateRefundRequestModel(input: UpdateRefundRequestModelInput!, condition: ModelRefundRequestModelConditionInput): RefundRequestModel @aws_iam
+  deleteRefundRequestModel(input: DeleteRefundRequestModelInput!, condition: ModelRefundRequestModelConditionInput): RefundRequestModel @aws_iam
+  createListingSearchVerificationRequestModel(input: CreateListingSearchVerificationRequestModelInput!, condition: ModelListingSearchVerificationRequestModelConditionInput): ListingSearchVerificationRequestModel @aws_iam
+  updateListingSearchVerificationRequestModel(input: UpdateListingSearchVerificationRequestModelInput!, condition: ModelListingSearchVerificationRequestModelConditionInput): ListingSearchVerificationRequestModel @aws_iam
+  deleteListingSearchVerificationRequestModel(input: DeleteListingSearchVerificationRequestModelInput!, condition: ModelListingSearchVerificationRequestModelConditionInput): ListingSearchVerificationRequestModel @aws_iam
+  createListingUpdateSearchVerificationRequestModel(input: CreateListingUpdateSearchVerificationRequestModelInput!, condition: ModelListingUpdateSearchVerificationRequestModelConditionInput): ListingUpdateSearchVerificationRequestModel @aws_iam
+  updateListingUpdateSearchVerificationRequestModel(input: UpdateListingUpdateSearchVerificationRequestModelInput!, condition: ModelListingUpdateSearchVerificationRequestModelConditionInput): ListingUpdateSearchVerificationRequestModel @aws_iam
+  deleteListingUpdateSearchVerificationRequestModel(input: DeleteListingUpdateSearchVerificationRequestModelInput!, condition: ModelListingUpdateSearchVerificationRequestModelConditionInput): ListingUpdateSearchVerificationRequestModel @aws_iam
+  createNotification(input: CreateNotificationInput!, condition: ModelNotificationConditionInput): Notification @aws_iam
+  updateNotification(input: UpdateNotificationInput!, condition: ModelNotificationConditionInput): Notification @aws_iam
+  deleteNotification(input: DeleteNotificationInput!, condition: ModelNotificationConditionInput): Notification @aws_iam
+  createHostNotification(input: CreateHostNotificationInput!, condition: ModelHostNotificationConditionInput): HostNotification @aws_iam
+  updateHostNotification(input: UpdateHostNotificationInput!, condition: ModelHostNotificationConditionInput): HostNotification @aws_iam
+  deleteHostNotification(input: DeleteHostNotificationInput!, condition: ModelHostNotificationConditionInput): HostNotification @aws_iam
+  createCoupon(input: CreateCouponInput!, condition: ModelCouponConditionInput): Coupon @aws_iam
+  updateCoupon(input: UpdateCouponInput!, condition: ModelCouponConditionInput): Coupon @aws_iam
+  deleteCoupon(input: DeleteCouponInput!, condition: ModelCouponConditionInput): Coupon @aws_iam
+  createListingProducts(input: CreateListingProductsInput!, condition: ModelListingProductsConditionInput): ListingProducts @aws_iam
+  updateListingProducts(input: UpdateListingProductsInput!, condition: ModelListingProductsConditionInput): ListingProducts @aws_iam
+  deleteListingProducts(input: DeleteListingProductsInput!, condition: ModelListingProductsConditionInput): ListingProducts @aws_iam
+}
+
+input ModelSubscriptionUserModelFilterInput {
+  id: ModelSubscriptionIDInput
+  email: ModelSubscriptionStringInput
+  phone: ModelSubscriptionStringInput
+  dateOfBirth: ModelSubscriptionStringInput
+  firstName: ModelSubscriptionStringInput
+  lastName: ModelSubscriptionStringInput
+  profileDescription: ModelSubscriptionStringInput
+  profilePicture: ModelSubscriptionStringInput
+  coverPicture: ModelSubscriptionStringInput
+  savedListings: ModelSubscriptionStringInput
+  username: ModelSubscriptionStringInput
+  identityID: ModelSubscriptionStringInput
+  guestMode: ModelSubscriptionBooleanInput
+  stripeCustomerID: ModelSubscriptionStringInput
+  phoneConfirmed: ModelSubscriptionBooleanInput
+  emailConfirmed: ModelSubscriptionBooleanInput
+  userIDConfirmed: ModelSubscriptionBooleanInput
+  privacyPolicyAccepted: ModelSubscriptionBooleanInput
+  identityDocuments: ModelSubscriptionStringInput
+  facebookURL: ModelSubscriptionStringInput
+  instagramURL: ModelSubscriptionStringInput
+  twitterURL: ModelSubscriptionStringInput
+  tiktokURL: ModelSubscriptionStringInput
+  overallAverage: ModelSubscriptionIntInput
+  communicationAverage: ModelSubscriptionIntInput
+  cleanlinessAverage: ModelSubscriptionIntInput
+  deactivated: ModelSubscriptionBooleanInput
+  suspended: ModelSubscriptionBooleanInput
+  suspendedUntil: ModelSubscriptionStringInput
+  suspendedReason: ModelSubscriptionStringInput
+  and: [ModelSubscriptionUserModelFilterInput]
+  or: [ModelSubscriptionUserModelFilterInput]
+}
+
+type ModelUserHostModelConnection @aws_iam @aws_cognito_user_pools {
+  items: [UserHostModel]!
+  nextToken: String
+}
+
+input ModelUserHostModelFilterInput {
+  id: ModelIDInput
+  owner: ModelStringInput
+  usermodelID: ModelIDInput
+  stripeAccountID: ModelStringInput
+  stripeAccountVerified: ModelBooleanInput
+  standardServiceFee: ModelBooleanInput
+  totalListings: ModelIntInput
+  and: [ModelUserHostModelFilterInput]
+  or: [ModelUserHostModelFilterInput]
+  not: ModelUserHostModelFilterInput
+}
+
+input ModelUserHostModelConditionInput {
+  owner: ModelStringInput
+  usermodelID: ModelIDInput
+  stripeAccountID: ModelStringInput
+  stripeAccountVerified: ModelBooleanInput
+  standardServiceFee: ModelBooleanInput
+  totalListings: ModelIntInput
+  and: [ModelUserHostModelConditionInput]
+  or: [ModelUserHostModelConditionInput]
+  not: ModelUserHostModelConditionInput
+}
+
+input CreateUserHostModelInput {
+  id: ID
+  owner: String!
+  usermodelID: ID!
+  stripeAccountID: String
+  stripeAccountVerified: Boolean
+  standardServiceFee: Boolean
+  totalListings: Int
+}
+
+input UpdateUserHostModelInput {
+  id: ID!
+  owner: String
+  usermodelID: ID
+  stripeAccountID: String
+  stripeAccountVerified: Boolean
+  standardServiceFee: Boolean
+  totalListings: Int
+}
+
+input DeleteUserHostModelInput {
+  id: ID!
+}
+
+input ModelSubscriptionUserHostModelFilterInput {
+  id: ModelSubscriptionIDInput
+  usermodelID: ModelSubscriptionIDInput
+  stripeAccountID: ModelSubscriptionStringInput
+  stripeAccountVerified: ModelSubscriptionBooleanInput
+  standardServiceFee: ModelSubscriptionBooleanInput
+  totalListings: ModelSubscriptionIntInput
+  and: [ModelSubscriptionUserHostModelFilterInput]
+  or: [ModelSubscriptionUserHostModelFilterInput]
+}
+
+type ModelListingModelConnection @aws_iam @aws_cognito_user_pools {
+  items: [ListingModel]!
+  nextToken: String
+}
+
+input ModelListingModelFilterInput {
+  id: ModelIDInput
+  createdAt: ModelStringInput
+  owner: ModelStringInput
+  placeId: ModelStringInput
+  unitNumber: ModelIntInput
+  streetNumber: ModelIntInput
+  street: ModelStringInput
+  suburb: ModelStringInput
+  postcode: ModelIntInput
+  state: ModelStringInput
+  city: ModelStringInput
+  country: ModelStringInput
+  beds: ModelIntInput
+  bedrooms: ModelIntInput
+  bathrooms: ModelIntInput
+  propertyType: ModelStringInput
+  typeOfPlace: ModelStringInput
+  propertyDescription: ModelStringInput
+  propertyDescriptionEmbedding: ModelFloatInput
+  propertySoftEmbedding: ModelFloatInput
+  trainingEvolutions: ModelIntInput
+  translatedPropertyDescription: ModelStringInput
+  listingImages: ModelStringInput
+  status: ModelStringInput
+  amenities: ModelStringInput
+  categories: ModelStringInput
+  tags: ModelStringInput
+  deposit: ModelIntInput
+  guests: ModelIntInput
+  minimumStay: ModelIntInput
+  minimumPrice: ModelIntInput
+  maximumPrice: ModelIntInput
+  nightlyPrices: ModelStringInput
+  maximumStay: ModelIntInput
+  weeklyMinimumPrice: ModelIntInput
+  weeklyMaximumStay: ModelIntInput
+  location: ModelStringInput
+  propertyTitle: ModelStringInput
+  internalName: ModelStringInput
+  translatedPropertyTitle: ModelStringInput
+  houseRules: ModelStringInput
+  draft: ModelBooleanInput
+  verified: ModelBooleanInput
+  verifiedDocuments: ModelStringInput
+  weeklyDiscount: ModelFloatInput
+  monthlyDiscount: ModelFloatInput
+  cleaningFee: ModelFloatInput
+  cleaningFrequency: ModelStringInput
+  availabilityRange: ModelStringInput
+  rooms: ModelStringInput
+  userhostmodelID: ModelIDInput
+  overallAverage: ModelIntInput
+  communicationAverage: ModelIntInput
+  amenitiesAverage: ModelIntInput
+  cleaningAverage: ModelIntInput
+  locationAverage: ModelIntInput
+  serviceAverage: ModelIntInput
+  valueAverage: ModelIntInput
+  cancellationPolicy: ModelStringInput
+  onceOffPaymentsOnly: ModelBooleanInput
+  instantBookEnabled: ModelBooleanInput
+  stayType: ModelStringInput
+  averageStayLength: ModelIntInput
+  checkInTime: ModelFloatInput
+  checkOutTime: ModelFloatInput
+  checkInInstructions: ModelStringInput
+  checkOutInstructions: ModelStringInput
+  timeBeforeCheckIn: ModelIntInput
+  timeAfterCheckOut: ModelIntInput
+  extraGuestFee: ModelFloatInput
+  extraMaxGuests: ModelFloatInput
+  disabledDates: ModelStringInput
+  unavailableDates: ModelStringInput
+  iCalUnavailableDates: ModelStringInput
+  iCalImportLinks: ModelStringInput
+  straID: ModelStringInput
+  advanceNotice: ModelIntInput
+  advanceNoticeTime: ModelIntInput
+  approved: ModelBooleanInput
+  standardServiceFee: ModelBooleanInput
+  fliggyApproved: ModelBooleanInput
+  fliggyHidden: ModelBooleanInput
+  fliggyID: ModelStringInput
+  totalBookings: ModelIntInput
+  wifiName: ModelStringInput
+  wifiPassword: ModelStringInput
+  and: [ModelListingModelFilterInput]
+  or: [ModelListingModelFilterInput]
+  not: ModelListingModelFilterInput
+}
+
+input ModelListingModelConditionInput {
+  createdAt: ModelStringInput
+  owner: ModelStringInput
+  placeId: ModelStringInput
+  unitNumber: ModelIntInput
+  streetNumber: ModelIntInput
+  street: ModelStringInput
+  suburb: ModelStringInput
+  postcode: ModelIntInput
+  state: ModelStringInput
+  city: ModelStringInput
+  country: ModelStringInput
+  beds: ModelIntInput
+  bedrooms: ModelIntInput
+  bathrooms: ModelIntInput
+  propertyType: ModelStringInput
+  typeOfPlace: ModelStringInput
+  propertyDescription: ModelStringInput
+  propertyDescriptionEmbedding: ModelFloatInput
+  propertySoftEmbedding: ModelFloatInput
+  trainingEvolutions: ModelIntInput
+  translatedPropertyDescription: ModelStringInput
+  listingImages: ModelStringInput
+  status: ModelStringInput
+  amenities: ModelStringInput
+  categories: ModelStringInput
+  tags: ModelStringInput
+  deposit: ModelIntInput
+  guests: ModelIntInput
+  minimumStay: ModelIntInput
+  minimumPrice: ModelIntInput
+  maximumPrice: ModelIntInput
+  nightlyPrices: ModelStringInput
+  maximumStay: ModelIntInput
+  weeklyMinimumPrice: ModelIntInput
+  weeklyMaximumStay: ModelIntInput
+  location: ModelStringInput
+  propertyTitle: ModelStringInput
+  internalName: ModelStringInput
+  translatedPropertyTitle: ModelStringInput
+  houseRules: ModelStringInput
+  draft: ModelBooleanInput
+  verified: ModelBooleanInput
+  verifiedDocuments: ModelStringInput
+  weeklyDiscount: ModelFloatInput
+  monthlyDiscount: ModelFloatInput
+  cleaningFee: ModelFloatInput
+  cleaningFrequency: ModelStringInput
+  availabilityRange: ModelStringInput
+  rooms: ModelStringInput
+  userhostmodelID: ModelIDInput
+  overallAverage: ModelIntInput
+  communicationAverage: ModelIntInput
+  amenitiesAverage: ModelIntInput
+  cleaningAverage: ModelIntInput
+  locationAverage: ModelIntInput
+  serviceAverage: ModelIntInput
+  valueAverage: ModelIntInput
+  cancellationPolicy: ModelStringInput
+  onceOffPaymentsOnly: ModelBooleanInput
+  instantBookEnabled: ModelBooleanInput
+  stayType: ModelStringInput
+  averageStayLength: ModelIntInput
+  checkInTime: ModelFloatInput
+  checkOutTime: ModelFloatInput
+  checkInInstructions: ModelStringInput
+  checkOutInstructions: ModelStringInput
+  timeBeforeCheckIn: ModelIntInput
+  timeAfterCheckOut: ModelIntInput
+  extraGuestFee: ModelFloatInput
+  extraMaxGuests: ModelFloatInput
+  disabledDates: ModelStringInput
+  unavailableDates: ModelStringInput
+  iCalUnavailableDates: ModelStringInput
+  iCalImportLinks: ModelStringInput
+  straID: ModelStringInput
+  advanceNotice: ModelIntInput
+  advanceNoticeTime: ModelIntInput
+  approved: ModelBooleanInput
+  standardServiceFee: ModelBooleanInput
+  fliggyApproved: ModelBooleanInput
+  fliggyHidden: ModelBooleanInput
+  fliggyID: ModelStringInput
+  totalBookings: ModelIntInput
+  wifiName: ModelStringInput
+  wifiPassword: ModelStringInput
+  and: [ModelListingModelConditionInput]
+  or: [ModelListingModelConditionInput]
+  not: ModelListingModelConditionInput
+}
+
+input CreateListingModelInput {
+  id: ID
+  createdAt: AWSDateTime
+  owner: String!
+  placeId: String
+  unitNumber: Int
+  streetNumber: Int
+  street: String
+  suburb: String
+  postcode: Int
+  state: String
+  city: String
+  country: String
+  beds: Int
+  bedrooms: Int
+  bathrooms: Int
+  propertyType: String
+  typeOfPlace: String
+  propertyDescription: String
+  propertyDescriptionEmbedding: [Float]
+  propertySoftEmbedding: [Float]
+  trainingEvolutions: Int
+  translatedPropertyDescription: String
+  listingImages: [String]
+  status: String
+  amenities: [String]
+  categories: [String]
+  tags: [String]
+  deposit: Int
+  guests: Int
+  minimumStay: Int
+  minimumPrice: Int
+  maximumPrice: Int
+  nightlyPrices: [AWSJSON]
+  maximumStay: Int
+  weeklyMinimumPrice: Int
+  weeklyMaximumStay: Int
+  location: AWSJSON
+  propertyTitle: String
+  internalName: String
+  translatedPropertyTitle: String
+  houseRules: [String]
+  draft: Boolean
+  verified: Boolean
+  verifiedDocuments: [String]
+  weeklyDiscount: Float
+  monthlyDiscount: Float
+  cleaningFee: Float
+  cleaningFrequency: String
+  availabilityRange: String
+  rooms: [AWSJSON]
+  userhostmodelID: ID
+  overallAverage: Int
+  communicationAverage: Int
+  amenitiesAverage: Int
+  cleaningAverage: Int
+  locationAverage: Int
+  serviceAverage: Int
+  valueAverage: Int
+  cancellationPolicy: String
+  onceOffPaymentsOnly: Boolean
+  instantBookEnabled: Boolean
+  stayType: String
+  averageStayLength: [Int]
+  checkInTime: Float
+  checkOutTime: Float
+  checkInInstructions: String
+  checkOutInstructions: String
+  timeBeforeCheckIn: Int
+  timeAfterCheckOut: Int
+  extraGuestFee: Float
+  extraMaxGuests: Float
+  disabledDates: [AWSJSON]
+  unavailableDates: [AWSJSON]
+  iCalUnavailableDates: [AWSJSON]
+  iCalImportLinks: [String]
+  straID: String
+  advanceNotice: Int
+  advanceNoticeTime: Int
+  approved: Boolean
+  standardServiceFee: Boolean
+  fliggyApproved: Boolean
+  fliggyHidden: Boolean
+  fliggyID: String
+  totalBookings: Int
+  wifiName: String
+  wifiPassword: String
+}
+
+input UpdateListingModelInput {
+  id: ID!
+  createdAt: AWSDateTime
+  owner: String
+  placeId: String
+  unitNumber: Int
+  streetNumber: Int
+  street: String
+  suburb: String
+  postcode: Int
+  state: String
+  city: String
+  country: String
+  beds: Int
+  bedrooms: Int
+  bathrooms: Int
+  propertyType: String
+  typeOfPlace: String
+  propertyDescription: String
+  propertyDescriptionEmbedding: [Float]
+  propertySoftEmbedding: [Float]
+  trainingEvolutions: Int
+  translatedPropertyDescription: String
+  listingImages: [String]
+  status: String
+  amenities: [String]
+  categories: [String]
+  tags: [String]
+  deposit: Int
+  guests: Int
+  minimumStay: Int
+  minimumPrice: Int
+  maximumPrice: Int
+  nightlyPrices: [AWSJSON]
+  maximumStay: Int
+  weeklyMinimumPrice: Int
+  weeklyMaximumStay: Int
+  location: AWSJSON
+  propertyTitle: String
+  internalName: String
+  translatedPropertyTitle: String
+  houseRules: [String]
+  draft: Boolean
+  verified: Boolean
+  verifiedDocuments: [String]
+  weeklyDiscount: Float
+  monthlyDiscount: Float
+  cleaningFee: Float
+  cleaningFrequency: String
+  availabilityRange: String
+  rooms: [AWSJSON]
+  userhostmodelID: ID
+  overallAverage: Int
+  communicationAverage: Int
+  amenitiesAverage: Int
+  cleaningAverage: Int
+  locationAverage: Int
+  serviceAverage: Int
+  valueAverage: Int
+  cancellationPolicy: String
+  onceOffPaymentsOnly: Boolean
+  instantBookEnabled: Boolean
+  stayType: String
+  averageStayLength: [Int]
+  checkInTime: Float
+  checkOutTime: Float
+  checkInInstructions: String
+  checkOutInstructions: String
+  timeBeforeCheckIn: Int
+  timeAfterCheckOut: Int
+  extraGuestFee: Float
+  extraMaxGuests: Float
+  disabledDates: [AWSJSON]
+  unavailableDates: [AWSJSON]
+  iCalUnavailableDates: [AWSJSON]
+  iCalImportLinks: [String]
+  straID: String
+  advanceNotice: Int
+  advanceNoticeTime: Int
+  approved: Boolean
+  standardServiceFee: Boolean
+  fliggyApproved: Boolean
+  fliggyHidden: Boolean
+  fliggyID: String
+  totalBookings: Int
+  wifiName: String
+  wifiPassword: String
+}
+
+input DeleteListingModelInput {
+  id: ID!
+}
+
+input ModelSubscriptionListingModelFilterInput {
+  id: ModelSubscriptionIDInput
+  createdAt: ModelSubscriptionStringInput
+  placeId: ModelSubscriptionStringInput
+  unitNumber: ModelSubscriptionIntInput
+  streetNumber: ModelSubscriptionIntInput
+  street: ModelSubscriptionStringInput
+  suburb: ModelSubscriptionStringInput
+  postcode: ModelSubscriptionIntInput
+  state: ModelSubscriptionStringInput
+  city: ModelSubscriptionStringInput
+  country: ModelSubscriptionStringInput
+  beds: ModelSubscriptionIntInput
+  bedrooms: ModelSubscriptionIntInput
+  bathrooms: ModelSubscriptionIntInput
+  propertyType: ModelSubscriptionStringInput
+  typeOfPlace: ModelSubscriptionStringInput
+  propertyDescription: ModelSubscriptionStringInput
+  propertyDescriptionEmbedding: ModelSubscriptionFloatInput
+  propertySoftEmbedding: ModelSubscriptionFloatInput
+  trainingEvolutions: ModelSubscriptionIntInput
+  translatedPropertyDescription: ModelSubscriptionStringInput
+  listingImages: ModelSubscriptionStringInput
+  status: ModelSubscriptionStringInput
+  amenities: ModelSubscriptionStringInput
+  categories: ModelSubscriptionStringInput
+  tags: ModelSubscriptionStringInput
+  deposit: ModelSubscriptionIntInput
+  guests: ModelSubscriptionIntInput
+  minimumStay: ModelSubscriptionIntInput
+  minimumPrice: ModelSubscriptionIntInput
+  maximumPrice: ModelSubscriptionIntInput
+  nightlyPrices: ModelSubscriptionStringInput
+  maximumStay: ModelSubscriptionIntInput
+  weeklyMinimumPrice: ModelSubscriptionIntInput
+  weeklyMaximumStay: ModelSubscriptionIntInput
+  location: ModelSubscriptionStringInput
+  propertyTitle: ModelSubscriptionStringInput
+  internalName: ModelSubscriptionStringInput
+  translatedPropertyTitle: ModelSubscriptionStringInput
+  houseRules: ModelSubscriptionStringInput
+  draft: ModelSubscriptionBooleanInput
+  verified: ModelSubscriptionBooleanInput
+  verifiedDocuments: ModelSubscriptionStringInput
+  weeklyDiscount: ModelSubscriptionFloatInput
+  monthlyDiscount: ModelSubscriptionFloatInput
+  cleaningFee: ModelSubscriptionFloatInput
+  cleaningFrequency: ModelSubscriptionStringInput
+  availabilityRange: ModelSubscriptionStringInput
+  rooms: ModelSubscriptionStringInput
+  userhostmodelID: ModelSubscriptionIDInput
+  overallAverage: ModelSubscriptionIntInput
+  communicationAverage: ModelSubscriptionIntInput
+  amenitiesAverage: ModelSubscriptionIntInput
+  cleaningAverage: ModelSubscriptionIntInput
+  locationAverage: ModelSubscriptionIntInput
+  serviceAverage: ModelSubscriptionIntInput
+  valueAverage: ModelSubscriptionIntInput
+  cancellationPolicy: ModelSubscriptionStringInput
+  onceOffPaymentsOnly: ModelSubscriptionBooleanInput
+  instantBookEnabled: ModelSubscriptionBooleanInput
+  stayType: ModelSubscriptionStringInput
+  averageStayLength: ModelSubscriptionIntInput
+  checkInTime: ModelSubscriptionFloatInput
+  checkOutTime: ModelSubscriptionFloatInput
+  checkInInstructions: ModelSubscriptionStringInput
+  checkOutInstructions: ModelSubscriptionStringInput
+  timeBeforeCheckIn: ModelSubscriptionIntInput
+  timeAfterCheckOut: ModelSubscriptionIntInput
+  extraGuestFee: ModelSubscriptionFloatInput
+  extraMaxGuests: ModelSubscriptionFloatInput
+  disabledDates: ModelSubscriptionStringInput
+  unavailableDates: ModelSubscriptionStringInput
+  iCalUnavailableDates: ModelSubscriptionStringInput
+  iCalImportLinks: ModelSubscriptionStringInput
+  straID: ModelSubscriptionStringInput
+  advanceNotice: ModelSubscriptionIntInput
+  advanceNoticeTime: ModelSubscriptionIntInput
+  approved: ModelSubscriptionBooleanInput
+  standardServiceFee: ModelSubscriptionBooleanInput
+  fliggyApproved: ModelSubscriptionBooleanInput
+  fliggyHidden: ModelSubscriptionBooleanInput
+  fliggyID: ModelSubscriptionStringInput
+  totalBookings: ModelSubscriptionIntInput
+  wifiName: ModelSubscriptionStringInput
+  wifiPassword: ModelSubscriptionStringInput
+  and: [ModelSubscriptionListingModelFilterInput]
+  or: [ModelSubscriptionListingModelFilterInput]
+}
+
+type ModelRoomModelConnection @aws_iam @aws_cognito_user_pools {
+  items: [RoomModel]!
+  nextToken: String
+}
+
+input ModelRoomModelFilterInput {
+  id: ModelIDInput
+  owner: ModelStringInput
+  listingmodelID: ModelIDInput
+  userhostmodelID: ModelIDInput
+  images: ModelStringInput
+  roomTitle: ModelStringInput
+  roomDescription: ModelStringInput
+  roomType: ModelStringInput
+  roomAmenities: ModelStringInput
+  roomBeds: ModelStringInput
+  and: [ModelRoomModelFilterInput]
+  or: [ModelRoomModelFilterInput]
+  not: ModelRoomModelFilterInput
+}
+
+input ModelRoomModelConditionInput {
+  owner: ModelStringInput
+  listingmodelID: ModelIDInput
+  userhostmodelID: ModelIDInput
+  images: ModelStringInput
+  roomTitle: ModelStringInput
+  roomDescription: ModelStringInput
+  roomType: ModelStringInput
+  roomAmenities: ModelStringInput
+  roomBeds: ModelStringInput
+  and: [ModelRoomModelConditionInput]
+  or: [ModelRoomModelConditionInput]
+  not: ModelRoomModelConditionInput
+}
+
+input CreateRoomModelInput {
+  id: ID
+  owner: String!
+  listingmodelID: ID!
+  userhostmodelID: ID
+  images: [String]
+  roomTitle: String
+  roomDescription: String
+  roomType: String
+  roomAmenities: [String]
+  roomBeds: [String]
+}
+
+input UpdateRoomModelInput {
+  id: ID!
+  owner: String
+  listingmodelID: ID
+  userhostmodelID: ID
+  images: [String]
+  roomTitle: String
+  roomDescription: String
+  roomType: String
+  roomAmenities: [String]
+  roomBeds: [String]
+}
+
+input DeleteRoomModelInput {
+  id: ID!
+}
+
+input ModelSubscriptionRoomModelFilterInput {
+  id: ModelSubscriptionIDInput
+  listingmodelID: ModelSubscriptionIDInput
+  userhostmodelID: ModelSubscriptionIDInput
+  images: ModelSubscriptionStringInput
+  roomTitle: ModelSubscriptionStringInput
+  roomDescription: ModelSubscriptionStringInput
+  roomType: ModelSubscriptionStringInput
+  roomAmenities: ModelSubscriptionStringInput
+  roomBeds: ModelSubscriptionStringInput
+  and: [ModelSubscriptionRoomModelFilterInput]
+  or: [ModelSubscriptionRoomModelFilterInput]
+}
+
+type ModelConversationModelConnection @aws_iam @aws_cognito_user_pools {
+  items: [ConversationModel]!
+  nextToken: String
+}
+
+input ModelConversationModelFilterInput {
+  id: ModelIDInput
+  updatedAt: ModelStringInput
+  owners: ModelStringInput
+  messageownerID: ModelIDInput
+  listingmodelID: ModelIDInput
+  userhostmodelID: ModelIDInput
+  bookingrequestID: ModelIDInput
+  guestSeen: ModelBooleanInput
+  hostSeen: ModelBooleanInput
+  status: ModelStringInput
+  and: [ModelConversationModelFilterInput]
+  or: [ModelConversationModelFilterInput]
+  not: ModelConversationModelFilterInput
+}
+
+input ModelConversationModelConditionInput {
+  updatedAt: ModelStringInput
+  owners: ModelStringInput
+  messageownerID: ModelIDInput
+  listingmodelID: ModelIDInput
+  userhostmodelID: ModelIDInput
+  bookingrequestID: ModelIDInput
+  guestSeen: ModelBooleanInput
+  hostSeen: ModelBooleanInput
+  status: ModelStringInput
+  and: [ModelConversationModelConditionInput]
+  or: [ModelConversationModelConditionInput]
+  not: ModelConversationModelConditionInput
+}
+
+input CreateConversationModelInput {
+  id: ID
+  updatedAt: AWSDateTime
+  owners: [String!]
+  messageownerID: ID
+  listingmodelID: ID
+  userhostmodelID: ID
+  bookingrequestID: ID
+  guestSeen: Boolean
+  hostSeen: Boolean
+  status: String
+}
+
+input UpdateConversationModelInput {
+  id: ID!
+  updatedAt: AWSDateTime
+  owners: [String!]
+  messageownerID: ID
+  listingmodelID: ID
+  userhostmodelID: ID
+  bookingrequestID: ID
+  guestSeen: Boolean
+  hostSeen: Boolean
+  status: String
+}
+
+input DeleteConversationModelInput {
+  id: ID!
+}
+
+input ModelSubscriptionConversationModelFilterInput {
+  id: ModelSubscriptionIDInput
+  updatedAt: ModelSubscriptionStringInput
+  messageownerID: ModelSubscriptionIDInput
+  listingmodelID: ModelSubscriptionIDInput
+  userhostmodelID: ModelSubscriptionIDInput
+  bookingrequestID: ModelSubscriptionIDInput
+  guestSeen: ModelSubscriptionBooleanInput
+  hostSeen: ModelSubscriptionBooleanInput
+  status: ModelSubscriptionStringInput
+  and: [ModelSubscriptionConversationModelFilterInput]
+  or: [ModelSubscriptionConversationModelFilterInput]
+}
+
+type ModelMessageModelConnection @aws_iam @aws_cognito_user_pools {
+  items: [MessageModel]!
+  nextToken: String
+}
+
+input ModelMessageModelFilterInput {
+  id: ModelIDInput
+  createdAt: ModelStringInput
+  tempId: ModelStringInput
+  owners: ModelStringInput
+  body: ModelStringInput
+  author: ModelStringInput
+  conversationmodelID: ModelIDInput
+  isNote: ModelBooleanInput
+  isTimestamp: ModelBooleanInput
+  guestNoteBody: ModelStringInput
+  hostNoteBody: ModelStringInput
+  and: [ModelMessageModelFilterInput]
+  or: [ModelMessageModelFilterInput]
+  not: ModelMessageModelFilterInput
+}
+
+input ModelMessageModelConditionInput {
+  createdAt: ModelStringInput
+  tempId: ModelStringInput
+  owners: ModelStringInput
+  body: ModelStringInput
+  author: ModelStringInput
+  conversationmodelID: ModelIDInput
+  isNote: ModelBooleanInput
+  isTimestamp: ModelBooleanInput
+  guestNoteBody: ModelStringInput
+  hostNoteBody: ModelStringInput
+  and: [ModelMessageModelConditionInput]
+  or: [ModelMessageModelConditionInput]
+  not: ModelMessageModelConditionInput
+}
+
+input CreateMessageModelInput {
+  id: ID
+  createdAt: AWSDateTime
+  tempId: String
+  owners: [String]
+  body: String
+  author: String
+  conversationmodelID: ID
+  isNote: Boolean
+  isTimestamp: Boolean
+  guestNoteBody: String
+  hostNoteBody: String
+}
+
+input UpdateMessageModelInput {
+  id: ID!
+  createdAt: AWSDateTime
+  tempId: String
+  owners: [String]
+  body: String
+  author: String
+  conversationmodelID: ID
+  isNote: Boolean
+  isTimestamp: Boolean
+  guestNoteBody: String
+  hostNoteBody: String
+}
+
+input DeleteMessageModelInput {
+  id: ID!
+}
+
+input ModelSubscriptionMessageModelFilterInput {
+  id: ModelSubscriptionIDInput
+  createdAt: ModelSubscriptionStringInput
+  tempId: ModelSubscriptionStringInput
+  body: ModelSubscriptionStringInput
+  author: ModelSubscriptionStringInput
+  conversationmodelID: ModelSubscriptionIDInput
+  isNote: ModelSubscriptionBooleanInput
+  isTimestamp: ModelSubscriptionBooleanInput
+  guestNoteBody: ModelSubscriptionStringInput
+  hostNoteBody: ModelSubscriptionStringInput
+  and: [ModelSubscriptionMessageModelFilterInput]
+  or: [ModelSubscriptionMessageModelFilterInput]
+}
+
+type ModelBookingRequestModelConnection @aws_iam @aws_cognito_user_pools {
+  items: [BookingRequestModel]!
+  nextToken: String
+}
+
+input ModelBookingRequestModelFilterInput {
+  id: ModelIDInput
+  owners: ModelStringInput
+  arrivalDate: ModelStringInput
+  departureDate: ModelStringInput
+  guests: ModelIntInput
+  adults: ModelIntInput
+  children: ModelIntInput
+  infants: ModelIntInput
+  pets: ModelIntInput
+  maxGuests: ModelIntInput
+  expired: ModelBooleanInput
+  usermodelID: ModelIDInput
+  userhostmodelID: ModelIDInput
+  listingmodelID: ModelIDInput
+  paymentmodelID: ModelIDInput
+  stripeAccountID: ModelStringInput
+  confirmationCode: ModelStringInput
+  conversationmodelID: ModelIDInput
+  ordermodelID: ModelIDInput
+  confirmed: ModelBooleanInput
+  confirmedAt: ModelStringInput
+  couponCode: ModelStringInput
+  couponDiscountAmount: ModelIntInput
+  declined: ModelBooleanInput
+  reasonDeclined: ModelStringInput
+  cancelled: ModelBooleanInput
+  cancelledAt: ModelStringInput
+  cancelledBy: ModelStringInput
+  reasonCancelled: ModelStringInput
+  completed: ModelBooleanInput
+  stayReviewed: ModelBooleanInput
+  guestReviewed: ModelBooleanInput
+  checkInTime: ModelIntInput
+  checkOutTime: ModelIntInput
+  cancellationPolicy: ModelStringInput
+  timeBeforeCheckIn: ModelIntInput
+  timeAfterCheckOut: ModelIntInput
+  bookingAmount: ModelIntInput
+  bookingAmountIncludingServiceFee: ModelIntInput
+  paymentAmount: ModelIntInput
+  pricePerNight: ModelIntInput
+  guestPriceBreakdown: ModelStringInput
+  hostPriceBreakdown: ModelStringInput
+  nightlyPrices: ModelStringInput
+  serviceFee: ModelIntInput
+  cleaningFee: ModelIntInput
+  extraGuestFee: ModelIntInput
+  extraMaxGuests: ModelIntInput
+  weeklyDiscount: ModelIntInput
+  monthlyDiscount: ModelIntInput
+  paymentModels: ModelStringInput
+  transferModels: ModelStringInput
+  refundModels: ModelStringInput
+  transferReversalModels: ModelStringInput
+  deposit: ModelIntInput
+  refundedAmount: ModelIntInput
+  standardServiceFee: ModelBooleanInput
+  hostPaid: ModelBooleanInput
+  responseNeeded: ModelBooleanInput
+  responseBeofre: ModelStringInput
+  and: [ModelBookingRequestModelFilterInput]
+  or: [ModelBookingRequestModelFilterInput]
+  not: ModelBookingRequestModelFilterInput
+}
+
+input ModelBookingRequestModelConditionInput {
+  owners: ModelStringInput
+  arrivalDate: ModelStringInput
+  departureDate: ModelStringInput
+  guests: ModelIntInput
+  adults: ModelIntInput
+  children: ModelIntInput
+  infants: ModelIntInput
+  pets: ModelIntInput
+  maxGuests: ModelIntInput
+  expired: ModelBooleanInput
+  usermodelID: ModelIDInput
+  userhostmodelID: ModelIDInput
+  listingmodelID: ModelIDInput
+  paymentmodelID: ModelIDInput
+  stripeAccountID: ModelStringInput
+  confirmationCode: ModelStringInput
+  conversationmodelID: ModelIDInput
+  ordermodelID: ModelIDInput
+  confirmed: ModelBooleanInput
+  confirmedAt: ModelStringInput
+  couponCode: ModelStringInput
+  couponDiscountAmount: ModelIntInput
+  declined: ModelBooleanInput
+  reasonDeclined: ModelStringInput
+  cancelled: ModelBooleanInput
+  cancelledAt: ModelStringInput
+  cancelledBy: ModelStringInput
+  reasonCancelled: ModelStringInput
+  completed: ModelBooleanInput
+  stayReviewed: ModelBooleanInput
+  guestReviewed: ModelBooleanInput
+  checkInTime: ModelIntInput
+  checkOutTime: ModelIntInput
+  cancellationPolicy: ModelStringInput
+  timeBeforeCheckIn: ModelIntInput
+  timeAfterCheckOut: ModelIntInput
+  bookingAmount: ModelIntInput
+  bookingAmountIncludingServiceFee: ModelIntInput
+  paymentAmount: ModelIntInput
+  pricePerNight: ModelIntInput
+  guestPriceBreakdown: ModelStringInput
+  hostPriceBreakdown: ModelStringInput
+  nightlyPrices: ModelStringInput
+  serviceFee: ModelIntInput
+  cleaningFee: ModelIntInput
+  extraGuestFee: ModelIntInput
+  extraMaxGuests: ModelIntInput
+  weeklyDiscount: ModelIntInput
+  monthlyDiscount: ModelIntInput
+  paymentModels: ModelStringInput
+  transferModels: ModelStringInput
+  refundModels: ModelStringInput
+  transferReversalModels: ModelStringInput
+  deposit: ModelIntInput
+  refundedAmount: ModelIntInput
+  standardServiceFee: ModelBooleanInput
+  hostPaid: ModelBooleanInput
+  responseNeeded: ModelBooleanInput
+  responseBeofre: ModelStringInput
+  and: [ModelBookingRequestModelConditionInput]
+  or: [ModelBookingRequestModelConditionInput]
+  not: ModelBookingRequestModelConditionInput
+}
+
+input CreateBookingRequestModelInput {
+  id: ID
+  owners: [String!]
+  arrivalDate: AWSDateTime
+  departureDate: AWSDateTime
+  guests: Int
+  adults: Int
+  children: Int
+  infants: Int
+  pets: Int
+  maxGuests: Int
+  expired: Boolean
+  usermodelID: ID
+  userhostmodelID: ID
+  listingmodelID: ID
+  paymentmodelID: ID
+  stripeAccountID: String
+  confirmationCode: String
+  conversationmodelID: ID
+  ordermodelID: ID
+  confirmed: Boolean
+  confirmedAt: AWSDateTime
+  couponCode: String
+  couponDiscountAmount: Int
+  declined: Boolean
+  reasonDeclined: String
+  cancelled: Boolean
+  cancelledAt: AWSDateTime
+  cancelledBy: String
+  reasonCancelled: String
+  completed: Boolean
+  stayReviewed: Boolean
+  guestReviewed: Boolean
+  checkInTime: Int
+  checkOutTime: Int
+  cancellationPolicy: String
+  timeBeforeCheckIn: Int
+  timeAfterCheckOut: Int
+  bookingAmount: Int
+  bookingAmountIncludingServiceFee: Int
+  paymentAmount: Int
+  pricePerNight: Int
+  guestPriceBreakdown: AWSJSON
+  hostPriceBreakdown: AWSJSON
+  nightlyPrices: [AWSJSON]
+  serviceFee: Int
+  cleaningFee: Int
+  extraGuestFee: Int
+  extraMaxGuests: Int
+  weeklyDiscount: Int
+  monthlyDiscount: Int
+  paymentModels: [String]
+  transferModels: [String]
+  refundModels: [String]
+  transferReversalModels: [String]
+  deposit: Int
+  refundedAmount: Int
+  standardServiceFee: Boolean
+  hostPaid: Boolean
+  responseNeeded: Boolean
+  responseBeofre: AWSDateTime
+}
+
+input UpdateBookingRequestModelInput {
+  id: ID!
+  owners: [String!]
+  arrivalDate: AWSDateTime
+  departureDate: AWSDateTime
+  guests: Int
+  adults: Int
+  children: Int
+  infants: Int
+  pets: Int
+  maxGuests: Int
+  expired: Boolean
+  usermodelID: ID
+  userhostmodelID: ID
+  listingmodelID: ID
+  paymentmodelID: ID
+  stripeAccountID: String
+  confirmationCode: String
+  conversationmodelID: ID
+  ordermodelID: ID
+  confirmed: Boolean
+  confirmedAt: AWSDateTime
+  couponCode: String
+  couponDiscountAmount: Int
+  declined: Boolean
+  reasonDeclined: String
+  cancelled: Boolean
+  cancelledAt: AWSDateTime
+  cancelledBy: String
+  reasonCancelled: String
+  completed: Boolean
+  stayReviewed: Boolean
+  guestReviewed: Boolean
+  checkInTime: Int
+  checkOutTime: Int
+  cancellationPolicy: String
+  timeBeforeCheckIn: Int
+  timeAfterCheckOut: Int
+  bookingAmount: Int
+  bookingAmountIncludingServiceFee: Int
+  paymentAmount: Int
+  pricePerNight: Int
+  guestPriceBreakdown: AWSJSON
+  hostPriceBreakdown: AWSJSON
+  nightlyPrices: [AWSJSON]
+  serviceFee: Int
+  cleaningFee: Int
+  extraGuestFee: Int
+  extraMaxGuests: Int
+  weeklyDiscount: Int
+  monthlyDiscount: Int
+  paymentModels: [String]
+  transferModels: [String]
+  refundModels: [String]
+  transferReversalModels: [String]
+  deposit: Int
+  refundedAmount: Int
+  standardServiceFee: Boolean
+  hostPaid: Boolean
+  responseNeeded: Boolean
+  responseBeofre: AWSDateTime
+}
+
+input DeleteBookingRequestModelInput {
+  id: ID!
+}
+
+input ModelSubscriptionBookingRequestModelFilterInput {
+  id: ModelSubscriptionIDInput
+  arrivalDate: ModelSubscriptionStringInput
+  departureDate: ModelSubscriptionStringInput
+  guests: ModelSubscriptionIntInput
+  adults: ModelSubscriptionIntInput
+  children: ModelSubscriptionIntInput
+  infants: ModelSubscriptionIntInput
+  pets: ModelSubscriptionIntInput
+  maxGuests: ModelSubscriptionIntInput
+  expired: ModelSubscriptionBooleanInput
+  usermodelID: ModelSubscriptionIDInput
+  userhostmodelID: ModelSubscriptionIDInput
+  listingmodelID: ModelSubscriptionIDInput
+  paymentmodelID: ModelSubscriptionIDInput
+  stripeAccountID: ModelSubscriptionStringInput
+  confirmationCode: ModelSubscriptionStringInput
+  conversationmodelID: ModelSubscriptionIDInput
+  ordermodelID: ModelSubscriptionIDInput
+  confirmed: ModelSubscriptionBooleanInput
+  confirmedAt: ModelSubscriptionStringInput
+  couponCode: ModelSubscriptionStringInput
+  couponDiscountAmount: ModelSubscriptionIntInput
+  declined: ModelSubscriptionBooleanInput
+  reasonDeclined: ModelSubscriptionStringInput
+  cancelled: ModelSubscriptionBooleanInput
+  cancelledAt: ModelSubscriptionStringInput
+  cancelledBy: ModelSubscriptionStringInput
+  reasonCancelled: ModelSubscriptionStringInput
+  completed: ModelSubscriptionBooleanInput
+  stayReviewed: ModelSubscriptionBooleanInput
+  guestReviewed: ModelSubscriptionBooleanInput
+  checkInTime: ModelSubscriptionIntInput
+  checkOutTime: ModelSubscriptionIntInput
+  cancellationPolicy: ModelSubscriptionStringInput
+  timeBeforeCheckIn: ModelSubscriptionIntInput
+  timeAfterCheckOut: ModelSubscriptionIntInput
+  bookingAmount: ModelSubscriptionIntInput
+  bookingAmountIncludingServiceFee: ModelSubscriptionIntInput
+  paymentAmount: ModelSubscriptionIntInput
+  pricePerNight: ModelSubscriptionIntInput
+  guestPriceBreakdown: ModelSubscriptionStringInput
+  hostPriceBreakdown: ModelSubscriptionStringInput
+  nightlyPrices: ModelSubscriptionStringInput
+  serviceFee: ModelSubscriptionIntInput
+  cleaningFee: ModelSubscriptionIntInput
+  extraGuestFee: ModelSubscriptionIntInput
+  extraMaxGuests: ModelSubscriptionIntInput
+  weeklyDiscount: ModelSubscriptionIntInput
+  monthlyDiscount: ModelSubscriptionIntInput
+  paymentModels: ModelSubscriptionStringInput
+  transferModels: ModelSubscriptionStringInput
+  refundModels: ModelSubscriptionStringInput
+  transferReversalModels: ModelSubscriptionStringInput
+  deposit: ModelSubscriptionIntInput
+  refundedAmount: ModelSubscriptionIntInput
+  standardServiceFee: ModelSubscriptionBooleanInput
+  hostPaid: ModelSubscriptionBooleanInput
+  responseNeeded: ModelSubscriptionBooleanInput
+  responseBeofre: ModelSubscriptionStringInput
+  and: [ModelSubscriptionBookingRequestModelFilterInput]
+  or: [ModelSubscriptionBookingRequestModelFilterInput]
+}
+
+type ModelChangeBookingRequestModelConnection @aws_iam @aws_cognito_user_pools {
+  items: [ChangeBookingRequestModel]!
+  nextToken: String
+}
+
+input ModelChangeBookingRequestModelFilterInput {
+  id: ModelIDInput
+  createdAt: ModelStringInput
+  owners: ModelStringInput
+  bookingRequestID: ModelIDInput
+  newArrivalDate: ModelStringInput
+  newDepartureDate: ModelStringInput
+  newGuests: ModelIntInput
+  newAdults: ModelIntInput
+  newChildren: ModelIntInput
+  newInfants: ModelIntInput
+  newPets: ModelIntInput
+  paymentIntentID: ModelStringInput
+  bookingAmount: ModelFloatInput
+  bookingAmountIncludingServiceFee: ModelFloatInput
+  serviceFee: ModelFloatInput
+  newBookingAmount: ModelFloatInput
+  newServiceFee: ModelFloatInput
+  newBookingAmountIncludingServiceFee: ModelFloatInput
+  priceDifference: ModelFloatInput
+  serviceFeePriceDifference: ModelFloatInput
+  confirmed: ModelBooleanInput
+  declined: ModelBooleanInput
+  completed: ModelBooleanInput
+  pricePerNight: ModelIntInput
+  and: [ModelChangeBookingRequestModelFilterInput]
+  or: [ModelChangeBookingRequestModelFilterInput]
+  not: ModelChangeBookingRequestModelFilterInput
+}
+
+input ModelChangeBookingRequestModelConditionInput {
+  createdAt: ModelStringInput
+  owners: ModelStringInput
+  bookingRequestID: ModelIDInput
+  newArrivalDate: ModelStringInput
+  newDepartureDate: ModelStringInput
+  newGuests: ModelIntInput
+  newAdults: ModelIntInput
+  newChildren: ModelIntInput
+  newInfants: ModelIntInput
+  newPets: ModelIntInput
+  paymentIntentID: ModelStringInput
+  bookingAmount: ModelFloatInput
+  bookingAmountIncludingServiceFee: ModelFloatInput
+  serviceFee: ModelFloatInput
+  newBookingAmount: ModelFloatInput
+  newServiceFee: ModelFloatInput
+  newBookingAmountIncludingServiceFee: ModelFloatInput
+  priceDifference: ModelFloatInput
+  serviceFeePriceDifference: ModelFloatInput
+  confirmed: ModelBooleanInput
+  declined: ModelBooleanInput
+  completed: ModelBooleanInput
+  pricePerNight: ModelIntInput
+  and: [ModelChangeBookingRequestModelConditionInput]
+  or: [ModelChangeBookingRequestModelConditionInput]
+  not: ModelChangeBookingRequestModelConditionInput
+}
+
+input CreateChangeBookingRequestModelInput {
+  id: ID
+  createdAt: AWSDateTime
+  owners: [String!]
+  bookingRequestID: ID!
+  newArrivalDate: AWSDateTime
+  newDepartureDate: AWSDateTime
+  newGuests: Int
+  newAdults: Int
+  newChildren: Int
+  newInfants: Int
+  newPets: Int
+  paymentIntentID: String
+  bookingAmount: Float
+  bookingAmountIncludingServiceFee: Float
+  serviceFee: Float
+  newBookingAmount: Float
+  newServiceFee: Float
+  newBookingAmountIncludingServiceFee: Float
+  priceDifference: Float
+  serviceFeePriceDifference: Float
+  confirmed: Boolean
+  declined: Boolean
+  completed: Boolean
+  pricePerNight: Int
+}
+
+input UpdateChangeBookingRequestModelInput {
+  id: ID!
+  createdAt: AWSDateTime
+  owners: [String!]
+  bookingRequestID: ID
+  newArrivalDate: AWSDateTime
+  newDepartureDate: AWSDateTime
+  newGuests: Int
+  newAdults: Int
+  newChildren: Int
+  newInfants: Int
+  newPets: Int
+  paymentIntentID: String
+  bookingAmount: Float
+  bookingAmountIncludingServiceFee: Float
+  serviceFee: Float
+  newBookingAmount: Float
+  newServiceFee: Float
+  newBookingAmountIncludingServiceFee: Float
+  priceDifference: Float
+  serviceFeePriceDifference: Float
+  confirmed: Boolean
+  declined: Boolean
+  completed: Boolean
+  pricePerNight: Int
+}
+
+input DeleteChangeBookingRequestModelInput {
+  id: ID!
+}
+
+input ModelSubscriptionChangeBookingRequestModelFilterInput {
+  id: ModelSubscriptionIDInput
+  createdAt: ModelSubscriptionStringInput
+  bookingRequestID: ModelSubscriptionIDInput
+  newArrivalDate: ModelSubscriptionStringInput
+  newDepartureDate: ModelSubscriptionStringInput
+  newGuests: ModelSubscriptionIntInput
+  newAdults: ModelSubscriptionIntInput
+  newChildren: ModelSubscriptionIntInput
+  newInfants: ModelSubscriptionIntInput
+  newPets: ModelSubscriptionIntInput
+  paymentIntentID: ModelSubscriptionStringInput
+  bookingAmount: ModelSubscriptionFloatInput
+  bookingAmountIncludingServiceFee: ModelSubscriptionFloatInput
+  serviceFee: ModelSubscriptionFloatInput
+  newBookingAmount: ModelSubscriptionFloatInput
+  newServiceFee: ModelSubscriptionFloatInput
+  newBookingAmountIncludingServiceFee: ModelSubscriptionFloatInput
+  priceDifference: ModelSubscriptionFloatInput
+  serviceFeePriceDifference: ModelSubscriptionFloatInput
+  confirmed: ModelSubscriptionBooleanInput
+  declined: ModelSubscriptionBooleanInput
+  completed: ModelSubscriptionBooleanInput
+  pricePerNight: ModelSubscriptionIntInput
+  and: [ModelSubscriptionChangeBookingRequestModelFilterInput]
+  or: [ModelSubscriptionChangeBookingRequestModelFilterInput]
+}
+
+type ModelProductModelConnection @aws_iam @aws_cognito_user_pools {
+  items: [ProductModel]!
+  nextToken: String
+}
+
+input ModelProductModelFilterInput {
+  id: ModelIDInput
+  owner: ModelStringInput
+  productTitle: ModelStringInput
+  productDescription: ModelStringInput
+  productType: ModelStringInput
+  productImages: ModelStringInput
+  pricePerItem: ModelIntInput
+  pricePerHour: ModelIntInput
+  pricePerDay: ModelIntInput
+  pricePerPerson: ModelIntInput
+  inventory: ModelIntInput
+  unlimitedInventory: ModelBooleanInput
+  status: ModelStringInput
+  approved: ModelBooleanInput
+  draft: ModelBooleanInput
+  instantBookEnabled: ModelBooleanInput
+  userhostmodelID: ModelIDInput
+  categories: ModelStringInput
+  tags: ModelStringInput
+  and: [ModelProductModelFilterInput]
+  or: [ModelProductModelFilterInput]
+  not: ModelProductModelFilterInput
+}
+
+input ModelProductModelConditionInput {
+  owner: ModelStringInput
+  productTitle: ModelStringInput
+  productDescription: ModelStringInput
+  productType: ModelStringInput
+  productImages: ModelStringInput
+  pricePerItem: ModelIntInput
+  pricePerHour: ModelIntInput
+  pricePerDay: ModelIntInput
+  pricePerPerson: ModelIntInput
+  inventory: ModelIntInput
+  unlimitedInventory: ModelBooleanInput
+  status: ModelStringInput
+  approved: ModelBooleanInput
+  draft: ModelBooleanInput
+  instantBookEnabled: ModelBooleanInput
+  userhostmodelID: ModelIDInput
+  categories: ModelStringInput
+  tags: ModelStringInput
+  and: [ModelProductModelConditionInput]
+  or: [ModelProductModelConditionInput]
+  not: ModelProductModelConditionInput
+}
+
+input CreateProductModelInput {
+  id: ID
+  owner: String!
+  productTitle: String!
+  productDescription: String
+  productType: String
+  productImages: [String]
+  pricePerItem: Int
+  pricePerHour: Int
+  pricePerDay: Int
+  pricePerPerson: Int
+  inventory: Int
+  unlimitedInventory: Boolean
+  status: String
+  approved: Boolean
+  draft: Boolean
+  instantBookEnabled: Boolean
+  userhostmodelID: ID
+  categories: [String]
+  tags: [String]
+}
+
+input UpdateProductModelInput {
+  id: ID!
+  owner: String
+  productTitle: String
+  productDescription: String
+  productType: String
+  productImages: [String]
+  pricePerItem: Int
+  pricePerHour: Int
+  pricePerDay: Int
+  pricePerPerson: Int
+  inventory: Int
+  unlimitedInventory: Boolean
+  status: String
+  approved: Boolean
+  draft: Boolean
+  instantBookEnabled: Boolean
+  userhostmodelID: ID
+  categories: [String]
+  tags: [String]
+}
+
+input DeleteProductModelInput {
+  id: ID!
+}
+
+input ModelSubscriptionProductModelFilterInput {
+  id: ModelSubscriptionIDInput
+  productTitle: ModelSubscriptionStringInput
+  productDescription: ModelSubscriptionStringInput
+  productType: ModelSubscriptionStringInput
+  productImages: ModelSubscriptionStringInput
+  pricePerItem: ModelSubscriptionIntInput
+  pricePerHour: ModelSubscriptionIntInput
+  pricePerDay: ModelSubscriptionIntInput
+  pricePerPerson: ModelSubscriptionIntInput
+  inventory: ModelSubscriptionIntInput
+  unlimitedInventory: ModelSubscriptionBooleanInput
+  status: ModelSubscriptionStringInput
+  approved: ModelSubscriptionBooleanInput
+  draft: ModelSubscriptionBooleanInput
+  instantBookEnabled: ModelSubscriptionBooleanInput
+  userhostmodelID: ModelSubscriptionIDInput
+  categories: ModelSubscriptionStringInput
+  tags: ModelSubscriptionStringInput
+  and: [ModelSubscriptionProductModelFilterInput]
+  or: [ModelSubscriptionProductModelFilterInput]
+}
+
+type ModelOrderModelConnection @aws_iam @aws_cognito_user_pools {
+  items: [OrderModel]!
+  nextToken: String
+}
+
+input ModelOrderModelFilterInput {
+  id: ModelIDInput
+  owner: ModelStringInput
+  usermodelID: ModelIDInput
+  userhostmodelID: ModelIDInput
+  status: ModelStringInput
+  confirmed: ModelBooleanInput
+  declined: ModelBooleanInput
+  expired: ModelBooleanInput
+  completed: ModelBooleanInput
+  cancelled: ModelBooleanInput
+  fulfilled: ModelBooleanInput
+  bookingAmount: ModelIntInput
+  bookingAmountIncludingServiceFee: ModelIntInput
+  serviceFee: ModelIntInput
+  couponCode: ModelStringInput
+  couponDiscountAmount: ModelIntInput
+  refunded: ModelIntInput
+  paymentModels: ModelStringInput
+  transferModels: ModelStringInput
+  refundModels: ModelStringInput
+  transferReversalModels: ModelStringInput
+  and: [ModelOrderModelFilterInput]
+  or: [ModelOrderModelFilterInput]
+  not: ModelOrderModelFilterInput
+}
+
+input ModelOrderModelConditionInput {
+  owner: ModelStringInput
+  usermodelID: ModelIDInput
+  userhostmodelID: ModelIDInput
+  status: ModelStringInput
+  confirmed: ModelBooleanInput
+  declined: ModelBooleanInput
+  expired: ModelBooleanInput
+  completed: ModelBooleanInput
+  cancelled: ModelBooleanInput
+  fulfilled: ModelBooleanInput
+  bookingAmount: ModelIntInput
+  bookingAmountIncludingServiceFee: ModelIntInput
+  serviceFee: ModelIntInput
+  couponCode: ModelStringInput
+  couponDiscountAmount: ModelIntInput
+  refunded: ModelIntInput
+  paymentModels: ModelStringInput
+  transferModels: ModelStringInput
+  refundModels: ModelStringInput
+  transferReversalModels: ModelStringInput
+  and: [ModelOrderModelConditionInput]
+  or: [ModelOrderModelConditionInput]
+  not: ModelOrderModelConditionInput
+}
+
+input CreateOrderModelInput {
+  id: ID
+  owner: String!
+  usermodelID: ID
+  userhostmodelID: ID
+  status: String
+  confirmed: Boolean
+  declined: Boolean
+  expired: Boolean
+  completed: Boolean
+  cancelled: Boolean
+  fulfilled: Boolean
+  bookingAmount: Int
+  bookingAmountIncludingServiceFee: Int
+  serviceFee: Int
+  couponCode: String
+  couponDiscountAmount: Int
+  refunded: Int
+  paymentModels: [String]
+  transferModels: [String]
+  refundModels: [String]
+  transferReversalModels: [String]
+}
+
+input UpdateOrderModelInput {
+  id: ID!
+  owner: String
+  usermodelID: ID
+  userhostmodelID: ID
+  status: String
+  confirmed: Boolean
+  declined: Boolean
+  expired: Boolean
+  completed: Boolean
+  cancelled: Boolean
+  fulfilled: Boolean
+  bookingAmount: Int
+  bookingAmountIncludingServiceFee: Int
+  serviceFee: Int
+  couponCode: String
+  couponDiscountAmount: Int
+  refunded: Int
+  paymentModels: [String]
+  transferModels: [String]
+  refundModels: [String]
+  transferReversalModels: [String]
+}
+
+input DeleteOrderModelInput {
+  id: ID!
+}
+
+input ModelSubscriptionOrderModelFilterInput {
+  id: ModelSubscriptionIDInput
+  usermodelID: ModelSubscriptionIDInput
+  userhostmodelID: ModelSubscriptionIDInput
+  status: ModelSubscriptionStringInput
+  confirmed: ModelSubscriptionBooleanInput
+  declined: ModelSubscriptionBooleanInput
+  expired: ModelSubscriptionBooleanInput
+  completed: ModelSubscriptionBooleanInput
+  cancelled: ModelSubscriptionBooleanInput
+  fulfilled: ModelSubscriptionBooleanInput
+  bookingAmount: ModelSubscriptionIntInput
+  bookingAmountIncludingServiceFee: ModelSubscriptionIntInput
+  serviceFee: ModelSubscriptionIntInput
+  couponCode: ModelSubscriptionStringInput
+  couponDiscountAmount: ModelSubscriptionIntInput
+  refunded: ModelSubscriptionIntInput
+  paymentModels: ModelSubscriptionStringInput
+  transferModels: ModelSubscriptionStringInput
+  refundModels: ModelSubscriptionStringInput
+  transferReversalModels: ModelSubscriptionStringInput
+  and: [ModelSubscriptionOrderModelFilterInput]
+  or: [ModelSubscriptionOrderModelFilterInput]
+}
+
+type ModelOrderItemModelConnection @aws_iam @aws_cognito_user_pools {
+  items: [OrderItemModel]!
+  nextToken: String
+}
+
+input ModelOrderItemModelFilterInput {
+  id: ModelIDInput
+  owner: ModelStringInput
+  productmodelID: ModelIDInput
+  quantity: ModelIntInput
+  status: ModelStringInput
+  fulfilled: ModelBooleanInput
+  subTotal: ModelIntInput
+  itemPrice: ModelIntInput
+  guests: ModelIntInput
+  adults: ModelIntInput
+  children: ModelIntInput
+  infants: ModelIntInput
+  pets: ModelIntInput
+  startDate: ModelStringInput
+  endDate: ModelStringInput
+  ordermodelID: ModelIDInput
+  and: [ModelOrderItemModelFilterInput]
+  or: [ModelOrderItemModelFilterInput]
+  not: ModelOrderItemModelFilterInput
+}
+
+input ModelOrderItemModelConditionInput {
+  owner: ModelStringInput
+  productmodelID: ModelIDInput
+  quantity: ModelIntInput
+  status: ModelStringInput
+  fulfilled: ModelBooleanInput
+  subTotal: ModelIntInput
+  itemPrice: ModelIntInput
+  guests: ModelIntInput
+  adults: ModelIntInput
+  children: ModelIntInput
+  infants: ModelIntInput
+  pets: ModelIntInput
+  startDate: ModelStringInput
+  endDate: ModelStringInput
+  ordermodelID: ModelIDInput
+  and: [ModelOrderItemModelConditionInput]
+  or: [ModelOrderItemModelConditionInput]
+  not: ModelOrderItemModelConditionInput
+}
+
+input CreateOrderItemModelInput {
+  id: ID
+  owner: String!
+  productmodelID: ID
+  quantity: Int
+  status: String
+  fulfilled: Boolean
+  subTotal: Int
+  itemPrice: Int
+  guests: Int
+  adults: Int
+  children: Int
+  infants: Int
+  pets: Int
+  startDate: AWSDateTime
+  endDate: AWSDateTime
+  ordermodelID: ID
+}
+
+input UpdateOrderItemModelInput {
+  id: ID!
+  owner: String
+  productmodelID: ID
+  quantity: Int
+  status: String
+  fulfilled: Boolean
+  subTotal: Int
+  itemPrice: Int
+  guests: Int
+  adults: Int
+  children: Int
+  infants: Int
+  pets: Int
+  startDate: AWSDateTime
+  endDate: AWSDateTime
+  ordermodelID: ID
+}
+
+input DeleteOrderItemModelInput {
+  id: ID!
+}
+
+input ModelSubscriptionOrderItemModelFilterInput {
+  id: ModelSubscriptionIDInput
+  productmodelID: ModelSubscriptionIDInput
+  quantity: ModelSubscriptionIntInput
+  status: ModelSubscriptionStringInput
+  fulfilled: ModelSubscriptionBooleanInput
+  subTotal: ModelSubscriptionIntInput
+  itemPrice: ModelSubscriptionIntInput
+  guests: ModelSubscriptionIntInput
+  adults: ModelSubscriptionIntInput
+  children: ModelSubscriptionIntInput
+  infants: ModelSubscriptionIntInput
+  pets: ModelSubscriptionIntInput
+  startDate: ModelSubscriptionStringInput
+  endDate: ModelSubscriptionStringInput
+  ordermodelID: ModelSubscriptionIDInput
+  and: [ModelSubscriptionOrderItemModelFilterInput]
+  or: [ModelSubscriptionOrderItemModelFilterInput]
+}
+
+type ModelReviewStayModelConnection @aws_iam @aws_cognito_user_pools {
+  items: [ReviewStayModel]!
+  nextToken: String
+}
+
+input ModelReviewStayModelFilterInput {
+  id: ModelIDInput
+  bookingRequestID: ModelIDInput
+  listingmodelID: ModelIDInput
+  usermodelID: ModelStringInput
+  overall: ModelIntInput
+  communication: ModelIntInput
+  amenities: ModelIntInput
+  cleaning: ModelIntInput
+  location: ModelIntInput
+  service: ModelIntInput
+  value: ModelIntInput
+  body: ModelStringInput
+  completed: ModelBooleanInput
+  hidden: ModelBooleanInput
+  and: [ModelReviewStayModelFilterInput]
+  or: [ModelReviewStayModelFilterInput]
+  not: ModelReviewStayModelFilterInput
+}
+
+input ModelReviewStayModelConditionInput {
+  bookingRequestID: ModelIDInput
+  listingmodelID: ModelIDInput
+  usermodelID: ModelStringInput
+  overall: ModelIntInput
+  communication: ModelIntInput
+  amenities: ModelIntInput
+  cleaning: ModelIntInput
+  location: ModelIntInput
+  service: ModelIntInput
+  value: ModelIntInput
+  body: ModelStringInput
+  completed: ModelBooleanInput
+  hidden: ModelBooleanInput
+  and: [ModelReviewStayModelConditionInput]
+  or: [ModelReviewStayModelConditionInput]
+  not: ModelReviewStayModelConditionInput
+}
+
+input CreateReviewStayModelInput {
+  id: ID
+  bookingRequestID: ID!
+  listingmodelID: ID
+  usermodelID: String
+  overall: Int
+  communication: Int
+  amenities: Int
+  cleaning: Int
+  location: Int
+  service: Int
+  value: Int
+  body: String
+  completed: Boolean
+  hidden: Boolean
+}
+
+input UpdateReviewStayModelInput {
+  id: ID!
+  bookingRequestID: ID
+  listingmodelID: ID
+  usermodelID: String
+  overall: Int
+  communication: Int
+  amenities: Int
+  cleaning: Int
+  location: Int
+  service: Int
+  value: Int
+  body: String
+  completed: Boolean
+  hidden: Boolean
+}
+
+input DeleteReviewStayModelInput {
+  id: ID!
+}
+
+input ModelSubscriptionReviewStayModelFilterInput {
+  id: ModelSubscriptionIDInput
+  bookingRequestID: ModelSubscriptionIDInput
+  listingmodelID: ModelSubscriptionIDInput
+  usermodelID: ModelSubscriptionStringInput
+  overall: ModelSubscriptionIntInput
+  communication: ModelSubscriptionIntInput
+  amenities: ModelSubscriptionIntInput
+  cleaning: ModelSubscriptionIntInput
+  location: ModelSubscriptionIntInput
+  service: ModelSubscriptionIntInput
+  value: ModelSubscriptionIntInput
+  body: ModelSubscriptionStringInput
+  completed: ModelSubscriptionBooleanInput
+  hidden: ModelSubscriptionBooleanInput
+  and: [ModelSubscriptionReviewStayModelFilterInput]
+  or: [ModelSubscriptionReviewStayModelFilterInput]
+}
+
+type ModelReviewGuestModelConnection @aws_iam @aws_cognito_user_pools {
+  items: [ReviewGuestModel]!
+  nextToken: String
+}
+
+input ModelReviewGuestModelFilterInput {
+  id: ModelIDInput
+  bookingRequestID: ModelStringInput
+  usermodelID: ModelIDInput
+  userhostmodelID: ModelIDInput
+  overall: ModelIntInput
+  communication: ModelIntInput
+  cleanliness: ModelIntInput
+  body: ModelStringInput
+  completed: ModelBooleanInput
+  hidden: ModelBooleanInput
+  and: [ModelReviewGuestModelFilterInput]
+  or: [ModelReviewGuestModelFilterInput]
+  not: ModelReviewGuestModelFilterInput
+}
+
+input ModelReviewGuestModelConditionInput {
+  bookingRequestID: ModelStringInput
+  usermodelID: ModelIDInput
+  userhostmodelID: ModelIDInput
+  overall: ModelIntInput
+  communication: ModelIntInput
+  cleanliness: ModelIntInput
+  body: ModelStringInput
+  completed: ModelBooleanInput
+  hidden: ModelBooleanInput
+  and: [ModelReviewGuestModelConditionInput]
+  or: [ModelReviewGuestModelConditionInput]
+  not: ModelReviewGuestModelConditionInput
+}
+
+input CreateReviewGuestModelInput {
+  id: ID
+  bookingRequestID: String!
+  usermodelID: ID
+  userhostmodelID: ID
+  overall: Int
+  communication: Int
+  cleanliness: Int
+  body: String
+  completed: Boolean
+  hidden: Boolean
+}
+
+input UpdateReviewGuestModelInput {
+  id: ID!
+  bookingRequestID: String
+  usermodelID: ID
+  userhostmodelID: ID
+  overall: Int
+  communication: Int
+  cleanliness: Int
+  body: String
+  completed: Boolean
+  hidden: Boolean
+}
+
+input DeleteReviewGuestModelInput {
+  id: ID!
+}
+
+input ModelSubscriptionReviewGuestModelFilterInput {
+  id: ModelSubscriptionIDInput
+  bookingRequestID: ModelSubscriptionStringInput
+  usermodelID: ModelSubscriptionIDInput
+  userhostmodelID: ModelSubscriptionIDInput
+  overall: ModelSubscriptionIntInput
+  communication: ModelSubscriptionIntInput
+  cleanliness: ModelSubscriptionIntInput
+  body: ModelSubscriptionStringInput
+  completed: ModelSubscriptionBooleanInput
+  hidden: ModelSubscriptionBooleanInput
+  and: [ModelSubscriptionReviewGuestModelFilterInput]
+  or: [ModelSubscriptionReviewGuestModelFilterInput]
+}
+
+type ModelRefundRequestModelConnection @aws_iam @aws_cognito_user_pools {
+  items: [RefundRequestModel]!
+  nextToken: String
+}
+
+input ModelRefundRequestModelFilterInput {
+  id: ModelIDInput
+  bookingRequestID: ModelIDInput
+  confirmed: ModelBooleanInput
+  declined: ModelBooleanInput
+  completed: ModelBooleanInput
+  refundAmount: ModelIntInput
+  refundReason: ModelStringInput
+  refundMessage: ModelStringInput
+  status: ModelStringInput
+  and: [ModelRefundRequestModelFilterInput]
+  or: [ModelRefundRequestModelFilterInput]
+  not: ModelRefundRequestModelFilterInput
+}
+
+input ModelRefundRequestModelConditionInput {
+  bookingRequestID: ModelIDInput
+  confirmed: ModelBooleanInput
+  declined: ModelBooleanInput
+  completed: ModelBooleanInput
+  refundAmount: ModelIntInput
+  refundReason: ModelStringInput
+  refundMessage: ModelStringInput
+  status: ModelStringInput
+  and: [ModelRefundRequestModelConditionInput]
+  or: [ModelRefundRequestModelConditionInput]
+  not: ModelRefundRequestModelConditionInput
+}
+
+input CreateRefundRequestModelInput {
+  id: ID
+  bookingRequestID: ID
+  confirmed: Boolean
+  declined: Boolean
+  completed: Boolean
+  refundAmount: Int
+  refundReason: String
+  refundMessage: String
+  status: String
+}
+
+input UpdateRefundRequestModelInput {
+  id: ID!
+  bookingRequestID: ID
+  confirmed: Boolean
+  declined: Boolean
+  completed: Boolean
+  refundAmount: Int
+  refundReason: String
+  refundMessage: String
+  status: String
+}
+
+input DeleteRefundRequestModelInput {
+  id: ID!
+}
+
+input ModelSubscriptionRefundRequestModelFilterInput {
+  id: ModelSubscriptionIDInput
+  bookingRequestID: ModelSubscriptionIDInput
+  confirmed: ModelSubscriptionBooleanInput
+  declined: ModelSubscriptionBooleanInput
+  completed: ModelSubscriptionBooleanInput
+  refundAmount: ModelSubscriptionIntInput
+  refundReason: ModelSubscriptionStringInput
+  refundMessage: ModelSubscriptionStringInput
+  status: ModelSubscriptionStringInput
+  and: [ModelSubscriptionRefundRequestModelFilterInput]
+  or: [ModelSubscriptionRefundRequestModelFilterInput]
+}
+
+type ModelListingSearchVerificationRequestModelConnection @aws_iam @aws_cognito_user_pools {
+  items: [ListingSearchVerificationRequestModel]!
+  nextToken: String
+}
+
+input ModelListingSearchVerificationRequestModelFilterInput {
+  id: ModelIDInput
+  listingmodelID: ModelIDInput
+  completed: ModelBooleanInput
+  confirmed: ModelBooleanInput
+  and: [ModelListingSearchVerificationRequestModelFilterInput]
+  or: [ModelListingSearchVerificationRequestModelFilterInput]
+  not: ModelListingSearchVerificationRequestModelFilterInput
+}
+
+input ModelListingSearchVerificationRequestModelConditionInput {
+  listingmodelID: ModelIDInput
+  completed: ModelBooleanInput
+  confirmed: ModelBooleanInput
+  and: [ModelListingSearchVerificationRequestModelConditionInput]
+  or: [ModelListingSearchVerificationRequestModelConditionInput]
+  not: ModelListingSearchVerificationRequestModelConditionInput
+}
+
+input CreateListingSearchVerificationRequestModelInput {
+  id: ID
+  listingmodelID: ID!
+  completed: Boolean
+  confirmed: Boolean
+}
+
+input UpdateListingSearchVerificationRequestModelInput {
+  id: ID!
+  listingmodelID: ID
+  completed: Boolean
+  confirmed: Boolean
+}
+
+input DeleteListingSearchVerificationRequestModelInput {
+  id: ID!
+}
+
+input ModelSubscriptionListingSearchVerificationRequestModelFilterInput {
+  id: ModelSubscriptionIDInput
+  listingmodelID: ModelSubscriptionIDInput
+  completed: ModelSubscriptionBooleanInput
+  confirmed: ModelSubscriptionBooleanInput
+  and: [ModelSubscriptionListingSearchVerificationRequestModelFilterInput]
+  or: [ModelSubscriptionListingSearchVerificationRequestModelFilterInput]
+}
+
+type ModelListingUpdateSearchVerificationRequestModelConnection @aws_iam @aws_cognito_user_pools {
+  items: [ListingUpdateSearchVerificationRequestModel]!
+  nextToken: String
+}
+
+input ModelListingUpdateSearchVerificationRequestModelFilterInput {
+  id: ModelIDInput
+  listingmodelID: ModelIDInput
+  completed: ModelBooleanInput
+  confirmed: ModelBooleanInput
+  and: [ModelListingUpdateSearchVerificationRequestModelFilterInput]
+  or: [ModelListingUpdateSearchVerificationRequestModelFilterInput]
+  not: ModelListingUpdateSearchVerificationRequestModelFilterInput
+}
+
+input ModelListingUpdateSearchVerificationRequestModelConditionInput {
+  listingmodelID: ModelIDInput
+  completed: ModelBooleanInput
+  confirmed: ModelBooleanInput
+  and: [ModelListingUpdateSearchVerificationRequestModelConditionInput]
+  or: [ModelListingUpdateSearchVerificationRequestModelConditionInput]
+  not: ModelListingUpdateSearchVerificationRequestModelConditionInput
+}
+
+input CreateListingUpdateSearchVerificationRequestModelInput {
+  id: ID
+  listingmodelID: ID!
+  completed: Boolean
+  confirmed: Boolean
+}
+
+input UpdateListingUpdateSearchVerificationRequestModelInput {
+  id: ID!
+  listingmodelID: ID
+  completed: Boolean
+  confirmed: Boolean
+}
+
+input DeleteListingUpdateSearchVerificationRequestModelInput {
+  id: ID!
+}
+
+input ModelSubscriptionListingUpdateSearchVerificationRequestModelFilterInput {
+  id: ModelSubscriptionIDInput
+  listingmodelID: ModelSubscriptionIDInput
+  completed: ModelSubscriptionBooleanInput
+  confirmed: ModelSubscriptionBooleanInput
+  and: [ModelSubscriptionListingUpdateSearchVerificationRequestModelFilterInput]
+  or: [ModelSubscriptionListingUpdateSearchVerificationRequestModelFilterInput]
+}
+
+type ModelNotificationConnection @aws_iam @aws_cognito_user_pools {
+  items: [Notification]!
+  nextToken: String
+}
+
+input ModelNotificationFilterInput {
+  id: ModelIDInput
+  owner: ModelStringInput
+  title: ModelStringInput
+  message: ModelStringInput
+  usermodelID: ModelIDInput
+  userhostmodelID: ModelIDInput
+  listingmodelID: ModelIDInput
+  read: ModelBooleanInput
+  category: ModelStringInput
+  eventUrl: ModelStringInput
+  and: [ModelNotificationFilterInput]
+  or: [ModelNotificationFilterInput]
+  not: ModelNotificationFilterInput
+}
+
+input ModelNotificationConditionInput {
+  owner: ModelStringInput
+  title: ModelStringInput
+  message: ModelStringInput
+  usermodelID: ModelIDInput
+  userhostmodelID: ModelIDInput
+  listingmodelID: ModelIDInput
+  read: ModelBooleanInput
+  category: ModelStringInput
+  eventUrl: ModelStringInput
+  and: [ModelNotificationConditionInput]
+  or: [ModelNotificationConditionInput]
+  not: ModelNotificationConditionInput
+}
+
+input CreateNotificationInput {
+  id: ID
+  owner: String!
+  title: String
+  message: String
+  usermodelID: ID
+  userhostmodelID: ID
+  listingmodelID: ID
+  read: Boolean
+  category: String
+  eventUrl: String
+}
+
+input UpdateNotificationInput {
+  id: ID!
+  owner: String
+  title: String
+  message: String
+  usermodelID: ID
+  userhostmodelID: ID
+  listingmodelID: ID
+  read: Boolean
+  category: String
+  eventUrl: String
+}
+
+input DeleteNotificationInput {
+  id: ID!
+}
+
+input ModelSubscriptionNotificationFilterInput {
+  id: ModelSubscriptionIDInput
+  title: ModelSubscriptionStringInput
+  message: ModelSubscriptionStringInput
+  usermodelID: ModelSubscriptionIDInput
+  userhostmodelID: ModelSubscriptionIDInput
+  listingmodelID: ModelSubscriptionIDInput
+  read: ModelSubscriptionBooleanInput
+  category: ModelSubscriptionStringInput
+  eventUrl: ModelSubscriptionStringInput
+  and: [ModelSubscriptionNotificationFilterInput]
+  or: [ModelSubscriptionNotificationFilterInput]
+}
+
+type ModelHostNotificationConnection @aws_iam @aws_cognito_user_pools {
+  items: [HostNotification]!
+  nextToken: String
+}
+
+input ModelHostNotificationFilterInput {
+  id: ModelIDInput
+  owner: ModelStringInput
+  title: ModelStringInput
+  message: ModelStringInput
+  usermodelID: ModelIDInput
+  userhostmodelID: ModelIDInput
+  listingmodelID: ModelIDInput
+  read: ModelBooleanInput
+  category: ModelStringInput
+  eventUrl: ModelStringInput
+  and: [ModelHostNotificationFilterInput]
+  or: [ModelHostNotificationFilterInput]
+  not: ModelHostNotificationFilterInput
+}
+
+input ModelHostNotificationConditionInput {
+  owner: ModelStringInput
+  title: ModelStringInput
+  message: ModelStringInput
+  usermodelID: ModelIDInput
+  userhostmodelID: ModelIDInput
+  listingmodelID: ModelIDInput
+  read: ModelBooleanInput
+  category: ModelStringInput
+  eventUrl: ModelStringInput
+  and: [ModelHostNotificationConditionInput]
+  or: [ModelHostNotificationConditionInput]
+  not: ModelHostNotificationConditionInput
+}
+
+input CreateHostNotificationInput {
+  id: ID
+  owner: String!
+  title: String
+  message: String
+  usermodelID: ID
+  userhostmodelID: ID
+  listingmodelID: ID
+  read: Boolean
+  category: String
+  eventUrl: String
+}
+
+input UpdateHostNotificationInput {
+  id: ID!
+  owner: String
+  title: String
+  message: String
+  usermodelID: ID
+  userhostmodelID: ID
+  listingmodelID: ID
+  read: Boolean
+  category: String
+  eventUrl: String
+}
+
+input DeleteHostNotificationInput {
+  id: ID!
+}
+
+input ModelSubscriptionHostNotificationFilterInput {
+  id: ModelSubscriptionIDInput
+  title: ModelSubscriptionStringInput
+  message: ModelSubscriptionStringInput
+  usermodelID: ModelSubscriptionIDInput
+  userhostmodelID: ModelSubscriptionIDInput
+  listingmodelID: ModelSubscriptionIDInput
+  read: ModelSubscriptionBooleanInput
+  category: ModelSubscriptionStringInput
+  eventUrl: ModelSubscriptionStringInput
+  and: [ModelSubscriptionHostNotificationFilterInput]
+  or: [ModelSubscriptionHostNotificationFilterInput]
+}
+
+type ModelCouponConnection @aws_iam {
+  items: [Coupon]!
+  nextToken: String
+}
+
+input ModelCouponFilterInput {
+  id: ModelIDInput
+  expireDate: ModelStringInput
+  beginDate: ModelStringInput
+  discountAmount: ModelIntInput
+  discountPercent: ModelIntInput
+  maxDiscountAmount: ModelIntInput
+  minAmount: ModelIntInput
+  couponCode: ModelStringInput
+  timesRedeemed: ModelIntInput
+  valid: ModelBooleanInput
+  exclusive: ModelBooleanInput
+  validUsers: ModelStringInput
+  oneTimeUse: ModelBooleanInput
+  and: [ModelCouponFilterInput]
+  or: [ModelCouponFilterInput]
+  not: ModelCouponFilterInput
+}
+
+input ModelCouponConditionInput {
+  expireDate: ModelStringInput
+  beginDate: ModelStringInput
+  discountAmount: ModelIntInput
+  discountPercent: ModelIntInput
+  maxDiscountAmount: ModelIntInput
+  minAmount: ModelIntInput
+  couponCode: ModelStringInput
+  timesRedeemed: ModelIntInput
+  valid: ModelBooleanInput
+  exclusive: ModelBooleanInput
+  validUsers: ModelStringInput
+  oneTimeUse: ModelBooleanInput
+  and: [ModelCouponConditionInput]
+  or: [ModelCouponConditionInput]
+  not: ModelCouponConditionInput
+}
+
+input CreateCouponInput {
+  id: ID
+  expireDate: AWSDateTime
+  beginDate: AWSDateTime
+  discountAmount: Int
+  discountPercent: Int
+  maxDiscountAmount: Int
+  minAmount: Int
+  couponCode: String!
+  timesRedeemed: Int
+  valid: Boolean
+  exclusive: Boolean
+  validUsers: [String]
+  oneTimeUse: Boolean
+}
+
+input UpdateCouponInput {
+  id: ID!
+  expireDate: AWSDateTime
+  beginDate: AWSDateTime
+  discountAmount: Int
+  discountPercent: Int
+  maxDiscountAmount: Int
+  minAmount: Int
+  couponCode: String
+  timesRedeemed: Int
+  valid: Boolean
+  exclusive: Boolean
+  validUsers: [String]
+  oneTimeUse: Boolean
+}
+
+input DeleteCouponInput {
+  id: ID!
+}
+
+input ModelSubscriptionCouponFilterInput {
+  id: ModelSubscriptionIDInput
+  expireDate: ModelSubscriptionStringInput
+  beginDate: ModelSubscriptionStringInput
+  discountAmount: ModelSubscriptionIntInput
+  discountPercent: ModelSubscriptionIntInput
+  maxDiscountAmount: ModelSubscriptionIntInput
+  minAmount: ModelSubscriptionIntInput
+  couponCode: ModelSubscriptionStringInput
+  timesRedeemed: ModelSubscriptionIntInput
+  valid: ModelSubscriptionBooleanInput
+  exclusive: ModelSubscriptionBooleanInput
+  validUsers: ModelSubscriptionStringInput
+  oneTimeUse: ModelSubscriptionBooleanInput
+  and: [ModelSubscriptionCouponFilterInput]
+  or: [ModelSubscriptionCouponFilterInput]
+}
+
+type ModelListingProductsConnection @aws_iam @aws_cognito_user_pools {
+  items: [ListingProducts]!
+  nextToken: String
+}
+
+input ModelListingProductsFilterInput {
+  id: ModelIDInput
+  listingModelID: ModelIDInput
+  productModelID: ModelIDInput
+  and: [ModelListingProductsFilterInput]
+  or: [ModelListingProductsFilterInput]
+  not: ModelListingProductsFilterInput
+}
+
+input ModelListingProductsConditionInput {
+  listingModelID: ModelIDInput
+  productModelID: ModelIDInput
+  and: [ModelListingProductsConditionInput]
+  or: [ModelListingProductsConditionInput]
+  not: ModelListingProductsConditionInput
+}
+
+input CreateListingProductsInput {
+  id: ID
+  listingModelID: ID!
+  productModelID: ID!
+}
+
+input UpdateListingProductsInput {
+  id: ID!
+  listingModelID: ID
+  productModelID: ID
+}
+
+input DeleteListingProductsInput {
+  id: ID!
+}
+
+input ModelSubscriptionListingProductsFilterInput {
+  id: ModelSubscriptionIDInput
+  listingModelID: ModelSubscriptionIDInput
+  productModelID: ModelSubscriptionIDInput
+  and: [ModelSubscriptionListingProductsFilterInput]
+  or: [ModelSubscriptionListingProductsFilterInput]
+}
+
+input ModelStringKeyConditionInput {
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  between: [String]
+  beginsWith: String
+}
+
+input SearchableStringFilterInput {
+  ne: String
+  gt: String
+  lt: String
+  gte: String
+  lte: String
+  eq: String
+  match: String
+  matchPhrase: String
+  matchPhrasePrefix: String
+  multiMatch: String
+  exists: Boolean
+  wildcard: String
+  regexp: String
+  range: [String]
+}
+
+input SearchableIntFilterInput {
+  ne: Int
+  gt: Int
+  lt: Int
+  gte: Int
+  lte: Int
+  eq: Int
+  range: [Int]
+}
+
+input SearchableFloatFilterInput {
+  ne: Float
+  gt: Float
+  lt: Float
+  gte: Float
+  lte: Float
+  eq: Float
+  range: [Float]
+}
+
+input SearchableBooleanFilterInput {
+  eq: Boolean
+  ne: Boolean
+}
+
+input SearchableIDFilterInput {
+  ne: ID
+  gt: ID
+  lt: ID
+  gte: ID
+  lte: ID
+  eq: ID
+  match: ID
+  matchPhrase: ID
+  matchPhrasePrefix: ID
+  multiMatch: ID
+  exists: Boolean
+  wildcard: ID
+  regexp: ID
+  range: [ID]
+}
+
+input SearchableListingModelFilterInput {
+  id: SearchableIDFilterInput
+  createdAt: SearchableStringFilterInput
+  owner: SearchableStringFilterInput
+  placeId: SearchableStringFilterInput
+  unitNumber: SearchableIntFilterInput
+  streetNumber: SearchableIntFilterInput
+  street: SearchableStringFilterInput
+  suburb: SearchableStringFilterInput
+  postcode: SearchableIntFilterInput
+  state: SearchableStringFilterInput
+  city: SearchableStringFilterInput
+  country: SearchableStringFilterInput
+  beds: SearchableIntFilterInput
+  bedrooms: SearchableIntFilterInput
+  bathrooms: SearchableIntFilterInput
+  propertyType: SearchableStringFilterInput
+  typeOfPlace: SearchableStringFilterInput
+  propertyDescription: SearchableStringFilterInput
+  propertyDescriptionEmbedding: SearchableFloatFilterInput
+  propertySoftEmbedding: SearchableFloatFilterInput
+  trainingEvolutions: SearchableIntFilterInput
+  translatedPropertyDescription: SearchableStringFilterInput
+  listingImages: SearchableStringFilterInput
+  status: SearchableStringFilterInput
+  amenities: SearchableStringFilterInput
+  categories: SearchableStringFilterInput
+  tags: SearchableStringFilterInput
+  deposit: SearchableIntFilterInput
+  guests: SearchableIntFilterInput
+  minimumStay: SearchableIntFilterInput
+  minimumPrice: SearchableIntFilterInput
+  maximumPrice: SearchableIntFilterInput
+  nightlyPrices: SearchableStringFilterInput
+  maximumStay: SearchableIntFilterInput
+  weeklyMinimumPrice: SearchableIntFilterInput
+  weeklyMaximumStay: SearchableIntFilterInput
+  location: SearchableStringFilterInput
+  propertyTitle: SearchableStringFilterInput
+  internalName: SearchableStringFilterInput
+  translatedPropertyTitle: SearchableStringFilterInput
+  houseRules: SearchableStringFilterInput
+  draft: SearchableBooleanFilterInput
+  verified: SearchableBooleanFilterInput
+  verifiedDocuments: SearchableStringFilterInput
+  weeklyDiscount: SearchableFloatFilterInput
+  monthlyDiscount: SearchableFloatFilterInput
+  cleaningFee: SearchableFloatFilterInput
+  cleaningFrequency: SearchableStringFilterInput
+  availabilityRange: SearchableStringFilterInput
+  rooms: SearchableStringFilterInput
+  userhostmodelID: SearchableIDFilterInput
+  overallAverage: SearchableIntFilterInput
+  communicationAverage: SearchableIntFilterInput
+  amenitiesAverage: SearchableIntFilterInput
+  cleaningAverage: SearchableIntFilterInput
+  locationAverage: SearchableIntFilterInput
+  serviceAverage: SearchableIntFilterInput
+  valueAverage: SearchableIntFilterInput
+  cancellationPolicy: SearchableStringFilterInput
+  onceOffPaymentsOnly: SearchableBooleanFilterInput
+  instantBookEnabled: SearchableBooleanFilterInput
+  stayType: SearchableStringFilterInput
+  averageStayLength: SearchableIntFilterInput
+  checkInTime: SearchableFloatFilterInput
+  checkOutTime: SearchableFloatFilterInput
+  checkInInstructions: SearchableStringFilterInput
+  checkOutInstructions: SearchableStringFilterInput
+  timeBeforeCheckIn: SearchableIntFilterInput
+  timeAfterCheckOut: SearchableIntFilterInput
+  extraGuestFee: SearchableFloatFilterInput
+  extraMaxGuests: SearchableFloatFilterInput
+  disabledDates: SearchableStringFilterInput
+  unavailableDates: SearchableStringFilterInput
+  iCalUnavailableDates: SearchableStringFilterInput
+  iCalImportLinks: SearchableStringFilterInput
+  straID: SearchableStringFilterInput
+  advanceNotice: SearchableIntFilterInput
+  advanceNoticeTime: SearchableIntFilterInput
+  approved: SearchableBooleanFilterInput
+  standardServiceFee: SearchableBooleanFilterInput
+  fliggyApproved: SearchableBooleanFilterInput
+  fliggyHidden: SearchableBooleanFilterInput
+  fliggyID: SearchableStringFilterInput
+  totalBookings: SearchableIntFilterInput
+  wifiName: SearchableStringFilterInput
+  wifiPassword: SearchableStringFilterInput
+  updatedAt: SearchableStringFilterInput
+  and: [SearchableListingModelFilterInput]
+  or: [SearchableListingModelFilterInput]
+  not: SearchableListingModelFilterInput
+}
+
+enum SearchableSortDirection {
+  asc
+  desc
+}
+
+enum SearchableListingModelSortableFields {
+  id
+  createdAt
+  owner
+  placeId
+  unitNumber
+  streetNumber
+  street
+  suburb
+  postcode
+  state
+  city
+  country
+  beds
+  bedrooms
+  bathrooms
+  propertyType
+  typeOfPlace
+  propertyDescription
+  propertyDescriptionEmbedding
+  propertySoftEmbedding
+  trainingEvolutions
+  translatedPropertyDescription
+  listingImages
+  status
+  amenities
+  categories
+  tags
+  deposit
+  guests
+  minimumStay
+  minimumPrice
+  maximumPrice
+  nightlyPrices
+  maximumStay
+  weeklyMinimumPrice
+  weeklyMaximumStay
+  location
+  propertyTitle
+  internalName
+  translatedPropertyTitle
+  houseRules
+  draft
+  verified
+  verifiedDocuments
+  weeklyDiscount
+  monthlyDiscount
+  cleaningFee
+  cleaningFrequency
+  availabilityRange
+  rooms
+  userhostmodelID
+  overallAverage
+  communicationAverage
+  amenitiesAverage
+  cleaningAverage
+  locationAverage
+  serviceAverage
+  valueAverage
+  cancellationPolicy
+  onceOffPaymentsOnly
+  instantBookEnabled
+  stayType
+  averageStayLength
+  checkInTime
+  checkOutTime
+  checkInInstructions
+  checkOutInstructions
+  timeBeforeCheckIn
+  timeAfterCheckOut
+  extraGuestFee
+  extraMaxGuests
+  disabledDates
+  unavailableDates
+  iCalUnavailableDates
+  iCalImportLinks
+  straID
+  advanceNotice
+  advanceNoticeTime
+  approved
+  standardServiceFee
+  fliggyApproved
+  fliggyHidden
+  fliggyID
+  totalBookings
+  wifiName
+  wifiPassword
+  updatedAt
+}
+
+input SearchableListingModelSortInput {
+  field: SearchableListingModelSortableFields
+  direction: SearchableSortDirection
+}
+
+enum SearchableAggregateType {
+  terms
+  avg
+  min
+  max
+  sum
+}
+
+enum SearchableListingModelAggregateField {
+  id
+  createdAt
+  owner
+  placeId
+  unitNumber
+  streetNumber
+  street
+  suburb
+  postcode
+  state
+  city
+  country
+  beds
+  bedrooms
+  bathrooms
+  propertyType
+  typeOfPlace
+  propertyDescription
+  propertyDescriptionEmbedding
+  propertySoftEmbedding
+  trainingEvolutions
+  translatedPropertyDescription
+  listingImages
+  status
+  amenities
+  categories
+  tags
+  deposit
+  guests
+  minimumStay
+  minimumPrice
+  maximumPrice
+  nightlyPrices
+  maximumStay
+  weeklyMinimumPrice
+  weeklyMaximumStay
+  location
+  propertyTitle
+  internalName
+  translatedPropertyTitle
+  houseRules
+  draft
+  verified
+  verifiedDocuments
+  weeklyDiscount
+  monthlyDiscount
+  cleaningFee
+  cleaningFrequency
+  availabilityRange
+  rooms
+  userhostmodelID
+  overallAverage
+  communicationAverage
+  amenitiesAverage
+  cleaningAverage
+  locationAverage
+  serviceAverage
+  valueAverage
+  cancellationPolicy
+  onceOffPaymentsOnly
+  instantBookEnabled
+  stayType
+  averageStayLength
+  checkInTime
+  checkOutTime
+  checkInInstructions
+  checkOutInstructions
+  timeBeforeCheckIn
+  timeAfterCheckOut
+  extraGuestFee
+  extraMaxGuests
+  disabledDates
+  unavailableDates
+  iCalUnavailableDates
+  iCalImportLinks
+  straID
+  advanceNotice
+  advanceNoticeTime
+  approved
+  standardServiceFee
+  fliggyApproved
+  fliggyHidden
+  fliggyID
+  totalBookings
+  wifiName
+  wifiPassword
+  updatedAt
+}
+
+input SearchableListingModelAggregationInput {
+  name: String!
+  type: SearchableAggregateType!
+  field: SearchableListingModelAggregateField!
+}
+
+input SearchableBookingRequestModelFilterInput {
+  id: SearchableIDFilterInput
+  owners: SearchableStringFilterInput
+  arrivalDate: SearchableStringFilterInput
+  departureDate: SearchableStringFilterInput
+  guests: SearchableIntFilterInput
+  adults: SearchableIntFilterInput
+  children: SearchableIntFilterInput
+  infants: SearchableIntFilterInput
+  pets: SearchableIntFilterInput
+  maxGuests: SearchableIntFilterInput
+  expired: SearchableBooleanFilterInput
+  usermodelID: SearchableIDFilterInput
+  userhostmodelID: SearchableIDFilterInput
+  listingmodelID: SearchableIDFilterInput
+  paymentmodelID: SearchableIDFilterInput
+  stripeAccountID: SearchableStringFilterInput
+  confirmationCode: SearchableStringFilterInput
+  conversationmodelID: SearchableIDFilterInput
+  ordermodelID: SearchableIDFilterInput
+  confirmed: SearchableBooleanFilterInput
+  confirmedAt: SearchableStringFilterInput
+  couponCode: SearchableStringFilterInput
+  couponDiscountAmount: SearchableIntFilterInput
+  declined: SearchableBooleanFilterInput
+  reasonDeclined: SearchableStringFilterInput
+  cancelled: SearchableBooleanFilterInput
+  cancelledAt: SearchableStringFilterInput
+  cancelledBy: SearchableStringFilterInput
+  reasonCancelled: SearchableStringFilterInput
+  completed: SearchableBooleanFilterInput
+  stayReviewed: SearchableBooleanFilterInput
+  guestReviewed: SearchableBooleanFilterInput
+  checkInTime: SearchableIntFilterInput
+  checkOutTime: SearchableIntFilterInput
+  cancellationPolicy: SearchableStringFilterInput
+  timeBeforeCheckIn: SearchableIntFilterInput
+  timeAfterCheckOut: SearchableIntFilterInput
+  bookingAmount: SearchableIntFilterInput
+  bookingAmountIncludingServiceFee: SearchableIntFilterInput
+  paymentAmount: SearchableIntFilterInput
+  pricePerNight: SearchableIntFilterInput
+  guestPriceBreakdown: SearchableStringFilterInput
+  hostPriceBreakdown: SearchableStringFilterInput
+  nightlyPrices: SearchableStringFilterInput
+  serviceFee: SearchableIntFilterInput
+  cleaningFee: SearchableIntFilterInput
+  extraGuestFee: SearchableIntFilterInput
+  extraMaxGuests: SearchableIntFilterInput
+  weeklyDiscount: SearchableIntFilterInput
+  monthlyDiscount: SearchableIntFilterInput
+  paymentModels: SearchableStringFilterInput
+  transferModels: SearchableStringFilterInput
+  refundModels: SearchableStringFilterInput
+  transferReversalModels: SearchableStringFilterInput
+  deposit: SearchableIntFilterInput
+  refundedAmount: SearchableIntFilterInput
+  standardServiceFee: SearchableBooleanFilterInput
+  hostPaid: SearchableBooleanFilterInput
+  responseNeeded: SearchableBooleanFilterInput
+  responseBeofre: SearchableStringFilterInput
+  createdAt: SearchableStringFilterInput
+  updatedAt: SearchableStringFilterInput
+  and: [SearchableBookingRequestModelFilterInput]
+  or: [SearchableBookingRequestModelFilterInput]
+  not: SearchableBookingRequestModelFilterInput
+}
+
+enum SearchableBookingRequestModelSortableFields {
+  id
+  owners
+  arrivalDate
+  departureDate
+  guests
+  adults
+  children
+  infants
+  pets
+  maxGuests
+  expired
+  usermodelID
+  userhostmodelID
+  listingmodelID
+  paymentmodelID
+  stripeAccountID
+  confirmationCode
+  conversationmodelID
+  ordermodelID
+  confirmed
+  confirmedAt
+  couponCode
+  couponDiscountAmount
+  declined
+  reasonDeclined
+  cancelled
+  cancelledAt
+  cancelledBy
+  reasonCancelled
+  completed
+  stayReviewed
+  guestReviewed
+  checkInTime
+  checkOutTime
+  cancellationPolicy
+  timeBeforeCheckIn
+  timeAfterCheckOut
+  bookingAmount
+  bookingAmountIncludingServiceFee
+  paymentAmount
+  pricePerNight
+  guestPriceBreakdown
+  hostPriceBreakdown
+  nightlyPrices
+  serviceFee
+  cleaningFee
+  extraGuestFee
+  extraMaxGuests
+  weeklyDiscount
+  monthlyDiscount
+  paymentModels
+  transferModels
+  refundModels
+  transferReversalModels
+  deposit
+  refundedAmount
+  standardServiceFee
+  hostPaid
+  responseNeeded
+  responseBeofre
+  createdAt
+  updatedAt
+}
+
+input SearchableBookingRequestModelSortInput {
+  field: SearchableBookingRequestModelSortableFields
+  direction: SearchableSortDirection
+}
+
+enum SearchableBookingRequestModelAggregateField {
+  id
+  owners
+  arrivalDate
+  departureDate
+  guests
+  adults
+  children
+  infants
+  pets
+  maxGuests
+  expired
+  usermodelID
+  userhostmodelID
+  listingmodelID
+  paymentmodelID
+  stripeAccountID
+  confirmationCode
+  conversationmodelID
+  ordermodelID
+  confirmed
+  confirmedAt
+  couponCode
+  couponDiscountAmount
+  declined
+  reasonDeclined
+  cancelled
+  cancelledAt
+  cancelledBy
+  reasonCancelled
+  completed
+  stayReviewed
+  guestReviewed
+  checkInTime
+  checkOutTime
+  cancellationPolicy
+  timeBeforeCheckIn
+  timeAfterCheckOut
+  bookingAmount
+  bookingAmountIncludingServiceFee
+  paymentAmount
+  pricePerNight
+  guestPriceBreakdown
+  hostPriceBreakdown
+  nightlyPrices
+  serviceFee
+  cleaningFee
+  extraGuestFee
+  extraMaxGuests
+  weeklyDiscount
+  monthlyDiscount
+  paymentModels
+  transferModels
+  refundModels
+  transferReversalModels
+  deposit
+  refundedAmount
+  standardServiceFee
+  hostPaid
+  responseNeeded
+  responseBeofre
+  createdAt
+  updatedAt
+}
+
+input SearchableBookingRequestModelAggregationInput {
+  name: String!
+  type: SearchableAggregateType!
+  field: SearchableBookingRequestModelAggregateField!
+}
+
+input SearchableProductModelFilterInput {
+  id: SearchableIDFilterInput
+  owner: SearchableStringFilterInput
+  productTitle: SearchableStringFilterInput
+  productDescription: SearchableStringFilterInput
+  productType: SearchableStringFilterInput
+  productImages: SearchableStringFilterInput
+  pricePerItem: SearchableIntFilterInput
+  pricePerHour: SearchableIntFilterInput
+  pricePerDay: SearchableIntFilterInput
+  pricePerPerson: SearchableIntFilterInput
+  inventory: SearchableIntFilterInput
+  unlimitedInventory: SearchableBooleanFilterInput
+  status: SearchableStringFilterInput
+  approved: SearchableBooleanFilterInput
+  draft: SearchableBooleanFilterInput
+  instantBookEnabled: SearchableBooleanFilterInput
+  userhostmodelID: SearchableIDFilterInput
+  categories: SearchableStringFilterInput
+  tags: SearchableStringFilterInput
+  createdAt: SearchableStringFilterInput
+  updatedAt: SearchableStringFilterInput
+  and: [SearchableProductModelFilterInput]
+  or: [SearchableProductModelFilterInput]
+  not: SearchableProductModelFilterInput
+}
+
+enum SearchableProductModelSortableFields {
+  id
+  owner
+  productTitle
+  productDescription
+  productType
+  productImages
+  pricePerItem
+  pricePerHour
+  pricePerDay
+  pricePerPerson
+  inventory
+  unlimitedInventory
+  status
+  approved
+  draft
+  instantBookEnabled
+  userhostmodelID
+  categories
+  tags
+  createdAt
+  updatedAt
+}
+
+input SearchableProductModelSortInput {
+  field: SearchableProductModelSortableFields
+  direction: SearchableSortDirection
+}
+
+enum SearchableProductModelAggregateField {
+  id
+  owner
+  productTitle
+  productDescription
+  productType
+  productImages
+  pricePerItem
+  pricePerHour
+  pricePerDay
+  pricePerPerson
+  inventory
+  unlimitedInventory
+  status
+  approved
+  draft
+  instantBookEnabled
+  userhostmodelID
+  categories
+  tags
+  createdAt
+  updatedAt
+}
+
+input SearchableProductModelAggregationInput {
+  name: String!
+  type: SearchableAggregateType!
+  field: SearchableProductModelAggregateField!
+}
+
+input SearchableOrderModelFilterInput {
+  id: SearchableIDFilterInput
+  owner: SearchableStringFilterInput
+  usermodelID: SearchableIDFilterInput
+  userhostmodelID: SearchableIDFilterInput
+  status: SearchableStringFilterInput
+  confirmed: SearchableBooleanFilterInput
+  declined: SearchableBooleanFilterInput
+  expired: SearchableBooleanFilterInput
+  completed: SearchableBooleanFilterInput
+  cancelled: SearchableBooleanFilterInput
+  fulfilled: SearchableBooleanFilterInput
+  bookingAmount: SearchableIntFilterInput
+  bookingAmountIncludingServiceFee: SearchableIntFilterInput
+  serviceFee: SearchableIntFilterInput
+  couponCode: SearchableStringFilterInput
+  couponDiscountAmount: SearchableIntFilterInput
+  refunded: SearchableIntFilterInput
+  paymentModels: SearchableStringFilterInput
+  transferModels: SearchableStringFilterInput
+  refundModels: SearchableStringFilterInput
+  transferReversalModels: SearchableStringFilterInput
+  createdAt: SearchableStringFilterInput
+  updatedAt: SearchableStringFilterInput
+  and: [SearchableOrderModelFilterInput]
+  or: [SearchableOrderModelFilterInput]
+  not: SearchableOrderModelFilterInput
+}
+
+enum SearchableOrderModelSortableFields {
+  id
+  owner
+  usermodelID
+  userhostmodelID
+  status
+  confirmed
+  declined
+  expired
+  completed
+  cancelled
+  fulfilled
+  bookingAmount
+  bookingAmountIncludingServiceFee
+  serviceFee
+  couponCode
+  couponDiscountAmount
+  refunded
+  paymentModels
+  transferModels
+  refundModels
+  transferReversalModels
+  createdAt
+  updatedAt
+}
+
+input SearchableOrderModelSortInput {
+  field: SearchableOrderModelSortableFields
+  direction: SearchableSortDirection
+}
+
+enum SearchableOrderModelAggregateField {
+  id
+  owner
+  usermodelID
+  userhostmodelID
+  status
+  confirmed
+  declined
+  expired
+  completed
+  cancelled
+  fulfilled
+  bookingAmount
+  bookingAmountIncludingServiceFee
+  serviceFee
+  couponCode
+  couponDiscountAmount
+  refunded
+  paymentModels
+  transferModels
+  refundModels
+  transferReversalModels
+  createdAt
+  updatedAt
+}
+
+input SearchableOrderModelAggregationInput {
+  name: String!
+  type: SearchableAggregateType!
+  field: SearchableOrderModelAggregateField!
+}

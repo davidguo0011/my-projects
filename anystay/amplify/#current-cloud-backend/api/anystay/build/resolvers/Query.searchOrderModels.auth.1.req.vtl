@@ -1,0 +1,56 @@
+## [Start] Authorization Steps. **
+$util.qr($ctx.stash.put("hasAuth", true))
+#set( $isAuthorized = false )
+#set( $totalFields = ["id","owner","usermodelID","userhostmodelID","status","confirmed","declined","expired","completed","cancelled","fulfilled","bookingAmount","bookingAmountIncludingServiceFee","serviceFee","couponCode","couponDiscountAmount","refunded","paymentModels","transferModels","refundModels","transferReversalModels","UserModel","UserHostModel","BookingRequestModels","OrderItemModels","createdAt","updatedAt"] )
+#set( $allowedAggFields = ["createdAt","updatedAt","id","owner","usermodelID","userhostmodelID","status","confirmed","declined","expired","completed","cancelled","fulfilled","bookingAmount","bookingAmountIncludingServiceFee","serviceFee","couponCode","couponDiscountAmount","refunded","paymentModels","transferModels","refundModels","transferReversalModels","UserModel","UserHostModel","BookingRequestModels","OrderItemModels"] )
+#if( $util.authType() == "IAM Authorization" )
+  #foreach( $adminRole in $ctx.stash.adminRoles )
+    #if( $ctx.identity.userArn.contains($adminRole) && $ctx.identity.userArn != $ctx.stash.authRole && $ctx.identity.userArn != $ctx.stash.unauthRole )
+      #set( $allowedAggFields = $totalFields )
+      $util.qr($ctx.stash.put("allowedAggFields", $allowedAggFields))
+      #return($util.toJson({}))
+    #end
+  #end
+  #if( !$isAuthorized )
+    #if( ($ctx.identity.userArn == $ctx.stash.authRole) || ($ctx.identity.cognitoIdentityPoolId == $ctx.stash.identityPoolId && $ctx.identity.cognitoIdentityAuthType == "authenticated") )
+      #set( $isAuthorized = true )
+      #set( $allowedAggFields = $totalFields )
+    #end
+  #end
+#end
+#if( $util.authType() == "User Pool Authorization" )
+  #set( $authFilterConditions = [] )
+  #set( $ownerClaim0 = $util.defaultIfNull($ctx.identity.claims.get("sub"), null) )
+  #set( $currentClaim1 = $util.defaultIfNull($ctx.identity.claims.get("username"), $util.defaultIfNull($ctx.identity.claims.get("cognito:username"), null)) )
+  #if( !$util.isNull($ownerClaim0) && !$util.isNull($currentClaim1) )
+    #set( $ownerClaim0 = "$ownerClaim0::$currentClaim1" )
+    #set( $ownerClaimsList0 = [] )
+    $util.qr($ownerClaimsList0.add($util.defaultIfNull($ctx.identity.claims.get("sub"), null)))
+    $util.qr($ownerClaimsList0.add($util.defaultIfNull($ctx.identity.claims.get("username"), $util.defaultIfNull($ctx.identity.claims.get("cognito:username"), null))))
+    $util.qr($ownerClaimsList0.add($ownerClaim0))
+    #set( $owner0 = {
+  "terms_set": {
+      "owner.keyword": {
+          "terms": $ownerClaimsList0,
+          "minimum_should_match_script": {
+              "source": "1"
+      }
+    }
+  }
+} )
+    $util.qr($authFilterConditions.add($owner0))
+  #end
+  #if( !$isAuthorized && !$authFilterConditions.isEmpty() )
+    $util.qr($ctx.stash.put("authFilter", {
+  "bool": {
+      "should": $authFilterConditions
+  }
+}))
+  #end
+#end
+$util.qr($ctx.stash.put("allowedAggFields", $allowedAggFields))
+#if( !$isAuthorized && $util.isNull($ctx.stash.authFilter) )
+$util.unauthorized()
+#end
+$util.toJson({"version":"2018-05-29","payload":{}})
+## [End] Authorization Steps. **

@@ -1,0 +1,108 @@
+.pac-container {
+    box-shadow: none !important;
+    border: none !important;
+    /* padding: 10px; */
+    border: 0px !important;
+    z-index: 1003;
+    overflow: hidden;
+    margin: 0 auto;
+    margin-top: 12px;
+    margin-left: -1px;
+
+    /* margin: 20px 0 0 0; */
+    /* set the background color as transparent */
+    /* background-color: transparent !important; */
+}
+@media (max-width: 767px) {
+    .pac-container {
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        padding: 0px 24px;
+    }
+}
+.pac-logo::after {
+    display: none !important;
+}
+
+.pac-icon-marker {
+    margin-top: 4px;
+    margin-right: 16px;
+    margin-left: 0;
+    height: 16px;
+    width: 16px;
+}
+
+.pac-icon {
+    z-index: 1003;
+    min-height: 48px;
+    min-width: 48px;
+    border-radius: 9px;
+    background: #fafafa;
+}
+
+.pac-icon {
+    color: #262626;
+    background: #fafafa url("https://d292awxalydr86.cloudfront.net/Universal+icons/Location%2Bpin+1.png") center center no-repeat !important;
+    background-size: 16px 16px !important;
+}
+
+.pac-matched,
+.pac-item-query {
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    line-height: 20px !important;
+    color: #262626 !important;
+}
+
+.pac-item {
+    padding: 8px 0;
+    background: none !important;
+    border: none !important;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    line-height: 20px !important;
+    color: #262626 !important;
+    display: flex;
+    margin: 0;
+    align-items: center;
+    overflow-wrap: break-word;
+    cursor: pointer;
+}
+
+@media (min-width: 768px) {
+    .pac-container {
+        border-radius: 32px ;
+        /* margin-left: -32px; */
+        margin-top: 12px;
+        padding-left: 0;
+        box-shadow: 1.3px 3px 16px rgba(0, 0, 0, 0.1) !important;
+    }
+
+    .pac-item {
+        line-height: 22px !important;
+        font-weight: 425 !important;
+    }
+
+    .pac-item:hover {
+        background-color: #f1f1f1 !important;
+    }
+
+    .pac-item-query,
+    .pac-matched {
+        line-height: 22px !important;
+        font-weight: 425 !important;
+    }
+
+    .pac-icon-marker {
+        margin-left: 32px;
+    }
+
+    .pac-item:first-child {
+        margin-top: 24px;
+    }
+
+    .pac-item:last-child {
+        margin-bottom: 24px;
+    }
+}

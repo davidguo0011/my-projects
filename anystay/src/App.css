@@ -1,0 +1,420 @@
+@font-face {
+    font-family: "Satoshi-Variable";
+    src:
+        url("../public/Satoshi-Variable.woff2") format("woff2"),
+        url("../public/Satoshi-Variable.woff") format("woff"),
+        url("../public/Satoshi-Variable.ttf") format("truetype");
+    font-weight: 300 900;
+    font-display: block;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    font-synthesis: none;
+}
+
+:root {
+    --primary-color: #262626;
+}
+
+* {
+    box-sizing: border-box;
+    touch-action: manipulation;
+    -webkit-font-smoothing: antialiased !important;
+    padding: 0;
+    margin: 0;
+    -webkit-tap-highlight-color: transparent;
+    font-family: "Satoshi-Variable";
+    color: var(--primary-color);
+}
+
+*:not(.swiper-button-prev, .swiper-button-next) {
+    font-feature-settings: "ss03";
+    font-variant-ligatures: none;
+}
+
+:root {
+    --swiper-theme-color: #fff;
+    --swiper-pagination-color: #fff;
+    --swiper-pagination-bullet-inactive-color: #fff;
+    --swiper-pagination-bullet-inactive-opacity: 0.65;
+    --swiper-pagination-bullet-size: 8px;
+    --swiper-pagination-bullet-opacity: 1;
+    --swiper-navigation-size: 16px;
+}
+
+/* prevent pull down to refresh on mobile browsers */
+html,
+body {
+    overscroll-behavior-y: none;
+}
+
+/* for swiper in view listing similar stays */
+@media (min-width: 768px) {
+    body {
+        overflow-x: hidden !important;
+    }
+}
+
+/* Remove ios shadow */
+textarea,
+input:matches([type="email"], [type="number"], [type="password"], [type="search"], [type="tel"], [type="text"], [type="url"]) {
+    -webkit-appearance: none;
+}
+
+/* .new-listing-image-upload-input-hidden {
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  content: '';
+  grid-row: 1/2;
+  grid-column: 1/2;
+  visibility: hidden;
+} */
+
+/* Sign up phone input  */
+
+.PhoneInputInput {
+    font-size: 16px;
+    margin-left: 8px;
+    background-color: #ffffff !important;
+}
+
+.new-listing-image-upload-input {
+    color: var(--textsubtle, #737373);
+    text-align: center;
+    font-size: 14px;
+    line-height: 20px;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.css-1okebmr-indicatorSeparator {
+    display: none;
+}
+
+#searchlisting-navbar-startDate,
+#searchlisting-navbar-endDate {
+    border: none !important;
+    font-size: 12px;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#searchlisting-navbar-dates {
+    width: 50%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+#searchlisting-navbar-dates .DateInput {
+    max-width: fit-content;
+    text-align: center;
+}
+
+#searchlisting-navbar-dates .DateInput_input {
+    max-width: fit-content !important;
+    width: 50px !important;
+    padding: 0;
+    text-align: center !important;
+}
+
+#searchlisting-navbar-dates .DateRangePickerInput_clearDates {
+    position: relative;
+    grid-column: 3/4;
+    grid-row: 1/2;
+    padding: 0;
+    align-self: center;
+}
+
+#searchlisting-navbar-dates .DateRangePickerInput_clearDates_svg {
+    margin-bottom: 6px;
+}
+
+#searchlisting-navbar-dates .DateRangePickerInput_arrow {
+    display: none;
+}
+
+#searchlisting-navbar-startDate {
+    grid-column: 1/2;
+    grid-row: 1/2;
+    border-right: 1px solid #e5e5e5 !important;
+}
+
+#searchlisting-navbar-endDate {
+    grid-column: 2/3;
+    grid-row: 1/2;
+}
+
+#searchlisting-navbar-dates .DateRangePickerInput {
+    display: grid;
+    grid-template-columns: 50px 50px 20px;
+    grid-template-rows: 100%;
+    padding: 0;
+    margin: 0;
+    margin-left: auto;
+    border: none !important;
+    box-shadow: none;
+}
+
+#searchlisting-navbar-startDate {
+    padding-right: 8px !important;
+}
+
+#searchlisting-navbar-endDate {
+    padding-left: 8px !important;
+}
+
+.Calendar {
+    width: calc(100% - 16px) !important;
+    box-shadow: none !important;
+}
+
+/* .Calendar__section {
+    padding-left: 0 !important;
+    padding-right: 6.4em;
+}
+
+.Calendar__weekDays {
+    padding-left: 0 !important;
+    padding-right: 5.2em !important
+}
+.Calendar__header {
+  padding-left: 0 !important;
+  padding-right: 5.2em !important
+} */
+
+.menu-search-calendar {
+    box-shadow: none !important;
+}
+
+.menu-search-calendar .Calendar__header {
+    padding: 0 !important;
+    padding-bottom: 32px !important;
+}
+
+.menu-search-calendar .Calendar__weekDays {
+    padding: 0 8px !important;
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    line-height: 18px !important;
+    color: #262626 !important;
+}
+
+.menu-search-calendar .Calendar__section {
+    padding: 0 8px !important;
+    padding-top: 8px !important;
+}
+
+.menu-search-calendar .Calendar__section.-hiddenNext,
+.menu-search-calendar .Calendar__section.-hiddenPrevious {
+    opacity: 0 !important;
+}
+
+.Calendar__section.-shown {
+    opacity: 1 !important;
+}
+
+.menu-search-calendar-days-between {
+    color: #696969 !important;
+}
+
+.Calendar__day.-ltr.-selectedEnd,
+.Calendar__day.-ltr.-selectedStart {
+    font-weight: 600 !important;
+}
+.verification-container {
+    gap: 0;
+    border-radius: 10px;
+    border: 1px solid #cccccc;
+    height: 54px;
+}
+.verification-character {
+    border: none;
+    border-right: 1px solid #cccccc;
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+    color: #262626;
+}
+.verification-character:first-of-type {
+    border-radius: 10px 0 0 10px;
+}
+.verification-character:last-of-type {
+    border-radius: 0 10px 10px 0;
+    border-right: none;
+}
+.verification-character--selected {
+    outline: 2px solid cornflowerblue;
+}
+.verification-character--inactive {
+    background-color: transparent;
+}
+
+.AuBankAccountField {
+    border: 2px solid red !important;
+}
+
+.mbsc-material.mbsc-calendar-cell-text {
+    color: #303030;
+}
+
+.mbsc-material.mbsc-calendar-day-text {
+    padding: 8px !important;
+    margin: 2px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+}
+
+.mbsc-material.mbsc-calendar-today {
+    color: #262626 !important;
+}
+
+.mbsc-calendar-day-text {
+    box-sizing: content-box;
+    display: inline-block;
+    text-align: center;
+}
+
+.mbsc-material.mbsc-range-day:after,
+.mbsc-material.mbsc-range-hover:before {
+    height: 44px !important;
+    background-color: rgba(241, 241, 241, 1) !important;
+}
+
+.mbsc-material.mbsc-range-hover:before {
+    border: 0px !important;
+}
+
+.mbsc-material.mbsc-hover .mbsc-calendar-cell-text {
+    background-color: #cccccc !important;
+}
+
+.mbsc-material.mbsc-hover {
+    border: 0px !important;
+}
+
+.mbsc-material.mbsc-datepicker .mbsc-calendar-title {
+    font-size: 16px !important;
+    font-weight: 600 !important;
+}
+
+.mbsc-datepicker .mbsc-calendar {
+    padding-bottom: 0 !important;
+}
+
+.mbsc-datepicker .mbsc-calendar-slide {
+    @media (min-width: 768px) {
+        padding: 0 24px !important;
+    }
+}
+
+.mbsc-calendar-controls {
+    align-items: center !important;
+    box-sizing: content-box !important;
+    min-height: 2.5em !important;
+    display: grid !important;
+    grid-template-columns: auto 1fr auto !important;
+
+    @media (min-width: 768px) {
+        width: unset;
+        padding: 0.5em 24px !important;
+    }
+}
+
+.mbsc-material.mbsc-calendar-controls {
+    padding: 8px 8px 16px !important;
+}
+
+.mbsc-calendar-title-wrapper {
+    -moz-box-flex: 1 !important;
+    align-items: center !important;
+    flex: 1 1 !important;
+    overflow: hidden;
+    grid-column: 2/3 !important;
+    justify-content: center !important;
+    display: flex !important;
+    grid-row: 1/2 !important;
+    gap: 48px;
+}
+
+.mbsc-material.mbsc-calendar-week-day {
+    color: rgba(115, 115, 115, 1) !important;
+}
+
+.mbsc-material.mbsc-selected .mbsc-calendar-cell-text {
+    background: #222222 !important;
+    border-color: #222222 !important;
+    color: #fff !important;
+    text-decoration: none !important;
+}
+
+.mbsc-disabled .mbsc-calendar-cell-text,
+.mbsc-disabled .mbsc-calendar-month-name {
+    color: rgba(204, 204, 204, 1) !important;
+    opacity: 1 !important;
+    text-decoration: line-through;
+}
+
+#notification-tray ::-webkit-scrollbar,
+#room-labels::-webkit-scrollbar {
+    display: none;
+}
+
+.price-range .MuiInput-underline:before {
+    border-bottom: none !important;
+}
+
+.price-range .MuiInput-underline:hover:before {
+    border-bottom: none !important;
+}
+
+.price-range .MuiInput-underline:after {
+    border-bottom: none !important;
+}
+
+.price-range .MuiInputBase-root {
+    height: 54px;
+    border: 1px solid #cccccc;
+    border-radius: 9px;
+    padding-left: 16px;
+}
+
+.price-range .MuiInputBase-input {
+    padding: 0 !important;
+}
+
+.PrivateSwitchBase-root-6 {
+    padding: 0px !important;
+}
+
+/* Remove arrows from number input */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
+    margin: 0 !important;
+}
+
+/* Remove map border when clicked */
+.gm-style iframe + div {
+    border: none !important;
+}
+
+/* map zoom control style */
+.gmnoprint.gm-bundled-control div {
+    border-radius: 10px !important;
+}
+.gm-control-active {
+    border-radius: 10px;
+}
+.gm-control-active img {
+    height: 16px !important;
+    width: 16px !important;
+}
+.gmnoprint.gm-bundled-control {
+    margin-right: 24px !important;
+    margin-top: 24px !important;
+}

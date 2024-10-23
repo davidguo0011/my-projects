@@ -1,0 +1,147 @@
+{
+  "api": {
+    "anystay": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "UserPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "anystay039a367c"
+        }
+      ],
+      "output": {
+        "authConfig": {
+          "additionalAuthenticationProviders": [
+            {
+              "authenticationType": "AWS_IAM"
+            }
+          ],
+          "defaultAuthentication": {
+            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+            "userPoolConfig": {
+              "userPoolId": "authanystay039a367c"
+            }
+          }
+        }
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "AppSync"
+    }
+  },
+  "auth": {
+    "anystay039a367c": {
+      "customAuth": false,
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito",
+      "serviceType": "imported"
+    }
+  },
+  "function": {},
+  "parameters": {
+    "AMPLIFY_auth_anystay039a367c_allowUnauthenticatedIdentities": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "anystay039a367c"
+        }
+      ]
+    },
+    "AMPLIFY_auth_anystay039a367c_authRoleArn": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "anystay039a367c"
+        }
+      ]
+    },
+    "AMPLIFY_auth_anystay039a367c_authRoleName": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "anystay039a367c"
+        }
+      ]
+    },
+    "AMPLIFY_auth_anystay039a367c_identityPoolId": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "anystay039a367c"
+        }
+      ]
+    },
+    "AMPLIFY_auth_anystay039a367c_identityPoolName": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "anystay039a367c"
+        }
+      ]
+    },
+    "AMPLIFY_auth_anystay039a367c_nativeClientId": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "anystay039a367c"
+        }
+      ]
+    },
+    "AMPLIFY_auth_anystay039a367c_unauthRoleArn": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "anystay039a367c"
+        }
+      ]
+    },
+    "AMPLIFY_auth_anystay039a367c_unauthRoleName": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "anystay039a367c"
+        }
+      ]
+    },
+    "AMPLIFY_auth_anystay039a367c_userPoolId": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "anystay039a367c"
+        }
+      ]
+    },
+    "AMPLIFY_auth_anystay039a367c_userPoolName": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "anystay039a367c"
+        }
+      ]
+    },
+    "AMPLIFY_auth_anystay039a367c_webClientId": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "anystay039a367c"
+        }
+      ]
+    },
+    "AMPLIFY_auth_anystay919b5aa4919b5aa4_googleClientId": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "anystay919b5aa4919b5aa4"
+        }
+      ]
+    }
+  },
+  "storage": {
+    "s36340c577": {
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "S3"
+    }
+  }
+}
