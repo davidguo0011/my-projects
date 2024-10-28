@@ -1,0 +1,55 @@
+@import '../../../variables.scss';
+@mixin center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.listItem {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  color: $text-darkMode-white;
+  .main {
+    display: flex;
+    padding: 10px 0px;
+    font-weight: bold;
+    .sumNum {
+      width: 30%;
+      @include center;
+    }
+    .title {
+      width: 50%;
+      @include center;
+      p {
+        font-size: 15px;
+      }
+    }
+    .expand {
+      width: 20%;
+      @include center;
+      background-color: transparent;
+      border: none;
+      color: $text-darkMode-white;
+      font-size: 20px;
+      cursor: pointer;
+    }
+  }
+  .subItem {
+    width: 100%;
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: all 0.3s ease-out;
+    opacity: 0;
+    ul {
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  .show {
+    grid-template-rows: 1fr;
+    opacity: 100;
+  }
+}
