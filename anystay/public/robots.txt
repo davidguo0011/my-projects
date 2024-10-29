@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://anystay.com.au/sitemap.xml

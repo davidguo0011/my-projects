@@ -1,4 +1,0 @@
-User-agent: *
-Disallow: 
-Crawl-delay: 5
-Sitemap: https://yoteivy6vk.execute-api.ap-southeast-2.amazonaws.com/production/sitemap.xml
