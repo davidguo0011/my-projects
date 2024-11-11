@@ -36,8 +36,7 @@ var CalendarDatePicker = function CalendarDatePicker(props) {
       if (props.type === 'Day') {
         reSetScrollLeft(date.format('YYYY-MM-DD'), props.calendarTitleProp, props.titleDate);
       } else if (props.type === 'Month') {
-        //有了！
-        reSetScrollTop(props.calendarTitleProp, date, props.monthDate, props.scrollWidth);
+        reSetScrollTop(props.calendarTitleProp, date, props.monthDate, props.cellHeightMonthly);
       }
     }
   }));

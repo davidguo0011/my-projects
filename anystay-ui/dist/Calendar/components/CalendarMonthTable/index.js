@@ -13,7 +13,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 import { onOccupiedClick } from "../CalendarMonthTable/util";
-import { generateTableCells, getColumBlockStyle, getColumnBackgroundSelectedStyle, getColumnDisabledStyle, getColumnVirtualStyle, getCurrentColumnBorderSelectedStyle, getOccupiedBorderStyling, getTableCell, getTableCellOccupied, getTableCellStartOccupiedCondition, getTableCellVirtualCondition, onMouseDown as _onMouseDown, onMouseOver as _onMouseOver, onMouseUp, onScrollDate, onSectionRenderJumpToToday, showReturnToToday } from "./util";
+import { generateTableCells, getColumBlockStyle, getColumnBackgroundSelectedStyle, getColumnDisabledStyle, getColumnVirtualStyle, getCurrentColumnBorderSelectedStyle, getOccupiedBorderStyling, getTableCell, getTableCellOccupied, getTableCellStartOccupiedCondition, getTableCellVirtualCondition, onMouseDown as _onMouseDown, onMouseOver as _onMouseOver, onMouseUp, onScrollDate, onSectionRenderJumpToToday, onTouchStart as _onTouchStart, showReturnToToday } from "./util";
 import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { AutoSizer, Grid } from 'react-virtualized';
 import "./style.less";
@@ -73,22 +73,24 @@ var CalendarMonthTable = /*#__PURE__*/forwardRef(function (props, ref) {
   }, /*#__PURE__*/React.createElement(AutoSizer, null, function (_ref) {
     var width = _ref.width,
       height = _ref.height;
+    var cellHeight = props.cellHeightMonthly && props.cellHeightMonthly > width / 7 ? props.cellHeightMonthly : width / 7;
+    var cellWidth = width / 7;
     return /*#__PURE__*/React.createElement(Grid, {
       className: "calendar-month-date-value-container",
       width: width,
       height: height,
       columnCount: 7,
-      columnWidth: width / 7,
+      columnWidth: cellWidth,
       rowCount: tableCells.length / 7,
-      rowHeight: width / 7,
+      rowHeight: cellHeight,
       clientHeight: props.clientHeight,
       clientWidth: props.clientWidth,
       onSectionRendered: function onSectionRendered() {
-        onSectionRenderJumpToToday(init, props.todayScrollTop, props.monthDate, props.setCustomScrollTop, width);
+        onSectionRenderJumpToToday(init, props.todayScrollTop, props.monthDate, props.setCustomScrollTop, cellHeight);
       },
       onScroll: function onScroll(params) {
-        onScrollDate(params, width / 7, tableCells, props);
-        showReturnToToday(width / 7, props.customScrollTop, props.todayScrollTop.current, props.setShowReturnToToday);
+        onScrollDate(params, cellHeight, tableCells, props);
+        showReturnToToday(cellHeight, props.customScrollTop, props.todayScrollTop.current, props.setShowReturnToToday);
         props.onScroll(params);
       },
       scrollHeight: props.scrollHeight,
@@ -107,10 +109,13 @@ var CalendarMonthTable = /*#__PURE__*/forwardRef(function (props, ref) {
           className: "calendar-month-table-row-column-container\n                  ".concat(getColumnBackgroundSelectedStyle(rowIndex, columnIndex, selection), "\n                  ").concat(getCurrentColumnBorderSelectedStyle(tableCells, rowIndex, columnIndex), "\n                  ").concat(getColumnDisabledStyle(tableCells, rowIndex, columnIndex), "\n                  ").concat(getColumBlockStyle(tableCells, rowIndex, columnIndex), "\n                  ").concat(getColumnVirtualStyle(tableCells, rowIndex, columnIndex)),
           style: style,
           onMouseDown: function onMouseDown() {
-            return _onMouseDown(rowIndex, columnIndex, selectionVisible, setSelectionVisible, setSelection, tableCells, firstSelection);
+            return _onMouseDown(rowIndex, columnIndex, selectionVisible, setSelectionVisible, setSelection, selection, tableCells, firstSelection);
           },
           onMouseOver: function onMouseOver() {
             return _onMouseOver(rowIndex, columnIndex, selectionVisible, selection, setSelection, tableCells, firstSelection);
+          },
+          onTouchStart: function onTouchStart() {
+            _onTouchStart(rowIndex, columnIndex, selectionVisible, setSelectionVisible, setSelection, selection, tableCells, firstSelection);
           }
         }, /*#__PURE__*/React.createElement("div", {
           className: "calendar-month-table-row-column-content-container"
@@ -127,11 +132,11 @@ var CalendarMonthTable = /*#__PURE__*/forwardRef(function (props, ref) {
         }, !(tableCell !== null && tableCell !== void 0 && tableCell.virtual) && "".concat(tableCell === null || tableCell === void 0 ? void 0 : tableCell.value)))), getTableCellStartOccupiedCondition(tableCells, rowIndex, columnIndex) && /*#__PURE__*/React.createElement("div", {
           className: "calendar-month-table-row-column-content-occupied-wrapper",
           style: _objectSpread({
-            width: getTableCellOccupied(tableCells, rowIndex, columnIndex, width / 7).width,
-            minWidth: getTableCellOccupied(tableCells, rowIndex, columnIndex, width / 7).width,
-            left: getTableCellOccupied(tableCells, rowIndex, columnIndex, width / 7).left,
+            width: getTableCellOccupied(tableCells, rowIndex, columnIndex, cellWidth).width,
+            minWidth: getTableCellOccupied(tableCells, rowIndex, columnIndex, cellWidth).width,
+            left: getTableCellOccupied(tableCells, rowIndex, columnIndex, cellWidth).left,
             background: (_getTableCell$occupie = getTableCell(tableCells, rowIndex, columnIndex).occupied) === null || _getTableCell$occupie === void 0 ? void 0 : _getTableCell$occupie.color
-          }, getOccupiedBorderStyling(tableCells, rowIndex, columnIndex, width / 7)),
+          }, getOccupiedBorderStyling(tableCells, rowIndex, columnIndex, cellWidth)),
           onClick: function onClick() {
             return onOccupiedClick(tableCells, rowIndex, columnIndex, props);
           },
@@ -144,7 +149,7 @@ var CalendarMonthTable = /*#__PURE__*/forwardRef(function (props, ref) {
         }, /*#__PURE__*/React.createElement("div", {
           className: "calendar-month-table-row-column-content-occupied-content-container",
           style: {
-            transform: "translateX(".concat(getTableCellOccupied(tableCells, rowIndex, columnIndex, width / 7).translateX, "px)")
+            transform: "translateX(".concat(getTableCellOccupied(tableCells, rowIndex, columnIndex, cellWidth).translateX, "px)")
           }
         }, ((_getTableCell$occupie2 = getTableCell(tableCells, rowIndex, columnIndex).occupied) === null || _getTableCell$occupie2 === void 0 ? void 0 : _getTableCell$occupie2.avatar) && /*#__PURE__*/React.createElement("div", {
           className: "calendar-month-table-row-column-content-occupied-image-container"

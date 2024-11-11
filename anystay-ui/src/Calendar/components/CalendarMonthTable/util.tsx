@@ -582,11 +582,15 @@ export function onMouseDown(
   selectionVisible: boolean,
   setSelectionVisible: Dispatch<SetStateAction<boolean>>,
   setSelection: Dispatch<SetStateAction<CalendarMonthTableSelection>>,
+  selection: CalendarMonthTableSelection,
   tableCells: CalendarMonthTableCell[],
   firstSelection: React.MutableRefObject<CalendarMonthTableSelection>,
 ) {
-  const tableCell = getTableCell(tableCells, rowIndex, columnIndex);
+  //if desktop user
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  if (isMobile) return;
 
+  const tableCell = getTableCell(tableCells, rowIndex, columnIndex);
   if (
     tableCell &&
     !tableCell.virtual &&
@@ -616,6 +620,59 @@ export function onMouseDown(
     } else {
       clearTimeout(timer);
       clearSelection(setSelectionVisible);
+    }
+  }
+}
+export function onTouchStart(
+  rowIndex: number,
+  columnIndex: number,
+  selectionVisible: boolean,
+  setSelectionVisible: Dispatch<SetStateAction<boolean>>,
+  setSelection: Dispatch<SetStateAction<CalendarMonthTableSelection>>,
+  selection: CalendarMonthTableSelection,
+  tableCells: CalendarMonthTableCell[],
+  firstSelection: React.MutableRefObject<CalendarMonthTableSelection>,
+) {
+  //for mobile touch screen user
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  if (!isMobile) return;
+
+  const tableCell = getTableCell(tableCells, rowIndex, columnIndex);
+  if (
+    tableCell &&
+    !tableCell.virtual &&
+    dayjs(tableCell.date).isAfter(dayjs().subtract(1, 'day'))
+  ) {
+    if (!selectionVisible) {
+      setSelectionVisible(true);
+      setSelection({
+        rowStartIndex: rowIndex,
+        rowEndIndex: rowIndex,
+        rowCurrentIndex: rowIndex,
+        columnStartIndex: columnIndex,
+        columnEndIndex: columnIndex,
+        columnCurrentIndex: columnIndex,
+      });
+      firstSelection.current = {
+        rowStartIndex: rowIndex,
+        rowEndIndex: rowIndex,
+        rowCurrentIndex: rowIndex,
+        columnStartIndex: columnIndex,
+        columnEndIndex: columnIndex,
+        columnCurrentIndex: columnIndex,
+      };
+    } else {
+      //if mobile, second click is select the end cell, same logic as the onmouseover
+      onMouseOver(
+        rowIndex,
+        columnIndex,
+        selectionVisible,
+        selection,
+        setSelection,
+        tableCells,
+        firstSelection,
+      );
+      setSelectionVisible(false);
     }
   }
 }
@@ -767,9 +824,8 @@ export function onSectionRenderJumpToToday(
   todayScrollTop: React.MutableRefObject<number>,
   monthDate: CalendarMonthDate,
   setCustomScrollTop: Dispatch<SetStateAction<number>>,
-  width: number,
+  cellHeight: number,
 ) {
-  //width / 7 = row height
   if (init.current) return;
   function getRowsUntilThisMonth(year: number, month: number) {
     // 获取该月的第一天
@@ -803,7 +859,7 @@ export function onSectionRenderJumpToToday(
     for (let j = 0; j < monthDate[months[i]].length; j++) {
       if (monthDate[months[i]][j] === dayjs().format('YYYY-MM-DD')) {
         numberOfRow += getRowsUntilToday();
-        let scrollTop = numberOfRow * (width / 7);
+        let scrollTop = numberOfRow * cellHeight;
         setCustomScrollTop(scrollTop);
         todayScrollTop.current = scrollTop;
         init.current = true;

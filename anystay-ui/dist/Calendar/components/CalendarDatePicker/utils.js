@@ -7,7 +7,7 @@ export function reSetScrollLeft(date, props, titleDate) {
   props.setCustomScrollLeft(scrollLeft > 0 ? scrollLeft : 0);
   props.setShowReturnToToday(false);
 }
-export function reSetScrollTop(props, selectedDate, monthDate, scrollWidth) {
+export function reSetScrollTop(props, selectedDate, monthDate, cellHeightMonthly) {
   function getRowsUntilThisMonth(year, month) {
     // 获取该月的第一天
     var firstDayOfMonth = new Date(year, month, 1);
@@ -24,7 +24,7 @@ export function reSetScrollTop(props, selectedDate, monthDate, scrollWidth) {
   var numberOfRow = 0;
   for (var i = 0; i < months.length; i++) {
     if (selectedDate.format('YYYY-MM') === months[i]) {
-      var scrollTop = numberOfRow * (scrollWidth / 7);
+      var scrollTop = numberOfRow * cellHeightMonthly;
       props.setCustomScrollTop(scrollTop);
     }
     var year = Number(months[i].split('-')[0]);

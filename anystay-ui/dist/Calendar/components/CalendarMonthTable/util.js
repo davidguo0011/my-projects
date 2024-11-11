@@ -344,7 +344,10 @@ export function showReturnToToday(cellHeight, customScrollTop, todayScrollTop, s
     setShowReturnToday(false);
   }
 }
-export function onMouseDown(rowIndex, columnIndex, selectionVisible, setSelectionVisible, setSelection, tableCells, firstSelection) {
+export function onMouseDown(rowIndex, columnIndex, selectionVisible, setSelectionVisible, setSelection, selection, tableCells, firstSelection) {
+  //if desktop user
+  var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  if (isMobile) return;
   var tableCell = getTableCell(tableCells, rowIndex, columnIndex);
   if (tableCell && !tableCell.virtual && dayjs(tableCell.date).isAfter(dayjs().subtract(1, 'day'))) {
     if (!selectionVisible) {
@@ -371,6 +374,37 @@ export function onMouseDown(rowIndex, columnIndex, selectionVisible, setSelectio
     } else {
       clearTimeout(timer);
       clearSelection(setSelectionVisible);
+    }
+  }
+}
+export function onTouchStart(rowIndex, columnIndex, selectionVisible, setSelectionVisible, setSelection, selection, tableCells, firstSelection) {
+  //for mobile touch screen user
+  var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  if (!isMobile) return;
+  var tableCell = getTableCell(tableCells, rowIndex, columnIndex);
+  if (tableCell && !tableCell.virtual && dayjs(tableCell.date).isAfter(dayjs().subtract(1, 'day'))) {
+    if (!selectionVisible) {
+      setSelectionVisible(true);
+      setSelection({
+        rowStartIndex: rowIndex,
+        rowEndIndex: rowIndex,
+        rowCurrentIndex: rowIndex,
+        columnStartIndex: columnIndex,
+        columnEndIndex: columnIndex,
+        columnCurrentIndex: columnIndex
+      });
+      firstSelection.current = {
+        rowStartIndex: rowIndex,
+        rowEndIndex: rowIndex,
+        rowCurrentIndex: rowIndex,
+        columnStartIndex: columnIndex,
+        columnEndIndex: columnIndex,
+        columnCurrentIndex: columnIndex
+      };
+    } else {
+      //if mobile, second click is select the end cell, same logic as the onmouseover
+      onMouseOver(rowIndex, columnIndex, selectionVisible, selection, setSelection, tableCells, firstSelection);
+      setSelectionVisible(false);
     }
   }
 }
@@ -473,8 +507,7 @@ export function onMouseUp(selection, tableCells, onSelect) {
     }
   }
 }
-export function onSectionRenderJumpToToday(init, todayScrollTop, monthDate, setCustomScrollTop, width) {
-  //width / 7 = row height
+export function onSectionRenderJumpToToday(init, todayScrollTop, monthDate, setCustomScrollTop, cellHeight) {
   if (init.current) return;
   function getRowsUntilThisMonth(year, month) {
     // 获取该月的第一天
@@ -507,7 +540,7 @@ export function onSectionRenderJumpToToday(init, todayScrollTop, monthDate, setC
     for (var j = 0; j < monthDate[months[i]].length; j++) {
       if (monthDate[months[i]][j] === dayjs().format('YYYY-MM-DD')) {
         numberOfRow += getRowsUntilToday();
-        var scrollTop = numberOfRow * (width / 7);
+        var scrollTop = numberOfRow * cellHeight;
         setCustomScrollTop(scrollTop);
         todayScrollTop.current = scrollTop;
         init.current = true;

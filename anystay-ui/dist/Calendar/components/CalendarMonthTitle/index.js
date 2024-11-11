@@ -8,7 +8,7 @@ var CalendarMonthTitle = function CalendarMonthTitle(props) {
     className: "calendar-month-title-container"
   }, /*#__PURE__*/React.createElement("span", {
     className: "calendar-month-title-text"
-  }, "\xA0", props.monthTitle), /*#__PURE__*/React.createElement("div", {
+  }, props.monthTitle), /*#__PURE__*/React.createElement("div", {
     className: "calendar-month-title-date-container"
   }, /*#__PURE__*/React.createElement("span", {
     className: "calendar-month-title-date-text"
@@ -31,7 +31,7 @@ var CalendarMonthTitle = function CalendarMonthTitle(props) {
     calendarTitleProp: props,
     todayScrollTop: props.todayScrollTop,
     monthDate: props.monthDate,
-    scrollWidth: props.scrollWidth
+    cellHeightMonthly: props.cellHeightMonthly
   }));
 };
 export default CalendarMonthTitle;

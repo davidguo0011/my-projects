@@ -48,6 +48,7 @@ const Calendar = forwardRef<HTMLInputElement, CalendarProp>((props, ref) => {
     props.subtractMonthNumber || DEFAULT_SUBTRACT_MONTH_NUMBER;
   const stepDayNumber = props.stepDayNumber || DEFAULT_STEP_DAY_NUMBER;
   const columnWidth = props.columnWidth || DEFAULT_COLUMN_WIDTH;
+
   const titleRowHeight = props.titleRowHeight || DEFAULT_TITLE_ROW_HEIGHT;
   const dateRowHeight = props.dateRowHeight || DEFAULT_DATE_ROW_HEIGHT;
   const type = props.type || DEFAULT_TYPE;
@@ -217,12 +218,17 @@ const Calendar = forwardRef<HTMLInputElement, CalendarProp>((props, ref) => {
                   type={type}
                   setCustomScrollTop={setCustomScrollTop}
                   todayScrollTop={todayScrollTop}
-                  scrollWidth={scrollWidth}
+                  cellHeightMonthly={
+                    props.cellHeightMonthly
+                      ? Math.max(props.cellHeightMonthly, scrollWidth / 7)
+                      : scrollWidth / 7
+                  }
                   monthlyTitleSelectedDate={monthlyTitleSelectedDate}
                   setMonthlyTitleSelectedDate={setMonthlyTitleSelectedDate}
                 />
                 <CalendarMonthTable
                   todayScrollTop={todayScrollTop}
+                  cellHeightMonthly={props.cellHeightMonthly}
                   ref={tableRef}
                   monthDate={monthDateForMonthly}
                   rows={props.rows}

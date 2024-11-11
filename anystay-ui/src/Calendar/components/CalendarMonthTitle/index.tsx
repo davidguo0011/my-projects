@@ -8,9 +8,7 @@ const CalendarMonthTitle: FC<CalendarMonthTitleProp> = (props) => {
   return (
     <div>
       <div className={`calendar-month-title-container`}>
-        <span className={`calendar-month-title-text`}>
-          &nbsp;{props.monthTitle}
-        </span>
+        <span className={`calendar-month-title-text`}>{props.monthTitle}</span>
         <div className={`calendar-month-title-date-container`}>
           <span className={`calendar-month-title-date-text`}>Sun</span>
           <span className={`calendar-month-title-date-text`}>Mon</span>
@@ -28,7 +26,7 @@ const CalendarMonthTitle: FC<CalendarMonthTitleProp> = (props) => {
         calendarTitleProp={props}
         todayScrollTop={props.todayScrollTop}
         monthDate={props.monthDate}
-        scrollWidth={props.scrollWidth}
+        cellHeightMonthly={props.cellHeightMonthly}
       />
     </div>
   );

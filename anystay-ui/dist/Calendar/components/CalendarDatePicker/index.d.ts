@@ -13,7 +13,7 @@ interface CalendarDatePickerProps {
     todayScrollTop?: React.MutableRefObject<number>;
     type: string;
     monthDate: CalendarMonthDate;
-    scrollWidth?: number;
+    cellHeightMonthly?: number;
 }
 declare const CalendarDatePicker: FC<CalendarDatePickerProps>;
 export default CalendarDatePicker;

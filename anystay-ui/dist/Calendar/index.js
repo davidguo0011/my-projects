@@ -170,11 +170,12 @@ var Calendar = /*#__PURE__*/forwardRef(function (props, ref) {
       type: type,
       setCustomScrollTop: setCustomScrollTop,
       todayScrollTop: todayScrollTop,
-      scrollWidth: scrollWidth,
+      cellHeightMonthly: props.cellHeightMonthly ? Math.max(props.cellHeightMonthly, scrollWidth / 7) : scrollWidth / 7,
       monthlyTitleSelectedDate: monthlyTitleSelectedDate,
       setMonthlyTitleSelectedDate: setMonthlyTitleSelectedDate
     }), /*#__PURE__*/React.createElement(CalendarMonthTable, {
       todayScrollTop: todayScrollTop,
+      cellHeightMonthly: props.cellHeightMonthly,
       ref: tableRef,
       monthDate: monthDateForMonthly,
       rows: props.rows,
